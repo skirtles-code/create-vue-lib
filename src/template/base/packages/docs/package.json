@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "scripts": {
+    "clean": "rimraf dist && rimraf .vitepress/cache",
+    "dev": "vitepress dev .",
+    "build": "vitepress build .",
+    "preview": "vitepress preview .",
+    "preinstall": "node ../../scripts/preinstall.js"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "rimraf": "^6.0.1",
+    "vitepress": "^1.6.3"
+  }
+}

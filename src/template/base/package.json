@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "pnpm run -r clean",
+    "build": "pnpm run -r build",
+    "type-check": "pnpm run -r type-check",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "dev": "pnpm run --filter ./packages/playground -r dev",
+    "docs:dev": "pnpm run --filter ./packages/docs -r dev",
+    "test:unit": "pnpm run --filter ./packages/@projectName@ -r test:unit",
+    "coverage": "pnpm run --filter ./packages/@projectName@ -r coverage",
+    "preinstall": "node scripts/preinstall.js",
+    "postinstall": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm run type-check && pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint --fix"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^8.23.0",
+    "@vue/eslint-config-typescript": "^14.3.0",
+    "eslint": "^9.18.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "lint-staged": "^15.4.3",
+    "simple-git-hooks": "^2.11.1"
+  }
+}

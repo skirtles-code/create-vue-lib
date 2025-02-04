@@ -1,0 +1,50 @@
+{
+  "name": "@skirtle/create-vue-lib",
+  "private": true,
+  "version": "0.0.0",
+  "author": "skirtle",
+  "license": "MIT",
+  "description": "Create a library using Vue and Vite",
+  "keywords": ["vue", "library", "scaffold", "vite", "build"],
+  "homepage": "https://github.com/skirtles-code/create-vue-lib#readme",
+  "bugs": "https://github.com/skirtles-code/create-vue-lib/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skirtles-code/create-vue-lib.git"
+  },
+  "funding": "https://github.com/sponsors/skirtles-code",
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=v18.3.0"
+  },
+  "bin": {
+    "create-vue-lib": "dist/index.cjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.0",
+    "@types/ejs": "^3.1.5",
+    "@types/node": "^22.13.0",
+    "@types/prompts": "^2.4.9",
+    "copyfiles": "^2.4.1",
+    "ejs": "^3.1.10",
+    "lint-staged": "^15.4.3",
+    "prompts": "^2.4.2",
+    "rimraf": "^6.0.1",
+    "simple-git-hooks": "^2.11.1",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "pnpm run clean && pnpm run build:copy && pnpm run build:ts",
+    "build:copy": "copyfiles -u 1 -a \"src/template/**\" dist",
+    "build:ts": "tsup src/index.ts --format cjs --target node18",
+    "build:dts": "tsup src/index.ts --dts --format cjs --target node18",
+    "start": "node ./dist/index.cjs",
+    "preinstall": "npx only-allow pnpm"
+  }
+}
