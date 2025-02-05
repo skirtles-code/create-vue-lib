@@ -6,10 +6,12 @@
     "build": "pnpm run -r build",
     "type-check": "pnpm run -r type-check",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    <%_ if (config.includePlayground) { _%>
     "dev": "pnpm run --filter ./packages/playground -r dev",
+    <%_ } _%>
     "docs:dev": "pnpm run --filter ./packages/docs -r dev",
-    "test:unit": "pnpm run --filter ./packages/@projectName@ -r test:unit",
-    "coverage": "pnpm run --filter ./packages/@projectName@ -r coverage",
+    "test:unit": "pnpm run --filter ./packages/<%- config.shortUnscopedPackageName %> -r test:unit",
+    "coverage": "pnpm run --filter ./packages/<%- config.shortUnscopedPackageName %> -r coverage",
     "preinstall": "node scripts/preinstall.js",
     "postinstall": "simple-git-hooks"
   },

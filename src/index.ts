@@ -18,6 +18,7 @@ type Config = {
   githubUrl: string
   githubIssues: string
   githubRepository: string
+  includePlayground: boolean
 }
 
 async function init() {
@@ -26,10 +27,11 @@ async function init() {
   let result: {
     packageName?: string
     githubPath?: string
+    includePlayground: boolean
   } = {}
 
   try {
-    result = await prompts(
+    result = <any>await prompts(
       [
         {
           name: 'packageName',
@@ -41,6 +43,13 @@ async function init() {
           type: 'text',
           message: 'GitHub path, e.g. skirtles-code/test-project (optional)',
           initial: ''
+        }, {
+          name: 'includePlayground',
+          type: 'toggle',
+          message: 'Include playground application for development?',
+          initial: true,
+          active: 'Yes',
+          inactive: 'No'
         }
       ],
       {
@@ -102,10 +111,15 @@ async function init() {
     githubPath,
     githubUrl,
     githubIssues,
-    githubRepository
+    githubRepository,
+    includePlayground: result.includePlayground
   }
 
   copyTemplate('base', config)
+
+  if (config.includePlayground) {
+    copyTemplate('playground', config)
+  }
 
   console.log('Project created')
   console.log('Note: pnpm must be used as the package manager')
