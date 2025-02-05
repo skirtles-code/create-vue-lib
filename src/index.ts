@@ -14,6 +14,10 @@ type Config = {
   targetDirName: string
   targetDirPath: string
   templateDirPath: string
+  githubPath: string
+  githubUrl: string
+  githubIssues: string
+  githubRepository: string
 }
 
 async function init() {
@@ -21,6 +25,7 @@ async function init() {
 
   let result: {
     packageName?: string
+    githubPath?: string
   } = {}
 
   try {
@@ -31,6 +36,11 @@ async function init() {
           type: 'text',
           message: 'Package name',
           initial: '@skirtle/test-project'
+        }, {
+          name: 'githubPath',
+          type: 'text',
+          message: 'GitHub path, e.g. skirtles-code/test-project (optional)',
+          initial: ''
         }
       ],
       {
@@ -52,11 +62,22 @@ async function init() {
     process.exit(1)
   }
 
+  const githubPath = result.githubPath
+
+  if (githubPath && !/[\w-]+\/[\w-]+/.test(githubPath)) {
+    console.log('Invalid GitHub path: ' + githubPath)
+    process.exit(1)
+  }
+
   const unscopedPackageName = scopedPackageName.replace(/.*\//, '')
   const shortUnscopedPackageName = unscopedPackageName.replace(/^vue-/, '')
   const projectName = unscopedPackageName.replace(/-+/g, ' ').trim().split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' ')
   const globalVariableName = projectName.replace(/ /g, '')
   const targetDirName = unscopedPackageName
+
+  const githubUrl = githubPath ? `https://github.com/${githubPath}` : ''
+  const githubIssues = githubPath ? `${githubUrl}/issues` : ''
+  const githubRepository = githubPath ? `git+${githubUrl}.git` : ''
 
   const targetDirPath = path.join(cwd, targetDirName)
 
@@ -77,7 +98,11 @@ async function init() {
     globalVariableName,
     targetDirName,
     targetDirPath,
-    templateDirPath
+    templateDirPath,
+    githubPath,
+    githubUrl,
+    githubIssues,
+    githubRepository
   }
 
   copyTemplate('base', config)
@@ -134,6 +159,9 @@ function copyFiles(templateFile: string, config: Config) {
       .replace(/@unscopedPackageName@/g, config.unscopedPackageName)
       .replace(/@globalVariableName@/g, config.globalVariableName)
       .replace(/@scopedPackageName@/g, config.scopedPackageName)
+      .replace(/@githubUrl@/g, config.githubUrl)
+      .replace(/@githubIssues@/g, config.githubIssues)
+      .replace(/@githubRepository@/g, config.githubRepository)
 
     fs.writeFileSync(targetPath, content)
   } else {

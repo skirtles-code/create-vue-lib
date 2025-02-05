@@ -55,9 +55,9 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
       { text: 'Guide', link: '/introduction' }
     ],
 
-    // socialLinks: [
-    //   { icon: 'github', link: 'https://github.com/' }
-    // ],
+    socialLinks: [
+      { icon: 'github', link: '@githubUrl@' }
+    ],
 
     sidebar: [
       {

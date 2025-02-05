@@ -6,9 +6,12 @@
   "license": "",
   "description": "",
   "keywords": [],
-  "homepage": "",
-  "bugs": "",
-  "repository": "",
+  "homepage": "@githubUrl@",
+  "bugs": "@githubIssues@",
+  "repository": {
+    "type": "git",
+    "url": "@githubRepository@"
+  },
   "sideEffects": false,
   "main": "dist/@unscopedPackageName@.cjs",
   "module": "dist/@unscopedPackageName@.esm-bundler.mjs",
