@@ -9,7 +9,9 @@
     <%_ if (config.includePlayground) { _%>
     "dev": "pnpm run --filter ./packages/playground -r dev",
     <%_ } _%>
+    <%_ if (config.includeDocs) { _%>
     "docs:dev": "pnpm run --filter ./packages/docs -r dev",
+    <%_ } _%>
     "test:unit": "pnpm run --filter ./packages/<%- config.shortUnscopedPackageName %> -r test:unit",
     "coverage": "pnpm run --filter ./packages/<%- config.shortUnscopedPackageName %> -r coverage",
     "preinstall": "node scripts/preinstall.js",

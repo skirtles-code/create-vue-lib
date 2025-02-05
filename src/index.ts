@@ -18,6 +18,7 @@ type Config = {
   githubUrl: string
   githubIssues: string
   githubRepository: string
+  includeDocs: boolean
   includePlayground: boolean
 }
 
@@ -27,6 +28,7 @@ async function init() {
   let result: {
     packageName?: string
     githubPath?: string
+    includeDocs: boolean
     includePlayground: boolean
   } = {}
 
@@ -43,6 +45,13 @@ async function init() {
           type: 'text',
           message: 'GitHub path, e.g. skirtles-code/test-project (optional)',
           initial: ''
+        }, {
+          name: 'includeDocs',
+          type: 'toggle',
+          message: 'Include VitePress for documentation?',
+          initial: true,
+          active: 'Yes',
+          inactive: 'No'
         }, {
           name: 'includePlayground',
           type: 'toggle',
@@ -112,10 +121,15 @@ async function init() {
     githubUrl,
     githubIssues,
     githubRepository,
+    includeDocs: result.includeDocs,
     includePlayground: result.includePlayground
   }
 
   copyTemplate('base', config)
+
+  if (config.includeDocs) {
+    copyTemplate('vitepress', config)
+  }
 
   if (config.includePlayground) {
     copyTemplate('playground', config)
