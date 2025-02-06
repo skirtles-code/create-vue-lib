@@ -20,6 +20,7 @@ type Config = {
   githubRepository: string
   includeDocs: boolean
   includePlayground: boolean
+  includeExamples: boolean
 }
 
 async function init() {
@@ -30,6 +31,7 @@ async function init() {
     githubPath?: string
     includeDocs: boolean
     includePlayground: boolean
+    includeExamples: boolean
   } = {}
 
   try {
@@ -59,6 +61,13 @@ async function init() {
           initial: true,
           active: 'Yes',
           inactive: 'No'
+        }, {
+          name: 'includeExamples',
+          type: 'toggle',
+          message: 'Include example code?',
+          initial: true,
+          active: 'Yes',
+          inactive: 'No, just configs'
         }
       ],
       {
@@ -122,7 +131,8 @@ async function init() {
     githubIssues,
     githubRepository,
     includeDocs: result.includeDocs,
-    includePlayground: result.includePlayground
+    includePlayground: result.includePlayground,
+    includeExamples: result.includeExamples
   }
 
   copyTemplate('base', config)
@@ -145,10 +155,18 @@ async function init() {
 }
 
 function copyTemplate(templateName: string, config: Config) {
-  copyFiles('', {
-    ...config,
-    templateDirPath: path.join(config.templateDirPath, templateName)
-  })
+  const dirs = ['config']
+
+  if (config.includeExamples) {
+    dirs.push('examples')
+  }
+
+  for (const dir of dirs) {
+    copyFiles('', {
+      ...config,
+      templateDirPath: path.join(config.templateDirPath, templateName, dir)
+    })
+  }
 }
 
 function copyFiles(templateFile: string, config: Config) {
