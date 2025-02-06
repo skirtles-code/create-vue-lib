@@ -5,30 +5,32 @@ import { defineConfigWithTheme } from 'vitepress'
 export default ({ mode }: { mode: string }) => defineConfigWithTheme({
   srcDir: './src',
   outDir: './dist',
-  base: '/@unscopedPackageName@',
-  title: '@scopedPackageName@',
+  base: '<%- config.docsBase %>',
+  title: '<%- config.scopedPackageName %>',
   lang: 'en-US',
   description: 'Description',
   cleanUrls: true,
 
-  // sitemap: {
-  //   hostname: 'https://???.github.io'
-  // },
+  <%_ if (config.githubPagesOrigin) { _%>
+  sitemap: {
+    hostname: '<%- config.githubPagesOrigin  %><%- config.docsBase %>'
+  },
 
-  // transformHead({ page}) {
-  //   if (page !== '404.md') {
-  //     const canonicalUrl = `https://???.github.io/${page}`
-  //       .replace(/index\.md$/, '')
-  //       .replace(/\.md$/, '')
-  //
-  //     return [['link', { rel: 'canonical', href: canonicalUrl }]]
-  //   }
-  // },
+  transformHead({ page}) {
+    if (page !== '404.md') {
+      const canonicalUrl = `<%- config.githubPagesOrigin  %><%- config.docsBase %>${page}`
+        .replace(/index\.md$/, '')
+        .replace(/\.md$/, '')
 
+      return [['link', { rel: 'canonical', href: canonicalUrl }]]
+    }
+  },
+
+  <%_ } _%>
   vite: {
     resolve: {
       alias: {
-        '@scopedPackageName@': resolve(__dirname, '../../@projectName@/src/index.ts')
+        '<%- config.scopedPackageName %>': resolve(__dirname, '../../<%- config.shortUnscopedPackageName %>/src/index.ts')
       }
     },
 
@@ -40,7 +42,7 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
       fs: {
         allow: [
           '..',
-          '../../@projectName@/src'
+          '../../<%- config.shortUnscopedPackageName %>/src'
         ]
       }
     }
@@ -55,10 +57,12 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
       { text: 'Guide', link: '/introduction' }
     ],
 
+    <%_ if (config.githubUrl) { _%>
     socialLinks: [
-      { icon: 'github', link: '@githubUrl@' }
+      { icon: 'github', link: '<%- config.githubUrl %>' }
     ],
 
+    <%_ } _%>
     sidebar: [
       {
         text: 'Getting started',

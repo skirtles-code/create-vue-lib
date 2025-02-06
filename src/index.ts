@@ -18,7 +18,10 @@ type Config = {
   githubUrl: string
   githubIssues: string
   githubRepository: string
+  githubPagesOrigin: string
+  docsBase: string
   includeDocs: boolean
+  includeGithubPages: boolean
   includePlayground: boolean
   includeExamples: boolean
 }
@@ -27,9 +30,10 @@ async function init() {
   const cwd = process.cwd()
 
   let result: {
-    packageName?: string
-    githubPath?: string
+    packageName: string
+    githubPath: string
     includeDocs: boolean
+    includeGithubPages?: boolean
     includePlayground: boolean
     includeExamples: boolean
   } = {}
@@ -52,6 +56,13 @@ async function init() {
           type: 'toggle',
           message: 'Include VitePress for documentation?',
           initial: true,
+          active: 'Yes',
+          inactive: 'No'
+        }, {
+          name: 'includeGithubPages',
+          type: (prev) => prev ? 'toggle' : null,
+          message: 'Include GitHub Pages config for documentation?',
+          initial: false,
           active: 'Yes',
           inactive: 'No'
         }, {
@@ -102,9 +113,12 @@ async function init() {
   const globalVariableName = projectName.replace(/ /g, '')
   const targetDirName = unscopedPackageName
 
+  const [githubUserName, githubRepoName] = (githubPath || '/').split('/')
   const githubUrl = githubPath ? `https://github.com/${githubPath}` : ''
   const githubIssues = githubPath ? `${githubUrl}/issues` : ''
   const githubRepository = githubPath ? `git+${githubUrl}.git` : ''
+  const githubPagesOrigin = githubUserName && result.includeGithubPages ? `https://${githubUserName}.github.io` : ''
+  const docsBase = githubRepoName && result.includeGithubPages ? `/${githubRepoName}/` : '/'
 
   const targetDirPath = path.join(cwd, targetDirName)
 
@@ -130,7 +144,10 @@ async function init() {
     githubUrl,
     githubIssues,
     githubRepository,
+    githubPagesOrigin,
+    docsBase,
     includeDocs: result.includeDocs,
+    includeGithubPages: !!result.includeGithubPages,
     includePlayground: result.includePlayground,
     includeExamples: result.includeExamples
   }
@@ -139,6 +156,10 @@ async function init() {
 
   if (config.includeDocs) {
     copyTemplate('vitepress', config)
+  }
+
+  if (config.includeGithubPages) {
+    copyTemplate('gh-pages', config)
   }
 
   if (config.includePlayground) {
@@ -162,10 +183,14 @@ function copyTemplate(templateName: string, config: Config) {
   }
 
   for (const dir of dirs) {
-    copyFiles('', {
-      ...config,
-      templateDirPath: path.join(config.templateDirPath, templateName, dir)
-    })
+    const templateDirPath = path.join(config.templateDirPath, templateName, dir)
+
+    if (fs.existsSync(templateDirPath)) {
+      copyFiles('', {
+        ...config,
+        templateDirPath
+      })
+    }
   }
 }
 
