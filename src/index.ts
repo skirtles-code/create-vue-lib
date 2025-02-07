@@ -2,8 +2,47 @@
 
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-import prompts from 'prompts'
+import prompts, { type PromptObject } from 'prompts'
 import ejs from 'ejs'
+
+async function prompt(options: Omit<PromptObject, 'name'>) {
+  try {
+    const result = await prompts(
+      {
+        ...options,
+        name: 'name'
+      },
+      {
+        onCancel: () => {
+          throw new Error('Cancelled')
+        }
+      }
+    )
+
+    return result.name
+  } catch (cancelled) {
+    console.log(cancelled.message)
+    process.exit(1)
+  }
+}
+
+async function textPrompt(message: string, initial?: string): Promise<string> {
+  return prompt({
+    type: 'text',
+    message,
+    initial
+  })
+}
+
+async function togglePrompt(message: string, initial = false, active = 'Yes', inactive = 'No'): Promise<boolean> {
+  return prompt({
+    type: 'toggle',
+    message,
+    initial,
+    active,
+    inactive
+  })
+}
 
 type Config = {
   scopedPackageName: string
@@ -30,70 +69,7 @@ type Config = {
 async function init() {
   const cwd = process.cwd()
 
-  let result: {
-    packageName: string
-    githubPath: string
-    includeDocs: boolean
-    includeGithubPages?: boolean
-    includePlayground: boolean
-    includeExamples: boolean
-  } = {}
-
-  try {
-    result = <any>await prompts(
-      [
-        {
-          name: 'packageName',
-          type: 'text',
-          message: 'Package name',
-          initial: '@skirtle/test-project'
-        }, {
-          name: 'githubPath',
-          type: 'text',
-          message: 'GitHub path, e.g. skirtles-code/test-project (optional)',
-          initial: ''
-        }, {
-          name: 'includeDocs',
-          type: 'toggle',
-          message: 'Include VitePress for documentation?',
-          initial: true,
-          active: 'Yes',
-          inactive: 'No'
-        }, {
-          name: 'includeGithubPages',
-          type: (prev) => prev ? 'toggle' : null,
-          message: 'Include GitHub Pages config for documentation?',
-          initial: false,
-          active: 'Yes',
-          inactive: 'No'
-        }, {
-          name: 'includePlayground',
-          type: 'toggle',
-          message: 'Include playground application for development?',
-          initial: true,
-          active: 'Yes',
-          inactive: 'No'
-        }, {
-          name: 'includeExamples',
-          type: 'toggle',
-          message: 'Include example code?',
-          initial: true,
-          active: 'Yes',
-          inactive: 'No, just configs'
-        }
-      ],
-      {
-        onCancel: () => {
-          throw new Error('Cancelled')
-        },
-      },
-    )
-  } catch (cancelled) {
-    console.log(cancelled.message)
-    process.exit(1)
-  }
-
-  const scopedPackageName = result.packageName
+  const scopedPackageName = await textPrompt('Package name', '@skirtle/test-project')
 
   // TODO: Tightening this check, e.g. for hyphen positions
   if (!/@[a-z0-9-]+\/[a-z0-9-]+/.test(scopedPackageName)) {
@@ -101,12 +77,17 @@ async function init() {
     process.exit(1)
   }
 
-  const githubPath = result.githubPath
+  const githubPath = await textPrompt('GitHub path, e.g. skirtles-code/test-project (optional)')
 
   if (githubPath && !/[\w-]+\/[\w-]+/.test(githubPath)) {
     console.log('Invalid GitHub path: ' + githubPath)
     process.exit(1)
   }
+
+  const includeDocs = await togglePrompt('Include VitePress for documentation?', true)
+  const includeGithubPages = includeDocs && await togglePrompt('Include GitHub Pages config for documentation?')
+  const includePlayground = await togglePrompt('Include playground application for development?', true)
+  const includeExamples = await togglePrompt('Include example code?', true, 'Yes', 'No, just configs')
 
   const unscopedPackageName = scopedPackageName.replace(/.*\//, '')
   const shortUnscopedPackageName = unscopedPackageName.replace(/^vue-/, '')
@@ -118,9 +99,9 @@ async function init() {
   const githubUrl = githubPath ? `https://github.com/${githubPath}` : ''
   const githubIssues = githubPath ? `${githubUrl}/issues` : ''
   const githubRepository = githubPath ? `git+${githubUrl}.git` : ''
-  const githubPagesOrigin = githubUserName && result.includeGithubPages ? `https://${githubUserName}.github.io` : ''
-  const docsBase = githubRepoName && result.includeGithubPages ? `/${githubRepoName}/` : '/'
-  const homepageUrl = githubPagesOrigin && result.includeGithubPages ? `${githubPagesOrigin}${docsBase}` : githubUrl
+  const githubPagesOrigin = githubUserName && includeGithubPages ? `https://${githubUserName}.github.io` : ''
+  const docsBase = githubRepoName && includeGithubPages ? `/${githubRepoName}/` : '/'
+  const homepageUrl = githubPagesOrigin && includeGithubPages ? `${githubPagesOrigin}${docsBase}` : githubUrl
 
   const targetDirPath = path.join(cwd, targetDirName)
 
@@ -149,10 +130,10 @@ async function init() {
     githubPagesOrigin,
     docsBase,
     homepageUrl,
-    includeDocs: result.includeDocs,
-    includeGithubPages: !!result.includeGithubPages,
-    includePlayground: result.includePlayground,
-    includeExamples: result.includeExamples
+    includeDocs,
+    includeGithubPages,
+    includePlayground,
+    includeExamples
   }
 
   copyTemplate('base', config)
