@@ -20,6 +20,7 @@ type Config = {
   githubRepository: string
   githubPagesOrigin: string
   docsBase: string
+  homepageUrl: string
   includeDocs: boolean
   includeGithubPages: boolean
   includePlayground: boolean
@@ -119,6 +120,7 @@ async function init() {
   const githubRepository = githubPath ? `git+${githubUrl}.git` : ''
   const githubPagesOrigin = githubUserName && result.includeGithubPages ? `https://${githubUserName}.github.io` : ''
   const docsBase = githubRepoName && result.includeGithubPages ? `/${githubRepoName}/` : '/'
+  const homepageUrl = githubPagesOrigin && result.includeGithubPages ? `${githubPagesOrigin}${docsBase}` : githubUrl
 
   const targetDirPath = path.join(cwd, targetDirName)
 
@@ -146,6 +148,7 @@ async function init() {
     githubRepository,
     githubPagesOrigin,
     docsBase,
+    homepageUrl,
     includeDocs: result.includeDocs,
     includeGithubPages: !!result.includeGithubPages,
     includePlayground: result.includePlayground,
@@ -227,12 +230,7 @@ function copyFiles(templateFile: string, config: Config) {
     const template = fs.readFileSync(templatePath, 'utf-8')
     const content = template
       .replace(/@projectName@/g, config.shortUnscopedPackageName)
-      .replace(/@unscopedPackageName@/g, config.unscopedPackageName)
-      .replace(/@globalVariableName@/g, config.globalVariableName)
-      .replace(/@scopedPackageName@/g, config.scopedPackageName)
-      .replace(/@githubUrl@/g, config.githubUrl)
-      .replace(/@githubIssues@/g, config.githubIssues)
-      .replace(/@githubRepository@/g, config.githubRepository)
+      .replace(new RegExp(`@(${Object.keys(config).join('|')})@`, 'g'), (all, setting) => config[setting] ?? all)
 
     fs.writeFileSync(targetPath, content)
   } else {
