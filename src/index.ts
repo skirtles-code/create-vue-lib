@@ -83,7 +83,6 @@ async function init() {
   const unscopedPackageName = scopedPackageName.replace(/.*\//, '')
   const shortUnscopedPackageName = unscopedPackageName.replace(/^vue-/, '')
   const projectName = unscopedPackageName.replace(/-+/g, ' ').trim().split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' ')
-  const globalVariableName = projectName.replace(/ /g, '')
 
   const targetDirName = await textPrompt('Target directory', unscopedPackageName)
 
@@ -109,6 +108,13 @@ async function init() {
 
   if (!/^[\w-]+$/.test(mainPackageDirName)) {
     console.log('Invalid directory name: ' + mainPackageDirName)
+    process.exit(1)
+  }
+
+  const globalVariableName = await textPrompt('Global variable name', projectName.replace(/ /g, ''))
+
+  if (!/^[a-zA-Z$_][\w$]*$/.test(globalVariableName)) {
+    console.log('Invalid variable name: ' + globalVariableName)
     process.exit(1)
   }
 
