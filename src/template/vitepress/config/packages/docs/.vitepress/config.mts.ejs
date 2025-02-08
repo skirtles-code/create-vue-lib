@@ -37,15 +37,6 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
 
     define: {
       __DEV__: JSON.stringify(mode !== 'production')
-    },
-
-    server: {
-      fs: {
-        allow: [
-          '..',
-          '../../<%- config.mainPackageDirName %>/src'
-        ]
-      }
     }
   },
 
