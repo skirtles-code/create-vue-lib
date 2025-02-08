@@ -27,11 +27,13 @@ async function prompt(options: Omit<PromptObject, 'name'>) {
 }
 
 async function textPrompt(message: string, initial?: string): Promise<string> {
-  return prompt({
+  const resp = await prompt({
     type: 'text',
     message,
     initial
   })
+
+  return resp.trim()
 }
 
 async function togglePrompt(message: string, initial = false, active = 'Yes', inactive = 'No'): Promise<boolean> {
@@ -72,14 +74,39 @@ async function init() {
   const scopedPackageName = await textPrompt('Package name', '@skirtle/test-project')
 
   // TODO: Tightening this check, e.g. for hyphen positions
-  if (!/@[a-z0-9-]+\/[a-z0-9-]+/.test(scopedPackageName)) {
+  if (!/^@[a-z0-9-]+\/[a-z0-9-]+$/.test(scopedPackageName)) {
     console.log('Invalid package name: ' + scopedPackageName)
     process.exit(1)
   }
 
+  const unscopedPackageName = scopedPackageName.replace(/.*\//, '')
+  const shortUnscopedPackageName = unscopedPackageName.replace(/^vue-/, '')
+  const projectName = unscopedPackageName.replace(/-+/g, ' ').trim().split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' ')
+  const globalVariableName = projectName.replace(/ /g, '')
+
+  const targetDirName = await textPrompt('Target directory', unscopedPackageName)
+
+  if (targetDirName !== '.' && !/^[\w-]+$/.test(targetDirName)) {
+    console.log('Invalid directory name: ' + targetDirName)
+    process.exit(1)
+  }
+
+  const targetDirPath = path.join(cwd, targetDirName)
+
+  if (targetDirName === '.') {
+    // TODO: Check files properly and prompt accordingly
+    if (fs.existsSync(path.join(targetDirPath, 'package.json'))) {
+      console.log('Target directory already contains package.json')
+    }
+  } else {
+    if (fs.existsSync(targetDirPath)) {
+      console.log('Target directory already exists')
+    }
+  }
+
   const githubPath = await textPrompt('GitHub path, e.g. skirtles-code/test-project (optional)')
 
-  if (githubPath && !/[\w-]+\/[\w-]+/.test(githubPath)) {
+  if (githubPath && !/^[\w-]+\/[\w-]+$/.test(githubPath)) {
     console.log('Invalid GitHub path: ' + githubPath)
     process.exit(1)
   }
@@ -89,12 +116,6 @@ async function init() {
   const includePlayground = await togglePrompt('Include playground application for development?', true)
   const includeExamples = await togglePrompt('Include example code?', true, 'Yes', 'No, just configs')
 
-  const unscopedPackageName = scopedPackageName.replace(/.*\//, '')
-  const shortUnscopedPackageName = unscopedPackageName.replace(/^vue-/, '')
-  const projectName = unscopedPackageName.replace(/-+/g, ' ').trim().split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' ')
-  const globalVariableName = projectName.replace(/ /g, '')
-  const targetDirName = unscopedPackageName
-
   const [githubUserName, githubRepoName] = (githubPath || '/').split('/')
   const githubUrl = githubPath ? `https://github.com/${githubPath}` : ''
   const githubIssues = githubPath ? `${githubUrl}/issues` : ''
@@ -102,15 +123,6 @@ async function init() {
   const githubPagesOrigin = githubUserName && includeGithubPages ? `https://${githubUserName}.github.io` : ''
   const docsBase = githubRepoName && includeGithubPages ? `/${githubRepoName}/` : '/'
   const homepageUrl = githubPagesOrigin && includeGithubPages ? `${githubPagesOrigin}${docsBase}` : githubUrl
-
-  const targetDirPath = path.join(cwd, targetDirName)
-
-  if (fs.existsSync(targetDirPath)) {
-    console.log('Target directory already exists')
-  } else {
-    // TODO: Shouldn't need recursive once we're done
-    fs.mkdirSync(targetDirPath, { recursive: true })
-  }
 
   const templateDirPath = path.resolve(__dirname, 'template')
 
@@ -153,7 +165,11 @@ async function init() {
   console.log('Project created')
   console.log('Note: pnpm must be used as the package manager')
   console.log()
-  console.log('cd ' + targetDirName)
+
+  if (targetDirName !== '.') {
+    console.log('cd ' + targetDirName)
+  }
+
   console.log('pnpm install')
   console.log()
   console.log(`You should add a suitable license at ${targetDirName}/packages/${config.shortUnscopedPackageName}/LICENSE`)
