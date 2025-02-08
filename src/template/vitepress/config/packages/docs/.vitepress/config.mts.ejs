@@ -30,7 +30,7 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
   vite: {
     resolve: {
       alias: {
-        '<%- config.scopedPackageName %>': resolve(__dirname, '../../<%- config.shortUnscopedPackageName %>/src/index.ts')
+        '<%- config.scopedPackageName %>': resolve(__dirname, '../../<%- config.mainPackageDirName %>/src/index.ts')
       }
     },
 
@@ -42,7 +42,7 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
       fs: {
         allow: [
           '..',
-          '../../<%- config.shortUnscopedPackageName %>/src'
+          '../../<%- config.mainPackageDirName %>/src'
         ]
       }
     }

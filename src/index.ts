@@ -54,6 +54,7 @@ type Config = {
   globalVariableName: string
   targetDirName: string
   targetDirPath: string
+  mainPackageDirName: string
   templateDirPath: string
   githubPath: string
   githubUrl: string
@@ -104,6 +105,13 @@ async function init() {
     }
   }
 
+  const mainPackageDirName = await textPrompt('Main package directory', unscopedPackageName)
+
+  if (!/^[\w-]+$/.test(mainPackageDirName)) {
+    console.log('Invalid directory name: ' + mainPackageDirName)
+    process.exit(1)
+  }
+
   const githubPath = await textPrompt('GitHub path, e.g. skirtles-code/test-project (optional)')
 
   if (githubPath && !/^[\w-]+\/[\w-]+$/.test(githubPath)) {
@@ -134,6 +142,7 @@ async function init() {
     globalVariableName,
     targetDirName,
     targetDirPath,
+    mainPackageDirName,
     templateDirPath,
     githubPath,
     githubUrl,
@@ -172,7 +181,7 @@ async function init() {
 
   console.log('pnpm install')
   console.log()
-  console.log(`You should add a suitable license at ${targetDirName}/packages/${config.shortUnscopedPackageName}/LICENSE`)
+  console.log(`You should add a suitable license at ${targetDirName}/packages/${config.mainPackageDirName}/LICENSE`)
 }
 
 function copyTemplate(templateName: string, config: Config) {
@@ -199,7 +208,7 @@ function copyFiles(templateFile: string, config: Config) {
   const stats = fs.statSync(templatePath)
   const basename = path.basename(templatePath)
 
-  const targetPath = path.join(config.targetDirPath, templateFile.replace(/@projectName@/g, config.shortUnscopedPackageName))
+  const targetPath = path.join(config.targetDirPath, templateFile.replace(/@projectName@/g, config.mainPackageDirName))
 
   if (stats.isDirectory()) {
     if (basename === 'node_modules') {
@@ -226,7 +235,7 @@ function copyFiles(templateFile: string, config: Config) {
   } else if (['package.json', 'vite.config.mts', 'config.mts', 'index.md', 'introduction.md', 'App.vue'].includes(filename)) {
     const template = fs.readFileSync(templatePath, 'utf-8')
     const content = template
-      .replace(/@projectName@/g, config.shortUnscopedPackageName)
+      .replace(/@projectName@/g, config.mainPackageDirName)
       .replace(new RegExp(`@(${Object.keys(config).join('|')})@`, 'g'), (all, setting) => config[setting] ?? all)
 
     fs.writeFileSync(targetPath, content)
