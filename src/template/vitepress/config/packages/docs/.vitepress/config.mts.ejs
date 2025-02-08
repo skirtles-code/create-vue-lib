@@ -16,8 +16,9 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
     hostname: '<%- config.githubPagesOrigin  %><%- config.docsBase %>'
   },
 
-  transformHead({ page}) {
+  transformHead({ page }) {
     if (page !== '404.md') {
+      // The final replacement assumes `cleanUrls: true` is set
       const canonicalUrl = `<%- config.githubPagesOrigin  %><%- config.docsBase %>${page}`
         .replace(/index\.md$/, '')
         .replace(/\.md$/, '')
