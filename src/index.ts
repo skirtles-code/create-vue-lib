@@ -186,8 +186,11 @@ async function init() {
   }
 
   console.log('pnpm install')
-  console.log()
-  console.log(`You should add a suitable license at ${targetDirName}/packages/${config.mainPackageDirName}/LICENSE`)
+
+  if (!fs.existsSync(path.join(targetDirPath, 'packages', config.mainPackageDirName, 'LICENSE'))) {
+    console.log()
+    console.log(`You should add a suitable license at packages/${config.mainPackageDirName}/LICENSE`)
+  }
 }
 
 function copyTemplate(templateName: string, config: Config) {
