@@ -11,6 +11,7 @@
     <%_ } _%>
     <%_ if (config.includeDocs) { _%>
     "docs:dev": "pnpm run --filter ./packages/docs -r dev",
+    "docs:build": "pnpm run --filter ./packages/docs -r build",
     <%_ } _%>
     "test:unit": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r test:unit",
     "coverage": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r coverage",
