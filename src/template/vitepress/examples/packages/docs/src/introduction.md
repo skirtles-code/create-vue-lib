@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { Example as ExampleComponent, MyPanel } from '@skirtle/test-project'
 </script>
 
