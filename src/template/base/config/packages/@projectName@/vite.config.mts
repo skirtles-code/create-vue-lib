@@ -12,7 +12,6 @@ export default defineConfig(({ mode }) => {
   }
 
   const dtsPlugin = mode === 'neutral' ? dts({
-    copyDtsFiles: false, // TODO Check this
     rollupTypes: true,
     tsconfigPath: './tsconfig.app.json'
   }) : null
