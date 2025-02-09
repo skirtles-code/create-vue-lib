@@ -1,0 +1,11 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "compilerOptions": {
+    "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.playground.app.tsbuildinfo",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@scopedPackageName@": ["../@projectName@/src/index.ts"]
+    }
+  }
+}

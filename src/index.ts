@@ -241,7 +241,7 @@ function copyFiles(templateFile: string, config: Config) {
     const content = ejs.render(template, { config })
 
     fs.writeFileSync(target, content)
-  } else if (['package.json', 'vite.config.mts', 'config.mts', 'index.md', 'introduction.md', 'App.vue'].includes(filename)) {
+  } else if (['package.json', 'vite.config.mts', 'config.mts', 'index.md', 'introduction.md', 'App.vue', 'tsconfig.app.json', 'env.d.ts'].includes(filename)) {
     const template = fs.readFileSync(templatePath, 'utf-8')
     const content = template
       .replace(/@projectName@/g, config.mainPackageDirName)

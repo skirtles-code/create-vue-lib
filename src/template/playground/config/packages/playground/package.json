@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "vite --port 5051",
-    "build": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
+    "build": "pnpm run type-check && vite build",
     "preview": "vite preview --port 4051",
     "clean": "rimraf dist"
   },
@@ -10,9 +11,14 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@tsconfig/node22": "^22.0.0",
+    "@types/node": "^22.10.7",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
     "rimraf": "^5.0.1",
+    "typescript": "~5.7.3",
     "vite": "^6.0.11",
-    "vite-plugin-vue-devtools": "^7.7.0"
+    "vite-plugin-vue-devtools": "^7.7.0",
+    "vue-tsc": "^2.2.0"
   }
 }
