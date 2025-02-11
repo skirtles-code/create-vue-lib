@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "vite --port 5051",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "build": "pnpm run type-check && vite build",
+    "build-only": "vite build",
+    "build": "pnpm run type-check && pnpm run build-only",
     "preview": "vite preview --port 4051",
     "clean": "rimraf dist"
   },

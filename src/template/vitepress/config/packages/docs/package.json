@@ -4,7 +4,8 @@
     "clean": "rimraf dist && rimraf .vitepress/cache",
     "dev": "vitepress dev .",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "build": "pnpm run type-check && vitepress build .",
+    "build-only": "vitepress build .",
+    "build": "pnpm run type-check && pnpm run build-only",
     "preview": "vitepress preview .",
     "preinstall": "node ../../scripts/preinstall.js"
   },
