@@ -1,6 +1,5 @@
 {
   "name": "@skirtle/create-vue-lib",
-  "private": true,
   "version": "0.0.0",
   "author": "skirtle",
   "license": "MIT",
