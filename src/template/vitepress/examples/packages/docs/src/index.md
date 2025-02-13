@@ -14,7 +14,7 @@ hero:
       link: /introduction
     - theme: alt
       text: View on GitHub
-      link: https://github.com/???/???
+      link: https://github.com/@githubPath@
     - theme: alt
       text: See a demo
       link: https://play.vuejs.org/
