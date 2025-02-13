@@ -1,11 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "clean": "rimraf dist && rimraf .vitepress/cache",
+    "clean": "rimraf dist .vitepress/cache",
     "dev": "vitepress dev .",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "build-only": "vitepress build .",
-    "build": "pnpm run type-check && pnpm run build-only",
+    "build": "run-p -c type-check \"build-only {@}\" --",
     "preview": "vitepress preview .",
     "preinstall": "node ../../scripts/preinstall.js"
   },
@@ -16,6 +16,7 @@
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.13.0",
     "@vue/tsconfig": "^0.7.0",
+    "npm-run-all2": "^7.0.2",
     "rimraf": "^6.0.1",
     "typescript": "~5.7.3",
     "vitepress": "^1.6.3",
