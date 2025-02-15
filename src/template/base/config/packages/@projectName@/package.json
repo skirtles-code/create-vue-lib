@@ -69,9 +69,7 @@
     "build-dev": "vite build --mode development",
     "build-neutral": "vite build --mode neutral",
     "build-prod": "vite build --mode production",
-    "type-check": "run-p -c type-check:*",
-    "type-check:code": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "type-check:config": "vue-tsc --noEmit -p tsconfig.node.json --composite false",
+    "type-check": "vue-tsc --build",
     "preinstall": "node ../../scripts/preinstall.js"
   }
 }

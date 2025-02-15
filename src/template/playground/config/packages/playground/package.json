@@ -2,9 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "vite --port 5051",
-    "type-check": "run-p -c type-check:*",
-    "type-check:code": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "type-check:config": "vue-tsc --noEmit -p tsconfig.node.json --composite false",
+    "type-check": "vue-tsc --build",
     "build-only": "vite build",
     "build": "run-p -c type-check \"build-only {@}\" --",
     "preview": "vite preview --port 4051",
