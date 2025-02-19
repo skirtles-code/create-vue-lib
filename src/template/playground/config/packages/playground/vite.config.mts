@@ -7,13 +7,13 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
-    vueDevTools(),
+    vueDevTools()
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@scopedPackageName@': fileURLToPath(new URL('../@projectName@/src/index.ts', import.meta.url))
-    },
+    }
   },
 
   define: {

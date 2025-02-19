@@ -46,6 +46,10 @@ async function togglePrompt(message: string, initial = false, active = 'Yes', in
   })
 }
 
+async function togglePromptIf(condition: boolean, message: string, initial = false, active = 'Yes', inactive = 'No'): Promise<boolean> {
+  return condition ? togglePrompt(message, initial, active, inactive) : initial
+}
+
 type Config = {
   scopedPackageName: string
   unscopedPackageName: string
@@ -68,6 +72,7 @@ type Config = {
   includePlayground: boolean
   includeExamples: boolean
   includeEsLint: boolean
+  includeEsLintStylistic: boolean
 }
 
 async function init() {
@@ -126,7 +131,8 @@ async function init() {
     process.exit(1)
   }
 
-  const includeEsLint = await togglePrompt('Include ESLint?', true, 'Yes', 'No')
+  const includeEsLint = await togglePrompt('Include ESLint?', true)
+  const includeEsLintStylistic = await togglePromptIf(includeEsLint, 'Include ESLint Stylistic for formatting?', includeEsLint)
   const includeDocs = await togglePrompt('Include VitePress for documentation?', true)
   const includeGithubPages = includeDocs && await togglePrompt('Include GitHub Pages config for documentation?')
   const includePlayground = await togglePrompt('Include playground application for development?', true)
@@ -163,7 +169,8 @@ async function init() {
     includeGithubPages,
     includePlayground,
     includeExamples,
-    includeEsLint
+    includeEsLint,
+    includeEsLintStylistic
   }
 
   copyTemplate('base', config)

@@ -3,13 +3,16 @@ import { fileURLToPath } from 'node:url'
 
 import { includeIgnoreFile } from '@eslint/compat'
 import pluginVue from 'eslint-plugin-vue'
+<%_ if (config.includeEsLintStylistic) { _%>
+import stylistic from '@stylistic/eslint-plugin'
+<%_ } _%>
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import pluginVitest from '@vitest/eslint-plugin'
 
 export default defineConfigWithVueTs(
   {
     name: 'app/files-to-lint',
-    files: ['**/*.{ts,mts,vue}'],
+    files: ['**/*.{ts,mts,vue}']
   },
 
   includeIgnoreFile(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.gitignore')),
@@ -17,8 +20,14 @@ export default defineConfigWithVueTs(
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
 
+  <%_ if (config.includeEsLintStylistic) { _%>
+  stylistic.configs.customize({
+    commaDangle: 'never'
+  }),
+  <%_ } _%>
+
   {
     ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
-  },
+    files: ['src/**/__tests__/*']
+  }
 )

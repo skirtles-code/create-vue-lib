@@ -36,6 +36,9 @@
   "devDependencies": {
     <%_ if (config.includeEsLint) { _%>
     "@eslint/compat": "^1.2.6",
+    <%_ if (config.includeEsLintStylistic) { _%>
+    "@stylistic/eslint-plugin": "^4.0.0",
+    <%_ } _%>
     "@typescript-eslint/parser": "^8.23.0",
     "@vitest/eslint-plugin": "1.1.25",
     "@vue/eslint-config-typescript": "^14.3.0",

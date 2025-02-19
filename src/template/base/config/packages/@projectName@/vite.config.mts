@@ -11,10 +11,12 @@ export default defineConfig(({ mode }) => {
     throw new Error(`Unknown mode: ${mode}`)
   }
 
-  const dtsPlugin = mode === 'neutral' ? dts({
-    rollupTypes: true,
-    tsconfigPath: './tsconfig.app.json'
-  }) : null
+  const dtsPlugin = mode === 'neutral'
+    ? dts({
+        rollupTypes: true,
+        tsconfigPath: './tsconfig.app.json'
+      })
+    : null
 
   return {
     plugins: [
@@ -47,15 +49,18 @@ export default defineConfig(({ mode }) => {
 
           if (format === 'iife') {
             name += '.global'
-          } else if (format === 'es') {
+          }
+          else if (format === 'es') {
             name += '.esm-' + (mode === 'neutral' ? 'bundler' : 'browser')
           }
 
           if (mode === 'production') {
             name += '.prod'
-          } else if (mode === 'development') {
+          }
+          else if (mode === 'development') {
             name += '.dev'
-          } else if (mode === 'neutral') {
+          }
+          else if (mode === 'neutral') {
             extension = format === 'cjs' ? 'cjs' : 'mjs'
           }
 
