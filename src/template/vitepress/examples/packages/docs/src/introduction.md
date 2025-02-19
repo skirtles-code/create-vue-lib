@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Example as ExampleComponent, MyPanel } from '@scopedPackageName@'
+import { ExampleComponent, MyPanel } from '@scopedPackageName@'
 </script>
 
 <style scoped>

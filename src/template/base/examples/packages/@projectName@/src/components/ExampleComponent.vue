@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 if (__DEV__) {
-  console.log('dev: creating Example component')
+  console.log('dev: creating ExampleComponent')
 }
 
 const msg = ref('Hello world!')
