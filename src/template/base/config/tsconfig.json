@@ -1,4 +1,4 @@
 {
-  "files": [".eslintrc.cjs"],
+  "files": ["eslint.config.mts"],
   "include": ["scripts/**/*"]
 }

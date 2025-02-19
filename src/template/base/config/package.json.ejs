@@ -5,7 +5,10 @@
     "clean": "pnpm run -r clean",
     "build": "pnpm run -r build",
     "type-check": "pnpm run -r type-check",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    <%_ if (config.includeEsLint) { _%>
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    <%_ } _%>
     <%_ if (config.includePlayground) { _%>
     "dev": "pnpm run --filter ./packages/playground -r dev",
     <%_ } _%>
@@ -18,18 +21,29 @@
     "preinstall": "node scripts/preinstall.js",
     "postinstall": "simple-git-hooks"
   },
+  <%_ if (config.includeEsLint) { _%>
   "simple-git-hooks": {
     "pre-commit": "pnpm run type-check && pnpm exec lint-staged"
   },
   "lint-staged": {
     "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint --fix"
   },
+  <%_ } else { _%>
+  "simple-git-hooks": {
+    "pre-commit": "pnpm run type-check"
+  },
+  <%_ } _%>
   "devDependencies": {
+    <%_ if (config.includeEsLint) { _%>
+    "@eslint/compat": "^1.2.6",
     "@typescript-eslint/parser": "^8.23.0",
+    "@vitest/eslint-plugin": "1.1.25",
     "@vue/eslint-config-typescript": "^14.3.0",
     "eslint": "^9.18.0",
     "eslint-plugin-vue": "^9.32.0",
+    "jiti": "^2.4.2",
     "lint-staged": "^15.4.3",
+    <%_ } _%>
     "simple-git-hooks": "^2.11.1"
   }
 }

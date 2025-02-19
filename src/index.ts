@@ -67,6 +67,7 @@ type Config = {
   includeGithubPages: boolean
   includePlayground: boolean
   includeExamples: boolean
+  includeEsLint: boolean
 }
 
 async function init() {
@@ -125,6 +126,7 @@ async function init() {
     process.exit(1)
   }
 
+  const includeEsLint = await togglePrompt('Include ESLint?', true, 'Yes', 'No')
   const includeDocs = await togglePrompt('Include VitePress for documentation?', true)
   const includeGithubPages = includeDocs && await togglePrompt('Include GitHub Pages config for documentation?')
   const includePlayground = await togglePrompt('Include playground application for development?', true)
@@ -160,7 +162,8 @@ async function init() {
     includeDocs,
     includeGithubPages,
     includePlayground,
-    includeExamples
+    includeExamples,
+    includeEsLint
   }
 
   copyTemplate('base', config)
@@ -175,6 +178,10 @@ async function init() {
 
   if (config.includePlayground) {
     copyTemplate('playground', config)
+  }
+
+  if (config.includeEsLint) {
+    copyTemplate('eslint', config)
   }
 
   console.log('Project created')
