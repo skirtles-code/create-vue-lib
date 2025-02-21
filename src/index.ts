@@ -59,8 +59,6 @@ async function togglePromptIf(condition: boolean, message: string, initial = fal
 type Config = {
   scopedPackageName: string
   unscopedPackageName: string
-  shortUnscopedPackageName: string
-  projectName: string
   globalVariableName: string
   targetDirName: string
   targetDirPath: string
@@ -173,8 +171,6 @@ async function init() {
   }
 
   const unscopedPackageName = scopedPackageName.replace(/.*\//, '')
-  const shortUnscopedPackageName = unscopedPackageName.replace(/^vue-/, '')
-  const projectName = unscopedPackageName.replace(/-+/g, ' ').trim().split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' ')
 
   const targetDirName = await textPrompt('Target directory', unscopedPackageName)
 
@@ -203,7 +199,14 @@ async function init() {
     process.exit(1)
   }
 
-  const globalVariableName = await textPromptIf(extended, 'Global variable name', projectName.replace(/ /g, ''))
+  const defaultGlobalVariableName = unscopedPackageName
+    .replace(/\W+/g, ' ')
+    .trim()
+    .split(' ')
+    .map(s => s[0].toUpperCase() + s.slice(1))
+    .join('')
+
+  const globalVariableName = await textPromptIf(extended, 'Global variable name', defaultGlobalVariableName)
 
   if (!/^[a-zA-Z$_][\w$]*$/.test(globalVariableName)) {
     console.log('Invalid variable name: ' + globalVariableName)
@@ -237,8 +240,6 @@ async function init() {
   const config: Config = {
     scopedPackageName,
     unscopedPackageName,
-    shortUnscopedPackageName,
-    projectName,
     globalVariableName,
     targetDirName,
     targetDirPath,
