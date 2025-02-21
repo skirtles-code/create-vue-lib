@@ -148,6 +148,18 @@ function processArgs(): Args {
   }
 }
 
+function isValidPackageName(packageName) {
+  // This is a bit stricter than npm requires, but we use the package name
+  // to generate various other things, like directory names and the global
+  // variable name, so we insist on having a 'safe' first character.
+  return /^(@[a-z0-9-*~][a-z0-9-*_.~]*\/)?[a-z_][a-z0-9-_.~]*$/.test(packageName)
+}
+
+function isValidDirName(dirName: string) {
+  // This might be stricter than necessary, but it should be fine for real use cases
+  return /^[a-zA-Z_][\w-.~ ]*$/.test(dirName)
+}
+
 async function init() {
   const cwd = process.cwd()
 
@@ -165,7 +177,7 @@ async function init() {
 
   const scopedPackageName = await textPrompt('Package name', '')
 
-  if (!/^(@[a-z][a-z0-9-]*\/)?[a-z][a-z0-9-_.]*$/.test(scopedPackageName)) {
+  if (!isValidPackageName(scopedPackageName)) {
     console.log('Invalid package name: ' + scopedPackageName)
     process.exit(1)
   }
@@ -174,7 +186,7 @@ async function init() {
 
   const targetDirName = await textPrompt('Target directory', unscopedPackageName)
 
-  if (targetDirName !== '.' && !/^[\w-]+$/.test(targetDirName)) {
+  if (targetDirName !== '.' && !isValidDirName(targetDirName)) {
     console.log('Invalid directory name: ' + targetDirName)
     process.exit(1)
   }
@@ -194,7 +206,7 @@ async function init() {
 
   const mainPackageDirName = await textPromptIf(extended, 'Main package directory', unscopedPackageName)
 
-  if (!/^[\w-]+$/.test(mainPackageDirName)) {
+  if (!isValidDirName(mainPackageDirName)) {
     console.log('Invalid directory name: ' + mainPackageDirName)
     process.exit(1)
   }
