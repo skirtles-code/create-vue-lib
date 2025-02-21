@@ -225,10 +225,16 @@ async function init() {
     process.exit(1)
   }
 
-  const githubPath = await textPrompt('GitHub path, e.g. skirtles-code/test-project (optional)')
+  console.log()
+  console.log('The GitHub path you provide below is used to generate various URLs.')
+  console.log('For example, if you intended to have your repo at https://github.com/vuejs/core then the path would be vuejs/core.')
+  console.log()
 
-  if (githubPath && !/^[\w-]+\/[\w-]+$/.test(githubPath)) {
-    console.log('Invalid GitHub path: ' + githubPath)
+  const rawGithubPath = await textPrompt('GitHub path (optional)')
+  const githubPath = rawGithubPath.replace(/^(https:\/\/github.com\/|\/)/, '')
+
+  if (rawGithubPath && !/^[^\/]+\/[^\/]+$/.test(githubPath)) {
+    console.log('Invalid GitHub path: ' + rawGithubPath)
     process.exit(1)
   }
 
