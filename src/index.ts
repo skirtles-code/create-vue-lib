@@ -155,10 +155,19 @@ async function init() {
 
   const { extended } = processArgs()
 
-  const scopedPackageName = await textPrompt('Package name', '@skirtle/test-project')
+  console.log()
+  console.log(`Welcome to ${packageJson.name} v${packageJson.version}`)
+  console.log()
+  console.log('This tool will help you to scaffold a Vite project for your Vue-based library.')
+  console.log()
+  console.log('It is recommended to use a scoped package name for your library.')
+  console.log('e.g. @username/package-name')
+  console.log('To learn more about scopes see: https://docs.npmjs.com/about-scopes')
+  console.log()
 
-  // TODO: Tightening this check, e.g. for hyphen positions
-  if (!/^@[a-z0-9-]+\/[a-z0-9-]+$/.test(scopedPackageName)) {
+  const scopedPackageName = await textPrompt('Package name', '')
+
+  if (!/^(@[a-z][a-z0-9-]*\/)?[a-z][a-z0-9-_.]*$/.test(scopedPackageName)) {
     console.log('Invalid package name: ' + scopedPackageName)
     process.exit(1)
   }
