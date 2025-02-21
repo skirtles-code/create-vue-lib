@@ -245,6 +245,24 @@ async function init() {
   const includePlayground = await togglePrompt('Include playground application for development?', true)
   const includeExamples = await togglePrompt('Include example code?', true, 'Yes', 'No, just configs')
 
+  function suggestExtended() {
+    if (!extended) {
+      console.log(`Use the --extended flag to configure the directory name separately.`)
+    }
+  }
+
+  if (includeDocs && mainPackageDirName === 'docs') {
+    console.log(`The directory name 'docs' is reserved for the documentation, please choose a different name.`)
+    suggestExtended()
+    process.exit(1)
+  }
+
+  if (includePlayground && mainPackageDirName === 'playground') {
+    console.log(`The directory name 'playground' is reserved for the playground, please choose a different name.`)
+    suggestExtended()
+    process.exit(1)
+  }
+
   const [githubUserName, githubRepoName] = (githubPath || '/').split('/')
   const githubUrl = githubPath ? `https://github.com/${githubPath}` : ''
   const githubIssues = githubPath ? `${githubUrl}/issues` : ''
