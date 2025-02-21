@@ -2,8 +2,10 @@
 
 import * as fs from 'node:fs'
 import * as path from 'node:path'
+import { parseArgs } from 'node:util'
 import prompts, { type PromptObject } from 'prompts'
 import ejs from 'ejs'
+import packageJson from '../package.json'
 
 async function prompt(options: Omit<PromptObject, 'name'>) {
   try {
@@ -46,6 +48,10 @@ async function togglePrompt(message: string, initial = false, active = 'Yes', in
   })
 }
 
+async function textPromptIf(condition: boolean, message: string, initial?: string): Promise<string> {
+  return condition ? textPrompt(message, initial) : initial ?? ''
+}
+
 async function togglePromptIf(condition: boolean, message: string, initial = false, active = 'Yes', inactive = 'No'): Promise<boolean> {
   return condition ? togglePrompt(message, initial, active, inactive) : initial
 }
@@ -75,8 +81,79 @@ type Config = {
   includeEsLintStylistic: boolean
 }
 
+type Args = {
+  extended: boolean
+}
+
+// TODO: Add link to docs
+const helpMessage = `\
+Usage: create-vue-lib [OPTIONS...]
+
+Create a new Vite project to build a Vue-based library.
+
+Options:
+  --extended, -x
+    Prompt for extra configuration options.
+  --help, -h
+    Display this help message.
+  --version, -v
+    Display the version number for create-vue-lib.
+`
+
+function processArgs(): Args {
+  let argValues: object = {}
+
+  const options = {
+    extended: {
+      short: 'x',
+      type: 'boolean'
+    },
+    help: {
+      short: 'h',
+      type: 'boolean'
+    },
+    version: {
+      short: 'v',
+      type: 'boolean'
+    }
+  } as const
+
+  try {
+    const args = parseArgs({
+      options
+    })
+
+    argValues = args.values
+  } catch (err) {
+    if (err.code === 'ERR_PARSE_ARGS_UNKNOWN_OPTION') {
+      console.log('Error:')
+      console.log(err.message)
+      console.log('See --help for valid options')
+      process.exit(1)
+    } else {
+      throw err
+    }
+  }
+
+  if (argValues.help) {
+    console.log(helpMessage)
+    process.exit(0)
+  }
+
+  if (argValues.version) {
+    console.log(`${packageJson.name} v${packageJson.version}`)
+    process.exit(0)
+  }
+
+  return {
+    extended: !!argValues.extended
+  }
+}
+
 async function init() {
   const cwd = process.cwd()
+
+  const { extended } = processArgs()
 
   const scopedPackageName = await textPrompt('Package name', '@skirtle/test-project')
 
@@ -110,14 +187,14 @@ async function init() {
     }
   }
 
-  const mainPackageDirName = await textPrompt('Main package directory', unscopedPackageName)
+  const mainPackageDirName = await textPromptIf(extended, 'Main package directory', unscopedPackageName)
 
   if (!/^[\w-]+$/.test(mainPackageDirName)) {
     console.log('Invalid directory name: ' + mainPackageDirName)
     process.exit(1)
   }
 
-  const globalVariableName = await textPrompt('Global variable name', projectName.replace(/ /g, ''))
+  const globalVariableName = await textPromptIf(extended, 'Global variable name', projectName.replace(/ /g, ''))
 
   if (!/^[a-zA-Z$_][\w$]*$/.test(globalVariableName)) {
     console.log('Invalid variable name: ' + globalVariableName)
