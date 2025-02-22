@@ -45,6 +45,8 @@
     "build:ts": "tsup src/index.ts --format cjs --target node18",
     "build:dts": "tsup src/index.ts --dts --format cjs --target node18",
     "start": "node ./dist/index.cjs",
+    "docs:dev": "pnpm run --filter ./docs -r dev",
+    "docs:build": "pnpm run --filter ./docs -r build",
     "preinstall": "npx only-allow pnpm"
   }
 }
