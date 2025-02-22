@@ -4,8 +4,10 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "paths": {
+      <%_ if (config.includeAtAliases) { _%>
       "@/*": ["./src/*"],
-      "@scopedPackageName@": ["../@projectName@/src/index.ts"]
+      <%_ } _%>
+      "<%- config.scopedPackageName %>": ["../<%- config.mainPackageDirName %>/src/index.ts"]
     }
   }
 }

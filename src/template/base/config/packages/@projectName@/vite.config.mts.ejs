@@ -1,5 +1,7 @@
 import { resolve } from 'node:path'
+<%_ if (config.includeAtAliases) { _%>
 import { fileURLToPath, URL } from 'node:url'
+<%_ } _%>
 
 import { defineConfig, type UserConfig } from 'vite'
 import replace from '@rollup/plugin-replace'
@@ -29,22 +31,24 @@ export default defineConfig(({ mode }): UserConfig => {
       vue(),
       dtsPlugin
     ],
+    <%_ if (config.includeAtAliases) { _%>
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
+    <%_ } _%>
     build: {
       target: 'es2019',
       emptyOutDir: false,
       minify: mode === 'production',
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
-        name: '@globalVariableName@',
+        name: '<%- config.globalVariableName %>',
         formats: mode === 'neutral' ? ['cjs', 'es'] : ['es', 'iife'],
 
         fileName(format) {
-          let name = '@unscopedPackageName@'
+          let name = '<%- config.unscopedPackageName %>'
           let extension = 'js'
 
           if (format === 'iife') {

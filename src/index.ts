@@ -77,6 +77,7 @@ type Config = {
   includeExamples: boolean
   includeEsLint: boolean
   includeEsLintStylistic: boolean
+  includeAtAliases: boolean
 }
 
 type Args = {
@@ -245,6 +246,7 @@ async function init() {
   const includeGithubPages = includeDocs && await togglePrompt('Include GitHub Pages config for documentation?')
   const includePlayground = await togglePrompt('Include playground application for development?', true)
   const includeExamples = await togglePrompt('Include example code?', true, 'Yes', 'No, just configs')
+  const includeAtAliases = await togglePrompt('Configure @ as an alias for src?')
 
   function suggestExtended() {
     if (!extended) {
@@ -294,7 +296,8 @@ async function init() {
     includePlayground,
     includeExamples,
     includeEsLint,
-    includeEsLintStylistic
+    includeEsLintStylistic,
+    includeAtAliases
   }
 
   copyTemplate('base', config)

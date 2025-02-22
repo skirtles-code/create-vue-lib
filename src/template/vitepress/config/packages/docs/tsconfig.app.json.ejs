@@ -10,7 +10,10 @@
   ],
   "compilerOptions": {
     "paths": {
-      "@scopedPackageName@": ["../@projectName@/src/index.ts"]
+      <%_ if (config.includeAtAliases) { _%>
+      "@/*": ["./src/*"],
+      <%_ } _%>
+      "<%- config.scopedPackageName %>": ["../<%- config.mainPackageDirName %>/src/index.ts"]
     }
   },
   "vueCompilerOptions": {

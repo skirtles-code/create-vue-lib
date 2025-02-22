@@ -1,7 +1,12 @@
-import { resolve } from 'node:path'
+import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfigWithTheme } from 'vitepress'
 
+<%_ if (config.includeAtAliases) { _%>
+const librarySrc = fileURLToPath(new URL('../../<%- config.mainPackageDirName %>/src/', import.meta.url))
+const playgroundSrc = fileURLToPath(new URL('../src/', import.meta.url))
+
+<%_ } _%>
 export default ({ mode }: { mode: string }) => defineConfigWithTheme({
   srcDir: './src',
   outDir: './dist',
@@ -30,9 +35,27 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
   <%_ } _%>
   vite: {
     resolve: {
+      <%_ if (config.includeAtAliases) { _%>
+      alias: [
+        {
+          find: '@',
+          replacement: '@',
+          customResolver(source, importer) {
+            return source.replace(
+              /^@\//,
+              importer?.startsWith(librarySrc) ? librarySrc : playgroundSrc
+            )
+          }
+        }, {
+          find: '<%- config.scopedPackageName %>',
+          replacement: librarySrc
+        }
+      ]
+      <%_ } else { _%>
       alias: {
-        '<%- config.scopedPackageName %>': resolve(__dirname, '../../<%- config.mainPackageDirName %>/src/index.ts')
+        '<%- config.scopedPackageName %>': fileURLToPath(new URL('../../<%- config.mainPackageDirName %>/src/', import.meta.url))
       }
+      <%_ } _%>
     },
 
     define: {
