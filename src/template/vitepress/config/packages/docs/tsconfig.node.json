@@ -3,7 +3,6 @@
   "include": [".vitepress/config.*"],
   "compilerOptions": {
     "noEmit": true,
-    "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.docs.node.tsbuildinfo",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"]

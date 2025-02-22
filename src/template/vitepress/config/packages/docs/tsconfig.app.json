@@ -9,7 +9,6 @@
     "src/**/*.md"
   ],
   "compilerOptions": {
-    "tsBuildInfoFile": "../../node_modules/.tmp/tsconfig.docs.app.tsbuildinfo",
     "paths": {
       "@scopedPackageName@": ["../@projectName@/src/index.ts"]
     }
