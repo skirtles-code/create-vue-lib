@@ -5,7 +5,7 @@
   "license": "MIT",
   "description": "Create a library using Vue and Vite",
   "keywords": ["vue", "library", "scaffold", "vite", "build"],
-  "homepage": "https://github.com/skirtles-code/create-vue-lib#readme",
+  "homepage": "https://skirtles-code.github.io/create-vue-lib/",
   "bugs": "https://github.com/skirtles-code/create-vue-lib/issues",
   "repository": {
     "type": "git",

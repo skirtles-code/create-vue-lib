@@ -83,7 +83,6 @@ type Args = {
   extended: boolean
 }
 
-// TODO: Add link to docs
 const helpMessage = `\
 Usage: create-vue-lib [OPTIONS...]
 
@@ -96,6 +95,8 @@ Options:
     Display this help message.
   --version, -v
     Display the version number for create-vue-lib.
+
+Full documentation at https://skirtles-code.github.io/create-vue-lib/
 `
 
 function processArgs(): Args {
