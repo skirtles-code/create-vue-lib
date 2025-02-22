@@ -1,12 +1,12 @@
 import { resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
+import { defineConfig, type UserConfig } from 'vite'
 import replace from '@rollup/plugin-replace'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode }): UserConfig => {
   if (mode !== 'production' && mode !== 'development' && mode !== 'neutral' && mode !== 'test') {
     throw new Error(`Unknown mode: ${mode}`)
   }
