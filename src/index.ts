@@ -235,7 +235,8 @@ async function init() {
   const rawGithubPath = await textPrompt('GitHub path (optional)')
   const githubPath = rawGithubPath.replace(/^(https:\/\/github.com\/|\/)/, '')
 
-  if (rawGithubPath && !/^[^\/]+\/[^\/]+$/.test(githubPath)) {
+  // We don't need to be strict here, so long as it won't break the generated files
+  if (rawGithubPath && !/^[\w-]+\/[\w-.]+$/.test(githubPath)) {
     console.log('Invalid GitHub path: ' + rawGithubPath)
     process.exit(1)
   }
