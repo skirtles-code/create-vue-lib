@@ -380,7 +380,12 @@ function copyFiles(templateFile: string, config: Config) {
   if (filename.endsWith('.ejs')) {
     const template = fs.readFileSync(templatePath, 'utf-8')
     const target = targetPath.replace(/\.ejs$/, '')
-    const content = ejs.render(template, { config })
+    let content = ejs.render(template, { config })
+
+    if (target.endsWith('.json')) {
+      // Remove trailing commas
+      content = content.replace(/,(\s*)([}\]])/g, '$1$2')
+    }
 
     fs.writeFileSync(target, content)
   } else if (['package.json', 'vite.config.mts', 'config.mts', 'index.md', 'introduction.md', 'App.vue', 'tsconfig.app.json', 'env.d.ts'].includes(filename)) {
