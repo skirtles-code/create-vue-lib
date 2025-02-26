@@ -38,6 +38,8 @@ export default defineConfig(({ mode }): UserConfig => ({
     <%_ } _%>
   },
   define: {
-    __DEV__: JSON.stringify(mode !== 'production')
+    __DEV__: mode !== 'production'<%_ if (config.includeTestVariable) { _%>,
+    __TEST__: false
+    <%_ } %>
   }
 }))

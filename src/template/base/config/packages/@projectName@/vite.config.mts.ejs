@@ -38,6 +38,11 @@ export default defineConfig(({ mode }): UserConfig => {
       }
     },
     <%_ } _%>
+    <%_ if (config.includeTestVariable) { _%>
+    define: {
+      __TEST__: mode === 'test'
+    },
+    <%_ } _%>
     build: {
       target: 'es2019',
       emptyOutDir: false,

@@ -3,6 +3,9 @@ import { ref } from 'vue'
 
 if (__DEV__) {
   console.log('dev: creating ExampleComponent')
+  <%_ if (config.includeTestVariable) { _%>
+  console.log(`__TEST__: ${__TEST__}`)
+  <%_ } _%>
 }
 
 const msg = ref('Hello world!')

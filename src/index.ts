@@ -78,6 +78,7 @@ type Config = {
   includeEsLint: boolean
   includeEsLintStylistic: boolean
   includeAtAliases: boolean
+  includeTestVariable: boolean
 }
 
 type Args = {
@@ -248,6 +249,7 @@ async function init() {
   const includePlayground = await togglePrompt('Include playground application for development?', true)
   const includeExamples = await togglePrompt('Include example code?', true, 'Yes', 'No, just configs')
   const includeAtAliases = await togglePrompt('Configure @ as an alias for src?')
+  const includeTestVariable = await togglePrompt('Configure global __TEST__ variable?')
 
   function suggestExtended() {
     if (!extended) {
@@ -298,7 +300,8 @@ async function init() {
     includeExamples,
     includeEsLint,
     includeEsLintStylistic,
-    includeAtAliases
+    includeAtAliases,
+    includeTestVariable
   }
 
   copyTemplate('base', config)
