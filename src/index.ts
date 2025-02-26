@@ -319,20 +319,28 @@ async function init() {
     copyTemplate('eslint', config)
   }
 
+  console.log()
   console.log('Project created')
+  console.log()
   console.log('Note: pnpm must be used as the package manager')
+  console.log()
+  console.log('Next steps:')
   console.log()
 
   if (targetDirName !== '.') {
-    console.log('cd ' + targetDirName)
+    console.log('  cd ' + targetDirName)
   }
 
-  console.log('pnpm install')
-
-  if (!fs.existsSync(path.join(targetDirPath, 'packages', config.mainPackageDirName, 'LICENSE'))) {
-    console.log()
-    console.log(`You should add a suitable license at packages/${config.mainPackageDirName}/LICENSE`)
+  if (!fs.existsSync(path.join(targetDirPath, '.git'))) {
+    console.log('  git init')
   }
+
+  console.log('  pnpm install')
+
+  // if (!fs.existsSync(path.join(targetDirPath, 'packages', config.mainPackageDirName, 'LICENSE'))) {
+  //   console.log()
+  //   console.log(`You should add a suitable license at packages/${config.mainPackageDirName}/LICENSE`)
+  // }
 }
 
 function copyTemplate(templateName: string, config: Config) {
