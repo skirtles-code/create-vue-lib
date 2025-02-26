@@ -7,12 +7,6 @@
   },
   "scripts": {
     "clean": "pnpm run -r clean",
-    "build": "pnpm run -r build",
-    "type-check": "pnpm run -r type-check",
-    <%_ if (config.includeEsLint) { _%>
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    <%_ } _%>
     <%_ if (config.includePlayground) { _%>
     "dev": "pnpm run --filter ./packages/playground -r dev",
     <%_ } _%>
@@ -22,6 +16,12 @@
     <%_ } _%>
     "test:unit": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r test:unit",
     "coverage": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r coverage",
+    "type-check": "pnpm run -r type-check",
+    <%_ if (config.includeEsLint) { _%>
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    <%_ } _%>
+    "build": "pnpm run -r build",
     "preinstall": "node scripts/preinstall.js",
     "postinstall": "simple-git-hooks"
   },

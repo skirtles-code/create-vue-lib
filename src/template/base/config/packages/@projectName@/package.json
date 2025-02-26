@@ -54,15 +54,15 @@
     "vue-tsc": "^2.2.0"
   },
   "scripts": {
-    "clean": "rimraf dist coverage",
     "clean:dist": "rimraf dist",
+    "clean": "rimraf dist coverage",
     "test:unit": "vitest --environment jsdom",
     "coverage": "vitest run --coverage --environment jsdom",
-    "build": "run-s clean:dist build:* type-check",
+    "type-check": "vue-tsc --build",
     "build:dev": "cross-env NODE_ENV=development vite build --mode development",
     "build:neutral": "vite build --mode neutral",
     "build:prod": "vite build --mode production",
-    "type-check": "vue-tsc --build",
+    "build": "run-s clean:dist build:* type-check",
     "preinstall": "node ../../scripts/preinstall.js"
   }
 }
