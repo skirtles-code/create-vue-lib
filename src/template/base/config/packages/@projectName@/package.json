@@ -58,11 +58,10 @@
     "clean:dist": "rimraf dist",
     "test:unit": "vitest --environment jsdom",
     "coverage": "vitest run --coverage --environment jsdom",
-    "build": "run-s clean:dist build-only type-check",
-    "build-only": "run-s build-dev build-neutral build-prod",
-    "build-dev": "cross-env NODE_ENV=development vite build --mode development",
-    "build-neutral": "vite build --mode neutral",
-    "build-prod": "vite build --mode production",
+    "build": "run-s clean:dist build:* type-check",
+    "build:dev": "cross-env NODE_ENV=development vite build --mode development",
+    "build:neutral": "vite build --mode neutral",
+    "build:prod": "vite build --mode production",
     "type-check": "vue-tsc --build",
     "preinstall": "node ../../scripts/preinstall.js"
   }

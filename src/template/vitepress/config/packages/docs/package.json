@@ -6,8 +6,8 @@
     "type-check": "run-p -c type-check:*",
     "type-check:code": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "type-check:config": "vue-tsc --noEmit -p tsconfig.node.json --composite false",
-    "build-only": "vitepress build .",
-    "build": "run-p -c type-check \"build-only {@}\" --",
+    "build:only": "vitepress build .",
+    "build": "run-p -c type-check \"build:only {@}\" --",
     "preview": "vitepress preview .",
     "preinstall": "node ../../scripts/preinstall.js"
   },
