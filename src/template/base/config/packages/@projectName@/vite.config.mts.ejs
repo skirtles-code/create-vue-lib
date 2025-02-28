@@ -51,6 +51,7 @@ export default defineConfig(({ mode }): UserConfig => {
         entry: resolve(__dirname, 'src/index.ts'),
         name: '<%- config.globalVariableName %>',
         formats: mode === 'neutral' ? ['cjs', 'es'] : ['es', 'iife'],
+        cssFileName: mode === 'production' ? '<%- config.unscopedPackageName %>.prod' : '<%- config.unscopedPackageName %>',
 
         fileName(format) {
           let name = '<%- config.unscopedPackageName %>'
