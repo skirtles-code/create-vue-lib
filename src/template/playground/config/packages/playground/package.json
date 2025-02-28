@@ -6,7 +6,8 @@
     "type-check": "vue-tsc --build",
     "build:only": "vite build",
     "build": "run-p -c type-check \"build:only {@}\" --",
-    "preview": "vite preview --port 4051"
+    "preview": "vite preview --port 4051",
+    "preinstall": "node ../../scripts/preinstall.js"
   },
   "dependencies": {
     "vue": "^3.5.13"
