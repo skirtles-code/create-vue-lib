@@ -47,3 +47,10 @@ Optional features include:
 - ESLint and ESLint Stylistic
 
 The new project doesn't have any dependencies on special packages. It mostly uses the same dependencies as the official `create-vue` scaffolding tool, plus some widely used packages such as VitePress and ESLint Stylistic. In particular, there aren't any dependencies that tie you to the scaffolding tool.
+
+Currently unsupported (you'd need to configure them yourself):
+
+- JSX/TSX
+- Prettier
+- Other Vue libraries, such as Vue Router or Pinia
+- E2E testing
