@@ -16,11 +16,15 @@
     <%_ } _%>
     "test:unit": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r test:unit",
     "coverage": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r coverage",
-    "type-check": "pnpm run -r type-check",
     <%_ if (config.includeEsLint) { _%>
+    "type-check": "run-p type-check:*",
+    "type-check:packages": "pnpm run -r type-check",
+    "type-check:self": "tsc",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "lint:staged": "lint-staged",
+    <%_ } else { _%>
+    "type-check": "pnpm run -r type-check",
     <%_ } _%>
     "build": "pnpm run -r build",
     "preinstall": "node scripts/preinstall.js",
@@ -44,6 +48,8 @@
     <%_ if (config.includeEsLintStylistic) { _%>
     "@stylistic/eslint-plugin": "^4.0.0",
     <%_ } _%>
+    "@tsconfig/node22": "^22.0.0",
+    "@types/node": "^22.13.0",
     "@typescript-eslint/parser": "^8.23.0",
     "@vitest/eslint-plugin": "1.1.25",
     "@vue/eslint-config-typescript": "^14.3.0",
@@ -51,8 +57,11 @@
     "eslint-plugin-vue": "^9.32.0",
     "jiti": "^2.4.2",
     "lint-staged": "^15.4.3",
-    <%_ } _%>
     "npm-run-all2": "^7.0.2",
-    "simple-git-hooks": "^2.11.1"
+    <%_ } _%>
+    "simple-git-hooks": "^2.11.1",
+    <%_ if (config.includeEsLint) { _%>
+    "typescript": "^5.7.3"
+    <%_ } _%>
   }
 }
