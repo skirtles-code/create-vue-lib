@@ -6,6 +6,13 @@
     "node": ">=v18.3.0"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.2.6",
+    "@stylistic/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/parser": "^8.23.0",
+    "@vue/eslint-config-typescript": "^14.3.0",
+    "eslint": "^9.18.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "jiti": "^2.4.2",
     "lint-staged": "^15.4.3",
     "simple-git-hooks": "^2.11.1"
   },
@@ -13,7 +20,17 @@
     "clean": "pnpm run -r clean",
     "docs:dev": "pnpm run --filter ./packages/docs -r dev",
     "docs:build": "pnpm run --filter ./packages/docs -r build",
+    "type-check": "pnpm run -r type-check",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "build": "pnpm run -r build",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "node scripts/preinstall.js",
+    "postinstall": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm run type-check && pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint"
   }
 }

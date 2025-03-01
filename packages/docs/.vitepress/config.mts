@@ -1,5 +1,3 @@
-import { resolve } from 'node:path'
-
 import { defineConfigWithTheme } from 'vitepress'
 
 export default defineConfigWithTheme({

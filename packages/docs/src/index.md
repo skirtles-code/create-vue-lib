@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter, withBase } from 'vitepress'
 import { onMounted } from 'vue'
 

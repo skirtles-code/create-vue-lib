@@ -1,0 +1,4 @@
+{
+  "files": ["eslint.config.mts"],
+  "include": ["scripts/**/*"]
+}

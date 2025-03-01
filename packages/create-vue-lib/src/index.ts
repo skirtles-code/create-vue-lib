@@ -22,7 +22,8 @@ async function prompt(options: Omit<PromptObject, 'name'>) {
     )
 
     return result.name
-  } catch (cancelled) {
+  }
+  catch (cancelled) {
     console.log(cancelled.message)
     process.exit(1)
   }
@@ -125,13 +126,15 @@ function processArgs(): Args {
     })
 
     argValues = args.values
-  } catch (err) {
+  }
+  catch (err) {
     if (err.code === 'ERR_PARSE_ARGS_UNKNOWN_OPTION') {
       console.log('Error:')
       console.log(err.message)
       console.log('See --help for valid options')
       process.exit(1)
-    } else {
+    }
+    else {
       throw err
     }
   }
@@ -201,7 +204,8 @@ async function init() {
     if (fs.existsSync(path.join(targetDirPath, 'package.json'))) {
       console.log('Target directory already contains package.json')
     }
-  } else {
+  }
+  else {
     if (fs.existsSync(targetDirPath)) {
       console.log('Target directory already exists')
     }
@@ -399,14 +403,16 @@ function copyFiles(templateFile: string, config: Config) {
     }
 
     fs.writeFileSync(target, content)
-  } else if (['package.json', 'vite.config.mts', 'config.mts', 'index.md', 'introduction.md', 'App.vue', 'tsconfig.app.json', 'env.d.ts'].includes(filename)) {
+  }
+  else if (['package.json', 'vite.config.mts', 'config.mts', 'index.md', 'introduction.md', 'App.vue', 'tsconfig.app.json', 'env.d.ts'].includes(filename)) {
     const template = fs.readFileSync(templatePath, 'utf-8')
     const content = template
       .replace(/@projectName@/g, config.mainPackageDirName)
       .replace(new RegExp(`@(${Object.keys(config).join('|')})@`, 'g'), (all, setting) => config[setting] ?? all)
 
     fs.writeFileSync(targetPath, content)
-  } else {
+  }
+  else {
     fs.copyFileSync(templatePath, targetPath)
   }
 }
