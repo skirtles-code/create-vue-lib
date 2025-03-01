@@ -24,7 +24,7 @@ async function prompt(options: Omit<PromptObject, 'name'>) {
     return result.name
   }
   catch (cancelled) {
-    console.log(cancelled.message)
+    console.log((cancelled as { message: string }).message)
     process.exit(1)
   }
 }
@@ -103,7 +103,7 @@ Full documentation at https://skirtles-code.github.io/create-vue-lib/
 `
 
 function processArgs(): Args {
-  let argValues: object = {}
+  let argValues: { help?: boolean, version?: boolean, extended?: boolean } = {}
 
   const options = {
     extended: {
@@ -128,9 +128,9 @@ function processArgs(): Args {
     argValues = args.values
   }
   catch (err) {
-    if (err.code === 'ERR_PARSE_ARGS_UNKNOWN_OPTION') {
+    if ((err as { code: string }).code === 'ERR_PARSE_ARGS_UNKNOWN_OPTION') {
       console.log('Error:')
-      console.log(err.message)
+      console.log((err as { message: string }).message)
       console.log('See --help for valid options')
       process.exit(1)
     }
@@ -154,7 +154,7 @@ function processArgs(): Args {
   }
 }
 
-function isValidPackageName(packageName) {
+function isValidPackageName(packageName: string) {
   // This is a bit stricter than npm requires, but we use the package name
   // to generate various other things, like directory names and the global
   // variable name, so we insist on having a 'safe' first character.
@@ -408,7 +408,7 @@ function copyFiles(templateFile: string, config: Config) {
     const template = fs.readFileSync(templatePath, 'utf-8')
     const content = template
       .replace(/@projectName@/g, config.mainPackageDirName)
-      .replace(new RegExp(`@(${Object.keys(config).join('|')})@`, 'g'), (all, setting) => config[setting] ?? all)
+      .replace(new RegExp(`@(${Object.keys(config).join('|')})@`, 'g'), (all, setting) => `${config[setting as keyof Config] ?? all}`)
 
     fs.writeFileSync(targetPath, content)
   }

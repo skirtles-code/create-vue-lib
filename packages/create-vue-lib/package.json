@@ -38,10 +38,10 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "run-s clean build:copy build:ts",
+    "type-check": "tsc",
     "build:copy": "copyfiles -u 1 -a \"src/template/**\" dist",
     "build:ts": "tsup src/index.ts --format cjs --target node18",
-    "build:dts": "tsup src/index.ts --dts --format cjs --target node18",
+    "build": "run-s clean build:copy build:ts",
     "start": "node ./dist/index.cjs",
     "preinstall": "npx only-allow pnpm"
   }

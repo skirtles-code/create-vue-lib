@@ -1,4 +1,10 @@
 {
-  "files": ["eslint.config.mts"],
-  "include": ["scripts/**/*"]
+  "extends": "@tsconfig/node22/tsconfig.json",
+  "include": ["eslint.config.*"],
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node"]
+  }
 }

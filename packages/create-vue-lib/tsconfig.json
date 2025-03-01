@@ -2,9 +2,9 @@
   "extends": "@tsconfig/node22/tsconfig.json",
   "include": ["src/index.ts"],
   "compilerOptions": {
-    "strict": false,
-    "resolveJsonModule": true,
+    "noEmit": true,
+    "module": "ESNext",
     "moduleResolution": "Bundler",
-    "module": "ESNext"
+    "types": ["node"]
   }
 }
