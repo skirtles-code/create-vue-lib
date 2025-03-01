@@ -20,6 +20,7 @@
     <%_ if (config.includeEsLint) { _%>
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "lint:staged": "lint-staged",
     <%_ } _%>
     "build": "pnpm run -r build",
     "preinstall": "node scripts/preinstall.js",
@@ -27,7 +28,7 @@
   },
   <%_ if (config.includeEsLint) { _%>
   "simple-git-hooks": {
-    "pre-commit": "pnpm run type-check && pnpm exec lint-staged"
+    "pre-commit": "pnpm exec run-s type-check lint:staged"
   },
   "lint-staged": {
     "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint --fix"
@@ -51,6 +52,7 @@
     "jiti": "^2.4.2",
     "lint-staged": "^15.4.3",
     <%_ } _%>
+    "npm-run-all2": "^7.0.2",
     "simple-git-hooks": "^2.11.1"
   }
 }

@@ -29,12 +29,13 @@
     "type-check:self": "tsc",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "lint:staged": "lint-staged",
     "build": "pnpm run -r build",
     "preinstall": "node scripts/preinstall.js",
     "postinstall": "simple-git-hooks"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm run type-check && pnpm exec lint-staged"
+    "pre-commit": "pnpm exec run-s type-check lint:staged"
   },
   "lint-staged": {
     "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint"
