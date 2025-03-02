@@ -32,7 +32,7 @@
 }
 </style>
 
-# Questions
+# The questions explained
 
 <div class="mock-terminal">
   <div class="mock-terminal-heading">Terminal</div>
