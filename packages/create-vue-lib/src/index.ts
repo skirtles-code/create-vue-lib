@@ -339,15 +339,12 @@ async function init() {
   }
 
   if (!fs.existsSync(path.join(targetDirPath, '.git'))) {
-    console.log('  git init')
+    console.log('  git init -b main')
   }
 
   console.log('  pnpm install')
-
-  // if (!fs.existsSync(path.join(targetDirPath, 'packages', config.mainPackageDirName, 'LICENSE'))) {
-  //   console.log()
-  //   console.log(`You should add a suitable license at packages/${config.mainPackageDirName}/LICENSE`)
-  // }
+  console.log()
+  console.log('See https://skirtles-code.github.io/create-vue-lib/next-steps for more suggestions.')
 }
 
 function copyTemplate(templateName: string, config: Config) {

@@ -47,6 +47,9 @@ export default defineConfigWithTheme({
           }, {
             text: 'The questions explained',
             link: '/questions'
+          }, {
+            text: 'Next steps',
+            link: '/next-steps'
           }
         ]
       }
