@@ -37,11 +37,12 @@
     "typescript": "^5.7.3"
   },
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf dist LICENSE README.md",
     "type-check": "tsc",
-    "build:copy": "copyfiles -u 1 -a \"src/template/**\" dist",
+    "build:copy": "copyfiles -f ../../LICENSE ../../README.md .",
+    "build:templates": "copyfiles -u 1 -a \"src/template/**\" dist",
     "build:ts": "tsup src/index.ts --format cjs --target node18",
-    "build": "run-s clean build:copy build:ts",
+    "build": "run-s clean build:copy build:templates build:ts",
     "start": "node ./dist/index.cjs",
     "preinstall": "npx only-allow pnpm"
   }
