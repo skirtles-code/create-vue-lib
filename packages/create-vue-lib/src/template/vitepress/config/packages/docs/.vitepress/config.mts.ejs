@@ -53,7 +53,7 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
       ]
       <%_ } else { _%>
       alias: {
-        '<%- config.scopedPackageName %>': fileURLToPath(new URL('../../<%- config.mainPackageDirName %>/src/', import.meta.url))
+        <%- config.packageNameAsObjectKey %>: fileURLToPath(new URL('../../<%- config.mainPackageDirName %>/src/', import.meta.url))
       }
       <%_ } _%>
     },

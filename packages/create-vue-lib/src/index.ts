@@ -60,6 +60,7 @@ async function togglePromptIf(condition: boolean, message: string, initial = fal
 type Config = {
   scopedPackageName: string
   unscopedPackageName: string
+  packageNameAsObjectKey: string
   globalVariableName: string
   targetDirName: string
   targetDirPath: string
@@ -190,6 +191,9 @@ async function init() {
 
   const unscopedPackageName = scopedPackageName.replace(/.*\//, '')
 
+  // The earlier check on scopedPackageName makes this slightly easier
+  const packageNameAsObjectKey = /^[a-zA-Z_$][\w$]*$/.test(scopedPackageName) ? scopedPackageName : `'${scopedPackageName}'`
+
   const targetDirName = await textPrompt('Target directory', unscopedPackageName)
 
   if (targetDirName !== '.' && !isValidDirName(targetDirName)) {
@@ -286,6 +290,7 @@ async function init() {
   const config: Config = {
     scopedPackageName,
     unscopedPackageName,
+    packageNameAsObjectKey,
     globalVariableName,
     targetDirName,
     targetDirPath,
