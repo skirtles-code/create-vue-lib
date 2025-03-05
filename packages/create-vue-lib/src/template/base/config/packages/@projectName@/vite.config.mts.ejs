@@ -68,7 +68,14 @@ export default defineConfig(({ mode }): UserConfig => {
             name += '.global'
           }
           else if (format === 'es') {
-            name += '.esm-' + (mode === 'neutral' ? 'bundler' : 'browser')
+            name += '.esm'
+
+            if (mode === 'neutral') {
+              name += '-bundler.prod'
+            }
+            else if (mode === 'production') {
+              name += '-browser'
+            }
           }
 
           if (mode === 'production') {

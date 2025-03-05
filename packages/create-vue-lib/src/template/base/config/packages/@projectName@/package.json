@@ -14,14 +14,17 @@
   },
   "sideEffects": false,
   "main": "dist/@unscopedPackageName@.cjs",
-  "module": "dist/@unscopedPackageName@.esm-bundler.mjs",
+  "module": "dist/@unscopedPackageName@.esm-bundler.prod.mjs",
   "unpkg": "dist/@unscopedPackageName@.global.dev.js",
   "jsdelivr": "dist/@unscopedPackageName@.global.dev.js",
   "types": "dist/@unscopedPackageName@.d.ts",
   "exports": {
     ".": {
       "types": "./dist/@unscopedPackageName@.d.ts",
-      "import": "./dist/@unscopedPackageName@.esm-bundler.mjs",
+      "import": {
+        "development": "./dist/@unscopedPackageName@.esm.dev.js",
+        "default": "./dist/@unscopedPackageName@.esm-bundler.prod.mjs"
+      },
       "require": "./dist/@unscopedPackageName@.cjs"
     },
     "./dist/*": "./dist/*",
