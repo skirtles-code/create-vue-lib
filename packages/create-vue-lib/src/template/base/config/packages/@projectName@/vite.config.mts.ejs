@@ -13,6 +13,13 @@ export default defineConfig(({ mode }): UserConfig => {
     throw new Error(`Unknown mode: ${mode}`)
   }
 
+  const expectedNodeEnv = mode === 'neutral' ? 'production' : mode
+  const nodeEnv = process.env.NODE_ENV
+
+  if (nodeEnv !== expectedNodeEnv) {
+    console.warn(`Expected NODE_ENV to be '${expectedNodeEnv}' for mode '${mode}', found '${nodeEnv}'`)
+  }
+
   const dtsPlugin = mode === 'neutral'
     ? dts({
         rollupTypes: true,
