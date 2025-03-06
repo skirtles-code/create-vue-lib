@@ -129,6 +129,8 @@ Include configuration for ESLint. This will be very similar to the default confi
 
 ## Include ESLint Stylistic for formatting?{#include-eslint-stylistic}
 
+You'll only see this question if you chose to include ESLint in the previous question.
+
 [ESLint Stylistic](https://eslint.style/) is a code formatter based on ESLint.
 
 Currently, this is the only formatter that is supported by this CLI tool, but you can configure others yourself after the project is created.
