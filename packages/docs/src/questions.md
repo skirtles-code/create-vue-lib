@@ -40,6 +40,7 @@
 &nbsp;
 <span class="check">✔</span> <a href="#package-name">Package name … @skirtle/test-project</a>
 <span class="check">✔</span> <a href="#target-directory">Target directory … test-project</a>
+<span class="check">✔</span> <a href="#use-packages-directory">Use 'packages' directory? … No / Yes</a>
 <span class="check">✔</span> <a href="#main-package-directory">Main package directory … test-project</a>
 <span class="check">✔</span> <a href="#global-variable-name">Global variable name … TestProject</a>
 <span class="check">✔</span> <a href="#github-path">GitHub path (optional) … skirtles-code/test-project</a>
@@ -77,6 +78,23 @@ The special value `.` can also be used to indicate that files should be placed i
 The directory can be renamed after the project is created. None of the files within the project depend on the name of this folder.
 
 The tool should only create files within the specified directory. It won't edit any global configuration or files elsewhere on the filesystem. If you want to delete the project you can just delete this directory.
+
+## Use 'packages' directory?{#use-packages-directory}
+
+:::info NOTE
+This question is only asked when using the `--extended` flag.
+:::
+
+By default, the packages in the newly created project will be placed in a root-level directory called `packages`, like this:
+
+```
+📁 packages
+   📁 docs
+   📁 playground
+   📁 <main-package-directory>
+```
+
+While this convention is commonly used by the official Vue libraries, the real benefits come as a project grows and the number of packages increases. If you only need one or two packages then you might prefer to keep them in root-level directories, rather than in `packages`.
 
 ## Main package directory
 

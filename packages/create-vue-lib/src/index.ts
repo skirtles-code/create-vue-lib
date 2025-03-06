@@ -64,6 +64,7 @@ type Config = {
   globalVariableName: string
   targetDirName: string
   targetDirPath: string
+  packagesDir: string
   mainPackageDirName: string
   templateDirPath: string
   githubPath: string
@@ -73,6 +74,7 @@ type Config = {
   githubPagesOrigin: string
   docsBase: string
   homepageUrl: string
+  includePackagesDir: boolean
   includeDocs: boolean
   includeGithubPages: boolean
   includePlayground: boolean
@@ -216,6 +218,9 @@ async function init() {
     }
   }
 
+  const includePackagesDir = await togglePromptIf(extended, `Use 'packages' directory?`, true)
+  const packagesDir = includePackagesDir ? 'packages/' : ''
+
   const mainPackageDirName = await textPromptIf(extended, 'Main package directory', unscopedPackageName)
 
   if (!isValidDirName(mainPackageDirName)) {
@@ -279,6 +284,12 @@ async function init() {
     process.exit(1)
   }
 
+  if (!includePackagesDir && mainPackageDirName === 'scripts') {
+    console.log(`The directory name 'scripts' is reserved for the scripts, please choose a different name.`)
+    suggestExtended()
+    process.exit(1)
+  }
+
   const [githubUserName, githubRepoName] = (githubPath || '/').split('/')
   const githubUrl = githubPath ? `https://github.com/${githubPath}` : ''
   const githubIssues = githubPath ? `${githubUrl}/issues` : ''
@@ -296,6 +307,7 @@ async function init() {
     globalVariableName,
     targetDirName,
     targetDirPath,
+    packagesDir,
     mainPackageDirName,
     templateDirPath,
     githubPath,
@@ -305,6 +317,7 @@ async function init() {
     githubPagesOrigin,
     docsBase,
     homepageUrl,
+    includePackagesDir,
     includeDocs,
     includeGithubPages,
     includePlayground,
@@ -383,7 +396,13 @@ function copyFiles(templateFile: string, config: Config) {
   const stats = fs.statSync(templatePath)
   const basename = path.basename(templatePath)
 
-  const targetPath = path.join(config.targetDirPath, templateFile.replace(/@projectName@/g, config.mainPackageDirName))
+  let targetFile = templateFile.replace(/@projectName@/g, config.mainPackageDirName)
+
+  if (!config.includePackagesDir) {
+    targetFile = targetFile.replace(/^packages/, '.')
+  }
+
+  const targetPath = path.join(config.targetDirPath, targetFile)
 
   if (stats.isDirectory()) {
     if (basename === 'node_modules') {

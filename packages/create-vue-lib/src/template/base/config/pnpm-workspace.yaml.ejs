@@ -1,0 +1,12 @@
+packages:
+  <%_ if (config.includePackagesDir) { _%>
+  - '<%- config.packagesDir %>*'
+  <%_ } else { _%>
+  - '<%- config.mainPackageDirName %>'
+  <%_ if (config.includeDocs) { _%>
+  - 'docs'
+  <%_ } _%>
+  <%_ if (config.includePlayground) { _%>
+  - 'playground'
+  <%_ } _%>
+  <%_ } _%>

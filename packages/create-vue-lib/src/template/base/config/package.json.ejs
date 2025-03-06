@@ -8,15 +8,15 @@
   "scripts": {
     "clean": "pnpm run -r clean",
     <%_ if (config.includePlayground) { _%>
-    "dev": "pnpm run --filter ./packages/playground -r dev",
+    "dev": "pnpm run --filter ./<%- config.packagesDir %>playground -r dev",
     <%_ } _%>
     <%_ if (config.includeDocs) { _%>
-    "docs:dev": "pnpm run --filter ./packages/docs -r dev",
-    "docs:build": "pnpm run --filter ./packages/docs -r build",
+    "docs:dev": "pnpm run --filter ./<%- config.packagesDir %>docs -r dev",
+    "docs:build": "pnpm run --filter ./<%- config.packagesDir %>docs -r build",
     <%_ } _%>
     <%_ if (config.includeVitest) { _%>
-    "test:unit": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r test:unit",
-    "coverage": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r coverage",
+    "test:unit": "pnpm run --filter ./<%- config.packagesDir %><%- config.mainPackageDirName %> -r test:unit",
+    "coverage": "pnpm run --filter ./<%- config.packagesDir %><%- config.mainPackageDirName %> -r coverage",
     <%_ } _%>
     <%_ if (config.includeEsLint) { _%>
     "type-check": "run-p type-check:*",
