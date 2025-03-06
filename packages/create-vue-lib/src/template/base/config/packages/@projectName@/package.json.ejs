@@ -63,13 +63,13 @@
   },
   "scripts": {
     "clean:dist": "rimraf dist",
-    "clean": "rimraf dist coverage LICENSE README.md",
+    "clean": "rimraf dist coverage README.md",
     <%_ if (config.includeVitest) { _%>
     "test:unit": "vitest --environment jsdom",
     "coverage": "vitest run --coverage --environment jsdom",
     <%_ } _%>
     "type-check": "vue-tsc --build",
-    "build:copy": "copyfiles -f ../../LICENSE ../../README.md .",
+    "build:copy": "copyfiles -f ../../README.md .",
     "build:dev": "cross-env NODE_ENV=development vite build --mode development",
     "build:neutral": "vite build --mode neutral",
     "build:prod": "vite build --mode production",

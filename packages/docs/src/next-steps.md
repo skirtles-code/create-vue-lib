@@ -68,9 +68,9 @@ The root `README.md` is primarily intended for readers on GitHub. It will be cop
 
 ## Add a `LICENSE`
 
-You should populate the LICENSE file in the root directory of your project.
+You should populate the `LICENSE` file in the root directory of your project.
 
-The root `LICENSE` will be copied to the main package directory as part of the build, so that it can be included in the published package. If you don't want that, you should modify `package.json` and `.gitignore`.
+[`pnpm publish`](https://pnpm.io/cli/publish) will automatically include the `LICENSE` file from the workspace root, so there's no need to add a separate `LICENSE` in the main package directory unless you want it to differ from the root `LICENSE`.
 
 ## Update `package.json`
 
