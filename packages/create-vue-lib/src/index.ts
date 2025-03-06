@@ -79,6 +79,7 @@ type Config = {
   includeExamples: boolean
   includeEsLint: boolean
   includeEsLintStylistic: boolean
+  includeVitest: boolean
   includeAtAliases: boolean
   includeTestVariable: boolean
 }
@@ -252,6 +253,7 @@ async function init() {
 
   const includeEsLint = await togglePrompt('Include ESLint?', true)
   const includeEsLintStylistic = await togglePromptIf(includeEsLint, 'Include ESLint Stylistic for formatting?', includeEsLint)
+  const includeVitest = await togglePromptIf(extended, 'Include Vitest for testing?', true)
   const includeDocs = await togglePrompt('Include VitePress for documentation?', true)
   const includeGithubPages = includeDocs && await togglePrompt('Include GitHub Pages config for documentation?')
   const includePlayground = await togglePrompt('Include playground application for development?', true)
@@ -309,6 +311,7 @@ async function init() {
     includeExamples,
     includeEsLint,
     includeEsLintStylistic,
+    includeVitest,
     includeAtAliases,
     includeTestVariable
   }
@@ -329,6 +332,10 @@ async function init() {
 
   if (config.includeEsLint) {
     copyTemplate('eslint', config)
+  }
+
+  if (config.includeVitest) {
+    copyTemplate('vitest', config)
   }
 
   console.log()
@@ -399,9 +406,15 @@ function copyFiles(templateFile: string, config: Config) {
     const target = targetPath.replace(/\.ejs$/, '')
     let content = ejs.render(template, { config })
 
-    if (target.endsWith('.json')) {
-      // Remove trailing commas
-      content = content.replace(/,(\s*)([}\]])/g, '$1$2')
+    if (/\.(json|m?[jt]s)$/.test(target)) {
+      // Trim spaces from the ends of lines
+      content = content.replace(/ +\n/g, '\n')
+
+      // Remove consecutive blank lines
+      content = content.replace(/\n\n+/g, '\n\n')
+
+      // Remove trailing commas and any blank newlines that follow them
+      content = content.replace(/, *(?:\n+(\n\s*)|(\s*))([}\])])/g, '$1$2$3')
     }
 
     fs.writeFileSync(target, content)

@@ -7,7 +7,9 @@ import pluginVue from 'eslint-plugin-vue'
 import stylistic from '@stylistic/eslint-plugin'
 <%_ } _%>
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
+<%_ if (config.includeVitest) { _%>
 import pluginVitest from '@vitest/eslint-plugin'
+<%_ } _%>
 
 export default defineConfigWithVueTs(
   {
@@ -26,8 +28,10 @@ export default defineConfigWithVueTs(
   }),
   <%_ } _%>
 
+  <%_ if (config.includeVitest) { _%>
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*']
   }
+  <%_ } _%>
 )

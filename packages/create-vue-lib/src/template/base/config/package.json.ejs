@@ -14,8 +14,10 @@
     "docs:dev": "pnpm run --filter ./packages/docs -r dev",
     "docs:build": "pnpm run --filter ./packages/docs -r build",
     <%_ } _%>
+    <%_ if (config.includeVitest) { _%>
     "test:unit": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r test:unit",
     "coverage": "pnpm run --filter ./packages/<%- config.mainPackageDirName %> -r coverage",
+    <%_ } _%>
     <%_ if (config.includeEsLint) { _%>
     "type-check": "run-p type-check:*",
     "type-check:packages": "pnpm run -r type-check",
@@ -51,7 +53,9 @@
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.13.4",
     "@typescript-eslint/parser": "^8.23.0",
+    <%_ if (config.includeVitest) { _%>
     "@vitest/eslint-plugin": "1.1.31",
+    <%_ } _%>
     "@vue/eslint-config-typescript": "^14.4.0",
     "eslint": "^9.20.1",
     "eslint-plugin-vue": "^9.32.0",

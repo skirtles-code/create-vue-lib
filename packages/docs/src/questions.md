@@ -45,6 +45,7 @@
 <span class="check">✔</span> <a href="#github-path">GitHub path (optional) … skirtles-code/test-project</a>
 <span class="check">✔</span> <a href="#include-eslint">Include ESLint? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-eslint-stylistic">Include ESLint Stylistic for formatting? … No / Yes</a>
+<span class="check">✔</span> <a href="#include-vitest">Include Vitest for testing? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-vitepress">Include VitePress for documentation? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-github-pages">Include GitHub Pages config for documentation? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-playground">Include playground application for development? … No / Yes</a>
@@ -131,6 +132,16 @@ Include configuration for ESLint. This will be very similar to the default confi
 [ESLint Stylistic](https://eslint.style/) is a code formatter based on ESLint.
 
 Currently, this is the only formatter that is supported by this CLI tool, but you can configure others yourself after the project is created.
+
+## Include Vitest for testing?{#include-vitest}
+
+:::info NOTE
+This question is only asked when using the `--extended` flag.
+:::
+
+[Vitest](https://vitest.dev/) is a testing framework for Vite.
+
+Testing is particularly important for libraries, so Vitest is included by default, but you can opt out if you want to implement an alternative testing strategy.
 
 ## Include VitePress for documentation?{#include-vitepress}
 

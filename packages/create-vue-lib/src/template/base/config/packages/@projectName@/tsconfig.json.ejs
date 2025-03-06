@@ -7,8 +7,10 @@
     {
       "path": "./tsconfig.app.json"
     },
+    <%_ if (config.includeVitest) { _%>
     {
       "path": "./tsconfig.vitest.json"
     }
+    <%_ } _%>
   ]
 }
