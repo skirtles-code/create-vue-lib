@@ -5,8 +5,8 @@ import { defineConfigWithTheme } from 'vitepress'
 <%_ if (config.includeAtAliases) { _%>
 const librarySrc = fileURLToPath(new URL('../../<%- config.mainPackageDirName %>/src/', import.meta.url))
 const playgroundSrc = fileURLToPath(new URL('../src/', import.meta.url))
-
 <%_ } _%>
+
 export default ({ mode }: { mode: string }) => defineConfigWithTheme({
   srcDir: './src',
   outDir: './dist',
@@ -31,8 +31,8 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
       return [['link', { rel: 'canonical', href: canonicalUrl }]]
     }
   },
-
   <%_ } _%>
+
   vite: {
     resolve: {
       <%_ if (config.includeAtAliases) { _%>
@@ -78,8 +78,8 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
     socialLinks: [
       { icon: 'github', link: '<%- config.githubUrl %>' }
     ],
-
     <%_ } _%>
+
     sidebar: [
       {
         text: 'Getting started',

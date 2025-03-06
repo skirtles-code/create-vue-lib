@@ -7,8 +7,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 <%_ if (config.includeAtAliases) { _%>
 const librarySrc = fileURLToPath(new URL('../<%- config.mainPackageDirName %>/src/', import.meta.url))
 const playgroundSrc = fileURLToPath(new URL('./src/', import.meta.url))
-
 <%_ } _%>
+
 export default defineConfig(({ mode }): UserConfig => ({
   plugins: [
     vue(),
@@ -38,7 +38,8 @@ export default defineConfig(({ mode }): UserConfig => ({
     <%_ } _%>
   },
   define: {
-    __DEV__: mode !== 'production'<%_ if (config.includeTestVariable) { _%>,
+    __DEV__: mode !== 'production',
+    <%_ if (config.includeTestVariable) { _%>
     __TEST__: false
     <%_ } %>
   }
