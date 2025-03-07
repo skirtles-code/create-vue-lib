@@ -52,6 +52,15 @@ export default defineConfigWithTheme({
             link: '/next-steps'
           }
         ]
+      },
+      {
+        text: 'Deeper dive',
+        items: [
+          {
+            text: 'Files in <code>dist</code>',
+            link: '/dist-files'
+          }
+        ]
       }
     ]
   }
