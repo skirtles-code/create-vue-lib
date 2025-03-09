@@ -59,6 +59,9 @@ export default defineConfigWithTheme({
           {
             text: 'Files in <code>dist</code>',
             link: '/dist-files'
+          }, {
+            text: 'Upgrading',
+            link: '/upgrading'
           }
         ]
       }
