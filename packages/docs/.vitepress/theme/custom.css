@@ -67,21 +67,6 @@ html:not(.dark) .VPSidebar {
   --vp-c-brand-1: var(--vp-c-brand-3);
 }
 
-/* Put arrows next to the sidebar items, otherwise the wrapping makes them difficult to read */
-.VPSidebarItem.level-1 .VPLink::before {
-  border: 3px solid transparent;
-  border-left: 4px solid var(--vp-c-text-2);
-  border-right: none;
-  content: "";
-  left: -10px;
-  position: absolute;
-  top: 13px;
-}
-
-.VPSidebarItem.level-1.is-active .VPLink::before {
-  border-left-color: var(--vp-c-brand-1);
-}
-
 /* Custom styling for quoting error messages and warnings. This might be better as a custom container, once they're supported */
 blockquote.quote-code-error {
   background-color: var(--vp-custom-block-warning-bg);
