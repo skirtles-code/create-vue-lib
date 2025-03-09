@@ -30,6 +30,26 @@ You should review that file carefully to ensure it has all the fields set correc
 
 When that file is first created it will contain `"private": true`. That prevents the library from being published by accident. You'll need to remove that line when you're ready to make your first release.
 
+## Check `dependencies` and `peerDependencies`
+
+If you've only worked on applications, you might be used to bumping dependency versions to ensure they're as recent as possible.
+
+But when you're publishing a library you need to be a bit more careful. For example, not every application that wants to use your library will be on the latest version of Vue. You need to decide what the minimum version you want to support is, and test that it actually works against that version.
+
+You also need to be careful about exactly where each dependency is placed: `dependencies`, `peerDependencies` and/or `devDependencies`. In an application it often doesn't matter if dependencies are in the wrong section, but for a library it's important to have everything in the right place.
+
+The default project created by this tool won't have a `dependencies` section, with `vue` listed in `peerDependencies` instead. All other dependencies will be in `devDependencies`, as they're only used to develop the library and aren't needed in the consuming application.
+
+If you've added other dependencies to `dependencies` or `peerDependencies` then you may also need to add them to the `rollupOptions` section of `vite.config.mts`, otherwise they may be bundled in with you library.
+
+## Install dependencies
+
+Ensure your local `node_modules` directory is synced up with the latest code:
+
+```sh
+pnpm install
+```
+
 ## Check the build
 
 You need to build the project before publishing:
@@ -50,7 +70,7 @@ pnpm publish --tag=latest --access=public --dry-run --publish-branch=main
 
 If you have local files that aren't checked into git then you may need to add `--no-git-checks` too.
 
-The dry run will show which files are going to be included in the published package. pnpm should automatically include the `LICENSE` file, taken from the workspace root. The `README.md` isn't taken from the workspace root, so that's copied as part of the build. You should also see `package.json` and the files in `dist`. Files from `src` shouldn't be needed.
+The dry run will show which files are going to be included in the published package. pnpm should automatically include the `LICENSE` file, taken from the workspace root. The `README.md` isn't automatically taken from the workspace root, so that's copied as part of the build. You should also see `package.json` and the files in `dist`. Files from `src` shouldn't be needed.
 
 ## Authenticating
 
