@@ -10,7 +10,6 @@
     "@stylistic/eslint-plugin": "^4.0.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.13.0",
-    "@typescript-eslint/parser": "^8.23.0",
     "@vue/eslint-config-typescript": "^14.3.0",
     "eslint": "^9.18.0",
     "eslint-plugin-vue": "^9.32.0",
