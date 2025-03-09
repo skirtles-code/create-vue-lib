@@ -15,5 +15,5 @@ It can also work the other way, copying bits of the old project across to a new 
 With `@skirtle/create-vue-lib`, you could also consider the following approach:
 
 1. Ensure all files from your project are checked into git.
-2. Run `@skirtle/create-vue-lib` in the same directory, so that it overwrites the existing configuration files.
+2. Run `pnpm create @skirtle/vue-lib --extended` in the same directory, so that it overwrites the existing configuration files. Using the `--extended` flag is optional, but it'll give you the option to avoid creating the example components.
 3. Use a diff tool, such as the one in your IDE, to compare the new files to those checked into git. You may need to revert a lot of the changes, but that's usually a relatively straightforward process.
