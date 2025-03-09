@@ -57,6 +57,9 @@ export default defineConfigWithTheme({
         text: 'Deeper dive',
         items: [
           {
+            text: 'Why does it... ?',
+            link: '/why'
+          }, {
             text: 'Files in <code>dist</code>',
             link: '/dist-files'
           }, {
