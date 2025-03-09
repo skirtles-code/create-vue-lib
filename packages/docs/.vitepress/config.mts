@@ -62,6 +62,9 @@ export default defineConfigWithTheme({
           }, {
             text: 'Upgrading',
             link: '/upgrading'
+          }, {
+            text: 'Publishing to npm',
+            link: '/publishing'
           }
         ]
       }
