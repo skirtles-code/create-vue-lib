@@ -32,6 +32,7 @@
     "ejs": "^3.1.10",
     "npm-run-all2": "^7.0.2",
     "prompts": "^2.4.2",
+    "publint": "^0.3.8",
     "rimraf": "^6.0.1",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3"
@@ -39,10 +40,11 @@
   "scripts": {
     "clean": "rimraf dist LICENSE README.md",
     "type-check": "tsc",
+    "lint:package": "publint",
     "build:copy": "copyfiles -f ../../LICENSE ../../README.md .",
     "build:templates": "copyfiles -u 1 -a \"src/template/**\" dist",
     "build:ts": "tsup src/index.ts --format cjs --target node18",
-    "build": "run-s clean build:copy build:templates build:ts",
+    "build": "run-s clean build:copy build:templates build:ts lint:package",
     "start": "node ./dist/index.cjs",
     "preinstall": "npx only-allow pnpm"
   }
