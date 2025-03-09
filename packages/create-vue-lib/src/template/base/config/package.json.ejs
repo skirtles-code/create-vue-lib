@@ -46,26 +46,26 @@
   <%_ } _%>
   "devDependencies": {
     <%_ if (config.includeEsLint) { _%>
-    "@eslint/compat": "^1.2.6",
+    "@eslint/compat": "^1.2.7",
     <%_ if (config.includeEsLintStylistic) { _%>
-    "@stylistic/eslint-plugin": "^4.0.0",
+    "@stylistic/eslint-plugin": "^4.2.0",
     <%_ } _%>
     "@tsconfig/node22": "^22.0.0",
-    "@types/node": "^22.13.4",
-    "@typescript-eslint/parser": "^8.23.0",
+    "@types/node": "^22.13.9",
+    "@typescript-eslint/parser": "^8.26.0",
     <%_ if (config.includeVitest) { _%>
-    "@vitest/eslint-plugin": "1.1.31",
+    "@vitest/eslint-plugin": "^1.1.36",
     <%_ } _%>
-    "@vue/eslint-config-typescript": "^14.4.0",
-    "eslint": "^9.20.1",
-    "eslint-plugin-vue": "^9.32.0",
+    "@vue/eslint-config-typescript": "^14.5.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-vue": "~10.0.0",
     "jiti": "^2.4.2",
     "lint-staged": "^15.4.3",
     "npm-run-all2": "^7.0.2",
     <%_ } _%>
     "simple-git-hooks": "^2.11.1",
     <%_ if (config.includeEsLint) { _%>
-    "typescript": "~5.7.3"
+    "typescript": "~5.8.0"
     <%_ } _%>
   }
 }
