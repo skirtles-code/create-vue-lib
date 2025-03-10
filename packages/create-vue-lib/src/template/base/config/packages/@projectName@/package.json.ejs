@@ -12,6 +12,7 @@
     "type": "git",
     "url": "<%- config.githubRepository %>"
   },
+  "type": "module",
   "sideEffects": false,
   "main": "dist/<%- config.unscopedPackageName %>.cjs",
   "module": "dist/<%- config.unscopedPackageName %>.esm-bundler.prod.mjs",
@@ -22,7 +23,7 @@
     ".": {
       "types": "./dist/<%- config.unscopedPackageName %>.d.ts",
       "import": {
-        "development": "./dist/<%- config.unscopedPackageName %>.esm.dev.js",
+        "development": "./dist/<%- config.unscopedPackageName %>.esm.dev.mjs",
         "default": "./dist/<%- config.unscopedPackageName %>.esm-bundler.prod.mjs"
       },
       "require": "./dist/<%- config.unscopedPackageName %>.cjs"

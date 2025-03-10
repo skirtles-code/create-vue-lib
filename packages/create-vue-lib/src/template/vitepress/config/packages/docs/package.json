@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "clean": "rimraf dist .vitepress/cache",
     "dev": "vitepress dev .",
