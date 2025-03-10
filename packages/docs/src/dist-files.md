@@ -22,7 +22,7 @@ Inside `dist` you should see files like these:
    📄 my-lib.cjs
    📄 my-lib.css
    📄 my-lib.d.ts
-   📄 my-lib.esm.dev.js
+   📄 my-lib.esm.dev.mjs
    📄 my-lib.esm-browser.prod.js
    📄 my-lib.esm-bundler.prod.mjs
    📄 my-lib.global.dev.js
@@ -101,7 +101,7 @@ This file contains the TypeScript types. This should include type information fo
 
 Tooling in the consuming application should pick this up automatically, as it's referenced from `package.json`.
 
-### `<name>.esm.dev.js`
+### `<name>.esm.dev.mjs`
 
 This file exposes the library as an ES module. It is intended to be used during development, either with a bundler or directly in the browser via `<script type="module">` and import maps.
 
@@ -140,7 +140,7 @@ Some features of this build:
 - The global `__DEV__` flag will be set to `false` and dead code removed. This is only relevant if you're using it in your code.
 - SFCs will be compiled in production mode.
 
-During development, you'd normally use `<name>.esm.dev.js` instead.
+During development, you'd normally use `<name>.esm.dev.mjs` instead.
 
 ### `<name>.esm-bundler.prod.mjs`
 
@@ -151,7 +151,7 @@ Some features of this build:
 - The global `__DEV__` variable will depend on the bundler's value for `process.env.NODE_ENV`.
 - SFCs will be compiled in production mode.
 
-From a bundler's perspective, the only significant difference between this build and the `<name>.esm.dev.js` build is that `.vue` files are built in production mode. If you aren't using `.vue` files in your library code then this file can be used in both development and production. That would be similar to libraries like Vue core, Vue Router and Pinia, which just have an `esm-bundler` build, with no distinction between `dev` and `prod`. In that scenario, `<name>.esm.dev.js` is only used in the browser, so it could be renamed to something like `<name>.esm-browser.dev.js`.
+From a bundler's perspective, the only significant difference between this build and the `<name>.esm.dev.mjs` build is that `.vue` files are built in production mode. If you aren't using `.vue` files in your library code then this file can be used in both development and production. That would be similar to libraries like Vue core, Vue Router and Pinia, which just have an `esm-bundler` build, with no distinction between `dev` and `prod`. In that scenario, `<name>.esm.dev.mjs` is only used in the browser, so it could be renamed to something like `<name>.esm-browser.dev.js`.
 
 ### `<name>.global.dev.js` and `<name>.global.prod.js`
 
@@ -194,7 +194,7 @@ A single Vite build can produce multiple files, but those files must share most 
 There's nothing special about having 3 builds, that's just how many we need to create the combinations we need. We generate 3 `esm` files in `dist`, so we need at least 3 builds to achieve that.
 
 Roughly speaking:
-- `build:dev` - unminified development builds that can be served to the browser without further build tools: `<name>.esm.dev.js` and `<name>.global.dev.js`.
+- `build:dev` - unminified development builds that can be served to the browser without further build tools: `<name>.esm.dev.mjs` and `<name>.global.dev.js`.
 - `build:neutral` - unminified builds that won't go directly to the browser: `<name>.cjs` and `<name>.esm-bundler.prod.js`.
 - `build:prod` - minified production builds to be served directly to the browser:  `<name>.esm.prod.js` and `<name>.global.prod.js`
 

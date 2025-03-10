@@ -69,13 +69,18 @@ export default defineConfig(({ mode }): UserConfig => {
           }
           else if (format === 'es') {
             name += '.esm'
+            extension = 'mjs'
 
             if (mode === 'neutral') {
               name += '-bundler.prod'
             }
             else if (mode === 'production') {
               name += '-browser'
+              extension = 'js'
             }
+          }
+          else {
+            extension = 'cjs'
           }
 
           if (mode === 'production') {
@@ -83,9 +88,6 @@ export default defineConfig(({ mode }): UserConfig => {
           }
           else if (mode === 'development') {
             name += '.dev'
-          }
-          else if (mode === 'neutral') {
-            extension = format === 'cjs' ? 'cjs' : 'mjs'
           }
 
           return `${name}.${extension}`
