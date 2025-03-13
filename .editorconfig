@@ -10,4 +10,4 @@ trim_trailing_whitespace = true
 
 [*.md]
 indent_size = 4
-trim_trailing_whitespace = false
+

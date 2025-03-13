@@ -62,7 +62,7 @@ For libraries, there are two build processes to consider: building the library i
 
 Rather than a clear split between development and production, we instead have three stages: developing the library, developing the consuming application, and finally production. The first stage, developing the library itself, doesn't impact what we publish to npm, so we can ignore that here.
 
-The production stage is also relatively straightforward. 
+The production stage is also relatively straightforward.
 
 The stage that poses the most challenges is developing the consuming application. We need to build our library in such a way that it'll work well during that stage.
 
@@ -134,7 +134,7 @@ This build is suitable for use in the Vue Playground:
 
 - [Vue Playground example](https://play.vuejs.org/#eNqlU01v2zAM/SuEL9lHbHfYTplXdBsCbAXWDduOvmg24yiRJUGiUxdB/vsofy0LmrZADwIkvqfHR0rcRx+tTXYNRoso84WTlsAjNRaU0NWHPCKfR5e5lrU1jmAPy1bUVuFnwwGNmubw7e6H0KjgACtnaphd+a10pDDFnhqzeqzkn1mus7RPwYJ8IGRYEPIJIKuF1N2O96dJIB2RMRlJzsD2jk55BCtjCN0U7o+d/3AZ4AuKEh0IXY5Yr5oOsk/KMqldN55AwLoTfUTpMWeD1lNcTXduzJAbjHvgZpYOrc3So45Hc37awuiVrJKNN5rffx/YeVRw16VC992SNJqffwEdEjChlLm97mLkGpyP8WKNxfae+Ma3IcZlO/Todty+CSPhKqQeXv66wZb3E1ibsgnNfgD8id6oJnjsaZ8aXbLtI17n9mv3c6WufvtlS6j9WFQwGpiHjp9H/E3DhztX+j+7b5N33b1cH7iL/WTEtbAnfeyB/0XOzUZfwZrI+kWaNtpuq4TfIT3HT0vp6TSYoK+TEndJveGsRxY93Sn0SeE9u7saRrlx6sXsuRlZcvbyfZjm8Mf6OmvRxreypDV36uLCtgyzj4FxCa/gNa+B6SqpYzJ2AW8mZnT4C74KhmM=)
 
-If your library needs to differentiate between bundlers and direct browser usage during development then you may need to adjust the build to generate more files. 
+If your library needs to differentiate between bundlers and direct browser usage during development then you may need to adjust the build to generate more files.
 
 ### `<name>.esm-browser.prod.js`
 

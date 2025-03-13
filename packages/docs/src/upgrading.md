@@ -1,6 +1,6 @@
 # Upgrading
 
-As a new tool, there hasn't really been time to establish how `@skirtle/create-vue-lib` handles upgrades. But it's maybe still worth some brief notes on how it's intended to be used. 
+As a new tool, there hasn't really been time to establish how `@skirtle/create-vue-lib` handles upgrades. But it's maybe still worth some brief notes on how it's intended to be used.
 
 Much like [`create-vue`](https://github.com/vuejs/create-vue), there isn't any explicit support for upgrading projects. Both tools aim to create new projects, with any upgrades being managed manually. In most cases this just involves bumping dependencies regularly, so there's no need to involve the scaffolding tool.
 

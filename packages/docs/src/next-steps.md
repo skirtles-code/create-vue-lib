@@ -20,7 +20,7 @@ You should do this before running `pnpm install`, so that `simple-git-hooks` can
 pnpm install
 ```
 
-The project uses the `^` prefix for most dependencies. This is usually what you'd want, as it ensures you're getting the latest versions, but it does mean that the exact versions you install may differ slightly from those that have been tested with this tool. Occasionally, new releases of the dependencies introduce regressions that break a newly scaffolded project. 
+The project uses the `^` prefix for most dependencies. This is usually what you'd want, as it ensures you're getting the latest versions, but it does mean that the exact versions you install may differ slightly from those that have been tested with this tool. Occasionally, new releases of the dependencies introduce regressions that break a newly scaffolded project.
 
 Bugs in the tool itself are also very much a possibility, especially if you've picked an unusual combination of options.
 

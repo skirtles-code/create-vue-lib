@@ -22,7 +22,7 @@ Those projects use [rollup](https://rollupjs.org/) directly for their builds, ra
 - Using Vite keeps us closer to `create-vue`.
 - Vite has its own ecosystem of useful plugins.
 
-In particular, the libraries mentioned above don't use `.vue` files in their source code. Compiling `.vue` files with rollup is certainly possible, but it's more convenient to reuse the same toolchain used to build Vue applications. 
+In particular, the libraries mentioned above don't use `.vue` files in their source code. Compiling `.vue` files with rollup is certainly possible, but it's more convenient to reuse the same toolchain used to build Vue applications.
 
 <!--
 
