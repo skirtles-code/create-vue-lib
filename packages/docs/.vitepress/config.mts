@@ -25,6 +25,8 @@ export default defineConfigWithTheme({
   },
 
   themeConfig: {
+    outline: [2, 3],
+
     search: {
       provider: 'local'
     },
