@@ -56,15 +56,33 @@ There are pros and cons with either approach, but the project scaffolded with th
 
 ### Development vs production
 
-When building `.vue` files, the SFC compiler needs to know whether to generate a development or production build. The main difference is that a development build is fully compatible with Vue Devtools, whereas a production build only has limited Devtools support. Externally available properties, like `$props` and `$attrs`, will be shown in the Devtools in either build, but component state inside `<script setup>` will only be exposed in development builds.
+For applications, the distinction between development and production is usually clear.
 
-They also differ in how they compile type-based prop definitions. Development builds will try to generate a helpful runtime `props` option, whereas a production build will aim for minimal code. 
+For libraries, there are two build processes to consider: building the library itself and building the application. The consuming application might also not have a build process, e.g. for sites using libraries from a CDN.
 
-You can see the differences for yourself in the Vue Playground at <https://play.vuejs.org/>. The compiled component is visible in the JS tab, and you can toggle between `DEV` and `PROD` using the button at the top of the page.
+Rather than a clear split between development and production, we instead have three stages: developing the library, developing the consuming application, and finally production. The first stage, developing the library itself, doesn't impact what we publish to npm, so we can ignore that here.
 
-But having two different compiled forms means we need to commit to which one we want when we build the library.
+The production stage is also relatively straightforward. 
 
-To accommodate this, we need to generate `dev` and `prod` builds, even when the downstream application is using a bundler. The `package.json` then tells the bundler which one to use in each case.
+The stage that poses the most challenges is developing the consuming application. We need to build our library in such a way that it'll work well during that stage.
+
+When building `.vue` files, the SFC compiler needs to know whether to generate a development or production build. There are several differences between development and production builds, but for now we'll just focus on three of them:
+
+1. A development build is fully compatible with Vue Devtools, whereas a production build only has limited Devtools support. Externally available properties, like `$props` and `$attrs`, will be shown in the Devtools in either build, but component state inside `<script setup>` will only be exposed in development builds.
+2. Type-based prop definitions are compiled to a helpful runtime equivalent in a development build, whereas a production build will aim for minimal code.
+3. A development build includes the full (absolute) file path of each `.vue` file in the built code, under a property called `__file`.
+
+You can see the first two differences for yourself in the Vue Playground at <https://play.vuejs.org/>. The compiled component is visible in the JS tab, and you can toggle between `DEV` and `PROD` using the button at the top of the page. The difference in the `__file` property isn't apparent without the full Vite build-chain.
+
+Having two different compiled forms means we need to commit to which one we want when we build the library.
+
+Including the full path in `__file` is a headache. The build output of a library should be consistent between users, so it shouldn't depend on where the project is stored on the local filesystem. The full path can also potentially include sensitive information, such as usernames or company names, risking doxxing the library's author.
+
+Ideally we'd want a third mode here, aimed at building development builds of libraries. Devtools support and type-based prop compilation should work like a development build, but features like the `__file` property should behave like production, as they aren't relevant to developing the downstream application.
+
+That doesn't exist, but we can get close by using a production build with `prodDevtools: true`. That enables Devtools support, but sadly we won't get the improved runtime props definition.
+
+To accommodate this, we need to generate `dev` and `prod` builds, even when the downstream application is using a bundler. The `dev` builds still use production mode, but with `prodDevtools: true`. The `package.json` then tells the downstream bundler which one to use in each case.
 
 ### SSR
 
@@ -81,7 +99,7 @@ This is a CommonJS build. It is intended to be used in Node applications that us
 Some features of this build:
 - The file is not minified, as it isn't used in the browser.
 - The global `__DEV__` flag will depend on the runtime value of `process.env.NODE_ENV`. This is only relevant if you're using it in your library code.
-- SFCs will be compiled in production mode.
+- SFCs will be compiled in production mode, without `prodDevtools: true`.
 
 There is an argument for having separate `dev` and `prod` builds, but the generated project won't currently be configured that way.
 
@@ -108,7 +126,7 @@ This file exposes the library as an ES module. It is intended to be used during 
 Some features of this build:
 - The file is not minified, to make debugging easier.
 - The global `__DEV__` flag will be set to `true`. This is only relevant if you're using it in your library code.
-- SFCs will be compiled in development mode.
+- SFCs will be compiled in production mode, but with `prodDevtools: true`.
 
 In production, you would use either `<name>.esm-browser.prod.js` or `<name>.esm-bundler.prod.mjs` instead.
 
@@ -138,7 +156,7 @@ It's a production build, so in real code the versions should be pinned.
 Some features of this build:
 - The file is minified, reducing its size. Note that Vite doesn't fully minify `esm` builds for libraries.
 - The global `__DEV__` flag will be set to `false` and dead code removed. This is only relevant if you're using it in your code.
-- SFCs will be compiled in production mode.
+- SFCs will be compiled in production mode, without `prodDevtools: true`.
 
 During development, you'd normally use `<name>.esm.dev.mjs` instead.
 
@@ -149,9 +167,9 @@ This is a production ES module build, intended to be used by a bundler.
 Some features of this build:
 - The file is not minified. The bundler will be expected to handle that.
 - The global `__DEV__` variable will depend on the bundler's value for `process.env.NODE_ENV`.
-- SFCs will be compiled in production mode.
+- SFCs will be compiled in production mode, without `prodDevtools: true`.
 
-From a bundler's perspective, the only significant difference between this build and the `<name>.esm.dev.mjs` build is that `.vue` files are built in production mode. If you aren't using `.vue` files in your library code then this file can be used in both development and production. That would be similar to libraries like Vue core, Vue Router and Pinia, which just have an `esm-bundler` build, with no distinction between `dev` and `prod`. In that scenario, `<name>.esm.dev.mjs` is only used in the browser, so it could be renamed to something like `<name>.esm-browser.dev.js`.
+From a bundler's perspective, the only significant difference between this build and the `<name>.esm.dev.mjs` build is that `.vue` files are built without `prodDevtools: true`. If you aren't using `.vue` files in your library code then this file can be used in both development and production. That would be similar to libraries like Vue core, Vue Router and Pinia, which just have an `esm-bundler` build, with no distinction between `dev` and `prod`. In that scenario, `<name>.esm.dev.mjs` is only used in the browser, so it could be renamed to something like `<name>.esm-browser.dev.js`.
 
 ### `<name>.global.dev.js` and `<name>.global.prod.js`
 
@@ -183,7 +201,7 @@ In production applications, the `prod` builds of both `vue` and `@skirtle/exampl
 The differences between the `dev` and `prod` builds are:
 - `prod` is minified, `dev` isn't.
 - `dev` sets `__DEV__` to `true`, `prod` sets it to `false`, with any dead code removed.
-- SFCs will be compiled in development or production modes accordingly.
+- `dev` builds use `prodDevtools: true`.
 
 ## `build:dev`, `build:neutral`, `build:prod`
 
