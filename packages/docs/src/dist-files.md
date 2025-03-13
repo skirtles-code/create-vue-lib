@@ -121,7 +121,7 @@ Tooling in the consuming application should pick this up automatically, as it's 
 
 ### `<name>.esm.dev.mjs`
 
-This file exposes the library as an ES module. It is intended to be used during development, either with a bundler or directly in the browser via `<script type="module">` and import maps.
+This file exposes the library as an ES module. It is intended to be used during development, either with a bundler or directly in the browser via `<script type="module">` and import maps (see the section about `<name>.esm-browser.prod.js` for more information about direct browser usage).
 
 Some features of this build:
 - The file is not minified, to make debugging easier.
@@ -129,6 +129,10 @@ Some features of this build:
 - SFCs will be compiled in production mode, but with `prodDevtools: true`.
 
 In production, you would use either `<name>.esm-browser.prod.js` or `<name>.esm-bundler.prod.mjs` instead.
+
+This build is suitable for use in the Vue Playground:
+
+- [Vue Playground example](https://play.vuejs.org/#eNqlU01v2zAM/SuEL9lHbHfYTplXdBsCbAXWDduOvmg24yiRJUGiUxdB/vsofy0LmrZADwIkvqfHR0rcRx+tTXYNRoso84WTlsAjNRaU0NWHPCKfR5e5lrU1jmAPy1bUVuFnwwGNmubw7e6H0KjgACtnaphd+a10pDDFnhqzeqzkn1mus7RPwYJ8IGRYEPIJIKuF1N2O96dJIB2RMRlJzsD2jk55BCtjCN0U7o+d/3AZ4AuKEh0IXY5Yr5oOsk/KMqldN55AwLoTfUTpMWeD1lNcTXduzJAbjHvgZpYOrc3So45Hc37awuiVrJKNN5rffx/YeVRw16VC992SNJqffwEdEjChlLm97mLkGpyP8WKNxfae+Ma3IcZlO/Todty+CSPhKqQeXv66wZb3E1ibsgnNfgD8id6oJnjsaZ8aXbLtI17n9mv3c6WufvtlS6j9WFQwGpiHjp9H/E3DhztX+j+7b5N33b1cH7iL/WTEtbAnfeyB/0XOzUZfwZrI+kWaNtpuq4TfIT3HT0vp6TSYoK+TEndJveGsRxY93Sn0SeE9u7saRrlx6sXsuRlZcvbyfZjm8Mf6OmvRxreypDV36uLCtgyzj4FxCa/gNa+B6SqpYzJ2AW8mZnT4C74KhmM=)
 
 If your library needs to differentiate between bundlers and direct browser usage during development then you may need to adjust the build to generate more files. 
 
@@ -141,17 +145,34 @@ This file is an ES module build intended to be used directly in the browser, not
 {
   "imports": {
     "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js",
-    "@skirtle/example-lib": "https://unpkg.com/@skirtle/example-lib/dist/example-lib.esm-browser.prod.js"
+    "@skirtle/example-vue-lib": "https://unpkg.com/@skirtle/example-vue-lib/dist/example-vue-lib.esm-browser.prod.js"
   }
 }
 </script>
 <script type="module">
-import { ExampleComponent } from '@skirtle/example-lib'
+import { ExampleComponent } from '@skirtle/example-vue-lib'
 // ...
 </script>
 ```
 
 It's a production build, so in real code the versions should be pinned.
+
+An *import map* is required. While browsers do support importing directly from a URL, that wouldn't be able to resolve imports from `vue` inside the library. So, for example, this wouldn't work:
+
+```html
+<script type="module">
+// This won't work. // [!code error]
+// It won't be able to resolve 'vue' inside the imported file. // [!code error]
+import { ExampleComponent } from 'https://unpkg.com/@skirtle/example-vue-lib/dist/example-vue-lib.esm-browser.prod.js' // [!code error]
+// ...
+</script>
+```
+
+This build is suitable for use in the Vue Playground:
+
+- [Vue Playground example](https://play.vuejs.org/#__PROD__eNqlU8tu2zAQ/JUFL+7DklK0J9cN0hYG2gBNi7ZHXRhpLTOmSIJcxQoM/3uXkqw6RpwEyEGAuDOcnR2SW/HZufS2QTET81B45QgCUuNAS1N9ygWFXJznRtXOeoItLFpZO41fLRcMGprCj7tf0qCGHSy9rWFyEdbKk8YMe2rC6olW15PczLO+BQvygpBhScgrgHktlen++P+4CWR7ZN+MFHdgewerXMDSWkI/lvtl5z9uBviGskQP0pR7rFfNBtlndRnVLptAIGHViT6h9JSzQes5rsY9V3boDdY/snOeDdHOs4PExZSPtrBmqar0JljD57+N7FwUnLrS6H86Utbw8c+gQyImtbaby65GvsHpvl6ssFg/UL8Jbazx2B4D+luOb8RI+gqphxd/rrDl/xGsbdnEsB8Bf2Owuokee9qXxpRs+4DXuf3e3Vxlqr9h0RKasB8qGo3MXcfPBV/TeOFOjf7f7vv0Q7cvNztOsX8ZSS3dUY49cF/k1NvoJ1gRuTDLssa4dZXyOWSn+FmpAh0XUwx1cu3thpNOnbclG8rFgdVAdxpDWoTALi+GJ914/Wry0s5dN9advP4Yn3a8cP3QtWyTjSppxbGdnbmWYTYzMM7hDbzlb2D6SpmErJvBu5Epdv8AJsOLgA==)
+
+In particular, note the configuration in the `Import Map` tab.
 
 Some features of this build:
 - The file is minified, reducing its size. Note that Vite doesn't fully minify `esm` builds for libraries.
@@ -175,28 +196,30 @@ From a bundler's perspective, the only significant difference between this build
 
 Global builds can be used without build tools, just by including a `<script>` tag in the HTML page. They are built using the IIFE format.
 
-The library is exposed using a global variable. For example, let's imagine our package is called `@skirtle/example-lib`, it might be used something like this:
+The library is exposed using a global variable. For example, the library `@skirtle/example-vue-lib` can be used something like this:
 
 ```html
 <body>
 <div id="app">
-  <ExampleComponent />  
+  <example-component></example-component>
 </div>
 <script src="https://unpkg.com/vue@3"></script>
-<script src="https://unpkg.com/@skirtle/example-lib/dist/example-lib.global.dev.js"></script>
+<script src="https://unpkg.com/@skirtle/example-vue-lib/dist/example-vue-lib.global.dev.js"></script>
 <script>
 Vue.createApp({
   components: {
-    ExampleComponent: ExampleLib.ExampleComponent
-  }  
+    ExampleComponent: ExampleVueLib.ExampleComponent
+  }
 }).mount('#app')
 </script>
 </body>
 ```
 
-The global build of Vue creates a global variable called `Vue`, exposing `createApp`. The global build of `@skirtle/example-lib` creates a global variable called `ExampleLib`, allowing us to access `ExampleComponent`.
+You can see a complete, running example in this [JSFiddle](https://jsfiddle.net/skirtle/jep2ws9a/).
 
-In production applications, the `prod` builds of both `vue` and `@skirtle/example-lib` should be used instead, and exact versions should be pinned in the URL.
+The global build of Vue creates a global variable called `Vue`, exposing `createApp`. The global build of `@skirtle/example-vue-lib` creates a global variable called `ExampleVueLib`, allowing us to access `ExampleComponent`.
+
+In production applications, the `prod` builds of both `vue` and `@skirtle/example-vue-lib` should be used instead, and exact versions should be pinned in the URL.
 
 The differences between the `dev` and `prod` builds are:
 - `prod` is minified, `dev` isn't.

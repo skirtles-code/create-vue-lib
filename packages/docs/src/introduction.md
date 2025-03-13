@@ -58,6 +58,14 @@ Currently unsupported (you'd need to configure them yourself):
 - Other Vue libraries, such as VueUse, Vue Router and Pinia
 - E2E testing
 
+## Examples
+
+You can see an example library, created using this tool, at:
+
+- https://github.com/skirtles-code/example-vue-lib
+
+This has been published to the npm registry as [`@skirtle/example-vue-lib`](https://www.npmjs.com/package/@skirtle/example-vue-lib).
+
 ## Prerequisites
 
 Developing libraries to publish to npm is tricky. There is some inherent complexity to publishing packages that can't be avoided, and you're unlikely to succeed if you don't have prior experience of working with Vue, Vite and the wider ecosystem.
