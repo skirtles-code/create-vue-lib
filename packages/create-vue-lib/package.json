@@ -31,6 +31,7 @@
     "copyfiles": "^2.4.1",
     "ejs": "^3.1.10",
     "npm-run-all2": "^7.0.2",
+    "picocolors": "^1.1.1",
     "prompts": "^2.4.2",
     "publint": "^0.3.8",
     "rimraf": "^6.0.1",

@@ -68,6 +68,9 @@ importers:
       npm-run-all2:
         specifier: ^7.0.2
         version: 7.0.2
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       prompts:
         specifier: ^2.4.2
         version: 2.4.2

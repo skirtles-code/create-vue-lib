@@ -5,6 +5,7 @@ import * as path from 'node:path'
 import { parseArgs } from 'node:util'
 import prompts, { type PromptObject } from 'prompts'
 import ejs from 'ejs'
+import { bgGreen, bgMagenta, bgRed, bgYellowBright, black, blue, bold, cyan, green, red, yellowBright } from 'picocolors'
 import packageJson from '../package.json'
 
 async function prompt(options: Omit<PromptObject, 'name'>) {
@@ -24,7 +25,7 @@ async function prompt(options: Omit<PromptObject, 'name'>) {
     return result.name
   }
   catch (cancelled) {
-    console.log((cancelled as { message: string }).message)
+    console.log(red(`${(cancelled as { message: string }).message}`))
     process.exit(1)
   }
 }
@@ -90,17 +91,17 @@ type Args = {
   extended: boolean
 }
 
-const helpMessage = `\
-Usage: create-vue-lib [OPTIONS...]
+const helpMessage = `
+${bold('Usage:')} ${bold(green('create-vue-lib'))} ${green('[OPTIONS...]')}
 
 Create a new Vite project to build a Vue-based library.
 
-Options:
-  --extended, -x
+${bold('Options:')}
+  ${cyan('--extended')}, ${cyan('-x')}
     Prompt for extra configuration options.
-  --help, -h
+  ${cyan('--help')}, ${cyan('-h')}
     Display this help message.
-  --version, -v
+  ${cyan('--version')}, ${cyan('-v')}
     Display the version number for create-vue-lib.
 
 Full documentation at https://skirtles-code.github.io/create-vue-lib/
@@ -133,8 +134,8 @@ function processArgs(): Args {
   }
   catch (err) {
     if ((err as { code: string }).code === 'ERR_PARSE_ARGS_UNKNOWN_OPTION') {
-      console.log('Error:')
-      console.log((err as { message: string }).message)
+      console.log(bgRed(black('ERROR')))
+      console.log(red(`${(err as { message: string }).message}`))
       console.log('See --help for valid options')
       process.exit(1)
     }
@@ -176,9 +177,9 @@ async function init() {
   const { extended } = processArgs()
 
   console.log()
-  console.log(`Welcome to ${packageJson.name} v${packageJson.version}`)
+  console.log(`Welcome to ${bold(green(packageJson.name))} v${bold(cyan(packageJson.version))}`)
   console.log()
-  console.log('This tool will help you to scaffold a Vite project for your Vue-based library.')
+  console.log(`This tool will help you to scaffold a ${bgMagenta(bold(yellowBright('Vite')))} project for your ${bgGreen(bold(blue('Vue')))}-based library.`)
   console.log()
   console.log('It is recommended to use a scoped package name for your library.')
   console.log('e.g. @username/package-name')
@@ -188,7 +189,8 @@ async function init() {
   const scopedPackageName = await textPrompt('Package name', '')
 
   if (!isValidPackageName(scopedPackageName)) {
-    console.log('Invalid package name: ' + scopedPackageName)
+    console.log(bgRed(black('ERROR')))
+    console.log(red('Invalid package name: ' + scopedPackageName))
     process.exit(1)
   }
 
@@ -200,7 +202,8 @@ async function init() {
   const targetDirName = await textPrompt('Target directory', unscopedPackageName)
 
   if (targetDirName !== '.' && !isValidDirName(targetDirName)) {
-    console.log('Invalid directory name: ' + targetDirName)
+    console.log(bgRed(black('ERROR')))
+    console.log(red('Invalid directory name: ' + targetDirName))
     process.exit(1)
   }
 
@@ -209,12 +212,12 @@ async function init() {
   if (targetDirName === '.') {
     // TODO: Check files properly and prompt accordingly
     if (fs.existsSync(path.join(targetDirPath, 'package.json'))) {
-      console.log('Target directory already contains package.json')
+      console.log(`${bgYellowBright(black('⚠ WARNING'))} Target directory already contains package.json`)
     }
   }
   else {
     if (fs.existsSync(targetDirPath)) {
-      console.log('Target directory already exists')
+      console.log(`${bgYellowBright(black('⚠ WARNING'))} Target directory already exists`)
     }
   }
 
@@ -224,7 +227,8 @@ async function init() {
   const mainPackageDirName = await textPromptIf(extended, 'Main package directory', unscopedPackageName)
 
   if (!isValidDirName(mainPackageDirName)) {
-    console.log('Invalid directory name: ' + mainPackageDirName)
+    console.log(bgRed(black('ERROR')))
+    console.log(red('Invalid directory name: ' + mainPackageDirName))
     process.exit(1)
   }
 
@@ -238,7 +242,8 @@ async function init() {
   const globalVariableName = await textPromptIf(extended, 'Global variable name', defaultGlobalVariableName)
 
   if (!/^[a-zA-Z$_][\w$]*$/.test(globalVariableName)) {
-    console.log('Invalid variable name: ' + globalVariableName)
+    console.log(bgRed(black('ERROR')))
+    console.log(red('Invalid variable name: ' + globalVariableName))
     process.exit(1)
   }
 
@@ -252,7 +257,8 @@ async function init() {
 
   // We don't need to be strict here, so long as it won't break the generated files
   if (rawGithubPath && !/^[\w-]+\/[\w-.]+$/.test(githubPath)) {
-    console.log('Invalid GitHub path: ' + rawGithubPath)
+    console.log(bgRed(black('ERROR')))
+    console.log(red('Invalid GitHub path: ' + rawGithubPath))
     process.exit(1)
   }
 
@@ -273,19 +279,22 @@ async function init() {
   }
 
   if (includeDocs && mainPackageDirName === 'docs') {
-    console.log(`The directory name 'docs' is reserved for the documentation, please choose a different name.`)
+    console.log(bgRed(black('ERROR')))
+    console.log(red(`The directory name 'docs' is reserved for the documentation, please choose a different name.`))
     suggestExtended()
     process.exit(1)
   }
 
   if (includePlayground && mainPackageDirName === 'playground') {
-    console.log(`The directory name 'playground' is reserved for the playground, please choose a different name.`)
+    console.log(bgRed(black('ERROR')))
+    console.log(red(`The directory name 'playground' is reserved for the playground, please choose a different name.`))
     suggestExtended()
     process.exit(1)
   }
 
   if (!includePackagesDir && mainPackageDirName === 'scripts') {
-    console.log(`The directory name 'scripts' is reserved for the scripts, please choose a different name.`)
+    console.log(bgRed(black('ERROR')))
+    console.log(red(`The directory name 'scripts' is reserved for the scripts, please choose a different name.`))
     suggestExtended()
     process.exit(1)
   }
@@ -352,22 +361,22 @@ async function init() {
   }
 
   console.log()
-  console.log('Project created')
+  console.log(`${bgGreen(bold(black('DONE')))} Project created`)
   console.log()
-  console.log('Note: pnpm must be used as the package manager')
+  console.log(`${bgYellowBright(black('NOTE'))} pnpm must be used as the package manager`)
   console.log()
-  console.log('Next steps:')
+  console.log(bold('Next steps:'))
   console.log()
 
   if (targetDirName !== '.') {
-    console.log('  cd ' + targetDirName)
+    console.log(bold(green('  cd ' + targetDirName)))
   }
 
   if (!fs.existsSync(path.join(targetDirPath, '.git'))) {
-    console.log('  git init -b main')
+    console.log(bold(green('  git init -b main')))
   }
 
-  console.log('  pnpm install')
+  console.log(bold(green('  pnpm install')))
   console.log()
   console.log('See https://skirtles-code.github.io/create-vue-lib/next-steps for more suggestions.')
 }
