@@ -59,9 +59,10 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
     },
 
     define: {
-      __DEV__: mode !== 'production'<%_ if (config.includeTestVariable) { _%>,
+      __DEV__: mode !== 'production',
+      <%_ if (config.includeTestVariable) { _%>
       __TEST__: false
-      <%_ } %>
+      <%_ } _%>
     }
   },
 

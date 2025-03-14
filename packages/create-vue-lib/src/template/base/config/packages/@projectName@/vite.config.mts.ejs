@@ -43,6 +43,7 @@ export default defineConfig(({ mode }): UserConfig => {
       }),
       dtsPlugin
     ],
+
     <%_ if (config.includeAtAliases) { _%>
     resolve: {
       alias: {
@@ -50,15 +51,18 @@ export default defineConfig(({ mode }): UserConfig => {
       }
     },
     <%_ } _%>
+
     <%_ if (config.includeTestVariable) { _%>
     define: {
       __TEST__: mode === 'test'
     },
     <%_ } _%>
+
     build: {
       target: 'es2019',
       emptyOutDir: false,
       minify: mode === 'production',
+
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
         name: '<%- config.globalVariableName %>',
@@ -98,6 +102,7 @@ export default defineConfig(({ mode }): UserConfig => {
           return `${name}.${extension}`
         }
       },
+
       rollupOptions: {
         external: ['vue'],
         output: {
