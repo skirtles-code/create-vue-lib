@@ -2,8 +2,6 @@
 
 A command-line utility for scaffolding a Vite project to build a Vue-based library.
 
-⚠️ This is currently work-in-progress. It is not yet usable.
-
 Documentation: <https://skirtles-code.github.io/create-vue-lib/>
 
 ## Thanks

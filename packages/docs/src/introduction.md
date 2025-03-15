@@ -1,9 +1,5 @@
 # Introduction
 
-:::warning
-This tool is still work-in-progress.
-:::
-
 `@skirtle/create-vue-lib` is a scaffolding tool for creating a Vite project to build a Vue-based library.
 
 It currently requires `pnpm` to be used as the package manager.
