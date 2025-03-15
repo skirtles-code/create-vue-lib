@@ -21,8 +21,11 @@ import { ExampleComponent, MyPanel } from '@scopedPackageName@'
 </template>
 
 <style scoped>
+.main {
+  max-width: 300px;
+}
+
 .main > * + * {
   margin-top: 10px;
-  max-width: 300px;
 }
 </style>
