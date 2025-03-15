@@ -5,7 +5,7 @@ import * as path from 'node:path'
 import { parseArgs } from 'node:util'
 import prompts, { type PromptObject } from 'prompts'
 import ejs from 'ejs'
-import { bgGreen, bgMagenta, bgRed, bgYellowBright, black, blue, bold, cyan, green, red, yellowBright } from 'picocolors'
+import { bgGreen, bgRed, bgYellowBright, black, bold, cyan, green, magenta, red } from 'picocolors'
 import packageJson from '../package.json'
 
 async function prompt(options: Omit<PromptObject, 'name'>) {
@@ -179,7 +179,7 @@ async function init() {
   console.log()
   console.log(`Welcome to ${bold(green(packageJson.name))} v${bold(cyan(packageJson.version))}`)
   console.log()
-  console.log(`This tool will help you to scaffold a ${bgMagenta(bold(yellowBright('Vite')))} project for your ${bgGreen(bold(blue('Vue')))}-based library.`)
+  console.log(`This tool will help you to scaffold a ${bold(magenta('Vite'))} project for your ${bold(green('Vue'))}-based library.`)
   console.log()
   console.log('It is recommended to use a scoped package name for your library.')
   console.log('e.g. @username/package-name')
