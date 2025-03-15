@@ -1,7 +1,4 @@
-import { resolve } from 'node:path'
-<%_ if (config.includeAtAliases) { _%>
 import { fileURLToPath, URL } from 'node:url'
-<%_ } _%>
 
 import { defineConfig, type UserConfig } from 'vite'
 import replace from '@rollup/plugin-replace'
@@ -64,7 +61,7 @@ export default defineConfig(({ mode }): UserConfig => {
       minify: mode === 'production',
 
       lib: {
-        entry: resolve(__dirname, 'src/index.ts'),
+        entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
         name: '<%- config.globalVariableName %>',
         formats: mode === 'neutral' ? ['cjs', 'es'] : ['es', 'iife'],
         cssFileName: mode === 'production' ? '<%- config.unscopedPackageName %>.prod' : '<%- config.unscopedPackageName %>',
