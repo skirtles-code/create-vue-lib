@@ -13,10 +13,6 @@
   },
   "funding": "https://github.com/sponsors/skirtles-code",
   "type": "module",
-  "packageManager": "pnpm@9.15.4",
-  "engines": {
-    "node": ">=v18.3.0"
-  },
   "bin": {
     "create-vue-lib": "dist/index.cjs"
   },
