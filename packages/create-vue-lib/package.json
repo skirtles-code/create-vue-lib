@@ -46,7 +46,6 @@
     "build:templates": "copyfiles -u 1 -a \"src/template/**\" dist",
     "build:ts": "tsup src/index.ts --format cjs --target node18",
     "build": "run-s clean build:copy build:templates build:ts lint:package",
-    "start": "node ./dist/index.cjs",
-    "preinstall": "npx only-allow pnpm"
+    "start": "node ./dist/index.cjs"
   }
 }
