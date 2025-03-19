@@ -50,6 +50,7 @@
 <span class="check">✔</span> <a href="#include-vitepress">Include VitePress for documentation? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-github-pages">Include GitHub Pages config for documentation? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-playground">Include playground application for development? … No / Yes</a>
+<span class="check">✔</span> <a href="#include-github-ci">Include GitHub CI configuration? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-examples">Include example code? … No, just configs / Yes</a>
 <span class="check">✔</span> <a href="#configure-src-alias">Configure @ as an alias for src? … No / Yes</a>
 <span class="check">✔</span> <a href="#configure-test-variable">Configure global __TEST__ variable?</a></pre>
@@ -190,6 +191,14 @@ While you're developing your library, you can use the playground application to 
 This isn't a playground in the same sense as the official Vue playground. Instead, it's just an application that is pre-configured to be able to use your library.
 
 The playground application will use your library direct from the source code, without needing to build the library separately. This is usually beneficial, as it allows for quicker development and immediate feedback on changes. But it does make the playground slightly less representative of a real consuming application, as it isn't using the built files.
+
+## Include GitHub CI configuration?{#include-github-ci}
+
+Continuous Integration (CI) is used to help catch problems as soon as they occur.
+
+This option will include a GitHub Actions configuration for a CI workflow. It will run the `lint`, `type-check`, `build` and `test:unit` targets from the `scripts` section of the root `package.json`. The workflow is triggered by any PRs opened against the `main` branch, as well as when changes are pushed to `main`.
+
+If a [GitHub path](#github-path) has been provided, the job will be configured so that it only runs for that specific fork.
 
 ## Include example code?{#include-examples}
 
