@@ -83,6 +83,7 @@ type Config = {
   includeEsLint: boolean
   includeEsLintStylistic: boolean
   includeVitest: boolean
+  includeGithubCi: boolean
   includeAtAliases: boolean
   includeTestVariable: boolean
 }
@@ -268,6 +269,7 @@ async function init() {
   const includeDocs = await togglePrompt('Include VitePress for documentation?', true)
   const includeGithubPages = includeDocs && await togglePrompt('Include GitHub Pages config for documentation?')
   const includePlayground = await togglePrompt('Include playground application for development?', true)
+  const includeGithubCi = await togglePrompt('Include GitHub CI configuration?', !!githubPath)
   const includeExamples = await togglePromptIf(extended, 'Include example code?', true, 'Yes', 'No, just configs')
   const includeAtAliases = await togglePromptIf(extended, 'Configure @ as an alias for src?')
   const includeTestVariable = await togglePromptIf(extended, 'Configure global __TEST__ variable?')
@@ -334,6 +336,7 @@ async function init() {
     includeEsLint,
     includeEsLintStylistic,
     includeVitest,
+    includeGithubCi,
     includeAtAliases,
     includeTestVariable
   }
@@ -358,6 +361,10 @@ async function init() {
 
   if (config.includeVitest) {
     copyTemplate('vitest', config)
+  }
+
+  if (config.includeGithubCi) {
+    copyTemplate('ci', config)
   }
 
   console.log()
