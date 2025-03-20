@@ -176,7 +176,7 @@ VitePress will be configured with an `alias` to allow you to access your library
 
 You'll only see this question if you chose to include VitePress in the previous question.
 
-Selecting this option will generate configuration files for deploying your documentation to GitHub Pages via a GitHub Action.
+Selecting this option will generate configuration files for deploying your documentation to GitHub Pages via a GitHub Action. The workflow is configured to deploy from the `main` branch.
 
 When you're ready to deploy the documentation, you'll need to enable deployment in the settings for your GitHub repository:
 
