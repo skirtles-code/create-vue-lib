@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { provide } from 'vue'
 import MyPanelSection from './MyPanelSection.vue'
 
 defineProps<{
   title?: string
   footer?: string
 }>()
+
+if (__DEV__) {
+  provide('MyPanel', true)
+}
 </script>
 
 <template>

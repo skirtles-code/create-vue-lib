@@ -1,3 +1,3 @@
 /// <reference types="vite/client" />
 
-import '../@projectName@/src/global.d.ts'
+import '../@projectName@/env.d.ts'

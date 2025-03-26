@@ -1,3 +1,10 @@
 export { default as ExampleComponent } from './components/ExampleComponent.vue'
 export { default as MyPanel } from './components/MyPanel.vue'
 export { default as MyPanelSection } from './components/MyPanelSection.vue'
+
+if (__DEV__) {
+  console.log('[<%- config.scopedPackageName %>] dev mode')
+  <%_ if (config.includeTestVariable) { _%>
+  console.log(`[<%- config.scopedPackageName %>] __TEST__: ${__TEST__}`)
+  <%_ } _%>
+}
