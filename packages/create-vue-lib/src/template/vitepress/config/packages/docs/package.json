@@ -5,11 +5,11 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@tsconfig/node22": "^22.0.0",
-    "@types/node": "^22.13.9",
+    "@tsconfig/node22": "^22.0.1",
+    "@types/node": "^22.13.14",
     "@vue/tsconfig": "^0.7.0",
     "npm-run-all2": "^7.0.2",
-    "rimraf": "^6.0.1",
+    "rimraf": "^5.0.1",
     "typescript": "~5.8.0",
     "vitepress": "^1.6.3",
     "vue-tsc": "^2.2.8"
