@@ -21,11 +21,13 @@ export default defineConfig(({ mode }): UserConfig => ({
       {
         find: '@',
         replacement: '@',
-        customResolver(source, importer) {
-          return source.replace(
+        customResolver(source, importer, options) {
+          const filePath = source.replace(
             /^@\//,
             importer?.startsWith(librarySrc) ? librarySrc : playgroundSrc
           )
+
+          return this.resolve(filePath, importer, options)
         }
       }, {
         find: '<%- config.scopedPackageName %>',
