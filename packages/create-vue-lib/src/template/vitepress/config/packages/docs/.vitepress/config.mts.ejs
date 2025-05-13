@@ -1,6 +1,9 @@
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfigWithTheme } from 'vitepress'
+<%_ if (config.includeTailwind) { _%>
+import tailwindcss from '@tailwindcss/vite'
+<%_ } _%>
 
 <%_ if (config.includeAtAliases) { _%>
 const librarySrc = fileURLToPath(new URL('../../<%- config.mainPackageDirName %>/src/', import.meta.url))
@@ -34,6 +37,12 @@ export default ({ mode }: { mode: string }) => defineConfigWithTheme({
   <%_ } _%>
 
   vite: {
+    <%_ if (config.includeTailwind) { _%>
+    plugins: [
+      tailwindcss()
+    ],
+    <%_ } _%>
+
     resolve: {
       <%_ if (config.includeAtAliases) { _%>
       alias: [

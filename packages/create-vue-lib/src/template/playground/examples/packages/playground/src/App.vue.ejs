@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ExampleComponent, MyPanel } from '@scopedPackageName@'
+import { ExampleComponent, MyPanel } from '<%- config.scopedPackageName %>'
 </script>
 
 <template>
-  <div class="main">
+  <div class="main<%- config.includeTailwind ? ' flex flex-col max-w-75 gap-2.5 m-2.5' : '' %>">
     <ExampleComponent />
     <MyPanel title="Panel title" footer="Panel footer">
       Header and footer
@@ -20,6 +20,7 @@ import { ExampleComponent, MyPanel } from '@scopedPackageName@'
   </div>
 </template>
 
+<%_ if (!config.includeTailwind) { _%>
 <style scoped>
 .main {
   max-width: 300px;
@@ -29,3 +30,4 @@ import { ExampleComponent, MyPanel } from '@scopedPackageName@'
   margin-top: 10px;
 }
 </style>
+<%_ } _%>
