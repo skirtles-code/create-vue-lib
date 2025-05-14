@@ -9,12 +9,13 @@ const msg = ref('Hello world!')
 </script>
 
 <template>
-  <div class="outer">
-    <input v-model="msg">
+  <div class="outer<%- config.includeTailwind ? ' border-1 border-solid border-green-700 p-5' : '' %>">
+    <input v-model="msg"<%- config.includeTailwind ? ' class="border-1 border-solid border-neutral-500 px-1 py-0.5"' : '' %>>
     <p>{{ msg }}</p>
   </div>
 </template>
 
+<%_ if (!config.includeTailwind) { _%>
 <style scoped>
 .outer {
   border: 1px solid green;
@@ -26,3 +27,4 @@ const msg = ref('Hello world!')
   padding: 2px 4px;
 }
 </style>
+<%_ } _%>

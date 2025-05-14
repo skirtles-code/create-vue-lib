@@ -86,6 +86,8 @@ type Config = {
   includeGithubCi: boolean
   includeAtAliases: boolean
   includeTestVariable: boolean
+  includeTailwind: boolean
+  includeVpRaw: boolean
 }
 
 type Args = {
@@ -263,10 +265,12 @@ async function init() {
     process.exit(1)
   }
 
+  const includeTailwind = await togglePrompt('Include Tailwind CSS?')
   const includeEsLint = await togglePrompt('Include ESLint?', true)
   const includeEsLintStylistic = await togglePromptIf(includeEsLint, 'Include ESLint Stylistic for formatting?', includeEsLint)
   const includeVitest = await togglePromptIf(extended, 'Include Vitest for testing?', true)
   const includeDocs = await togglePrompt('Include VitePress for documentation?', true)
+  const includeVpRaw = includeDocs && await togglePromptIf(extended, 'Include support for vp-raw in VitePress?', includeTailwind)
   const includeGithubPages = includeDocs && await togglePrompt('Include GitHub Pages config for documentation?')
   const includePlayground = await togglePrompt('Include playground application for development?', true)
   const includeGithubCi = await togglePrompt('Include GitHub CI configuration?', !!githubPath)
@@ -338,7 +342,9 @@ async function init() {
     includeVitest,
     includeGithubCi,
     includeAtAliases,
-    includeTestVariable
+    includeTestVariable,
+    includeTailwind,
+    includeVpRaw
   }
 
   copyTemplate('base', config)
@@ -365,6 +371,14 @@ async function init() {
 
   if (config.includeGithubCi) {
     copyTemplate('ci', config)
+  }
+
+  if (config.includeTailwind) {
+    copyTemplate('tailwind', config)
+  }
+
+  if (config.includeVpRaw) {
+    copyTemplate('vp-raw', config)
   }
 
   console.log()
@@ -441,7 +455,10 @@ function copyFiles(templateFile: string, config: Config) {
     const target = targetPath.replace(/\.ejs$/, '')
     let content = ejs.render(template, { config })
 
-    if (/\.(json|m?[jt]s)$/.test(target)) {
+    if (/\.(json|m?[jt]s|vue)$/.test(target)) {
+      // Ensure there are no blank lines at the start and a single blank line at the end
+      content = content.trim() + '\n'
+
       // Trim spaces from the ends of lines
       content = content.replace(/ +\n/g, '\n')
 
@@ -450,6 +467,9 @@ function copyFiles(templateFile: string, config: Config) {
 
       // Remove trailing commas and any blank newlines that follow them
       content = content.replace(/, *(?:\n+(\n\s*)|(\s*))([}\])])/g, '$1$2$3')
+
+      // Trim blank lines after {, [ or (
+      content = content.replace(/([{[(]\n)\n+/g, '$1')
     }
 
     fs.writeFileSync(target, content)

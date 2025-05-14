@@ -4,6 +4,9 @@ import { defineConfig, type UserConfig } from 'vite'
 import replace from '@rollup/plugin-replace'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+<%_ if (config.includeTailwind) { _%>
+import tailwindcss from '@tailwindcss/vite'
+<%_ } _%>
 
 export default defineConfig(({ mode }): UserConfig => {
   if (mode !== 'production' && mode !== 'development' && mode !== 'neutral' && mode !== 'test') {
@@ -38,6 +41,9 @@ export default defineConfig(({ mode }): UserConfig => {
           prodDevtools: mode === 'development'
         }
       }),
+      <%_ if (config.includeTailwind) { _%>
+      tailwindcss(),
+      <%_ } _%>
       dtsPlugin
     ],
 

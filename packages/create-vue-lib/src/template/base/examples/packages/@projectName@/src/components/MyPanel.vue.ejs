@@ -13,21 +13,22 @@ if (__DEV__) {
 </script>
 
 <template>
-  <div class="panel">
+  <div class="panel<%- config.includeTailwind ? ' border-1 border-solid border-[#34495e] rounded-[5px] flex flex-col font-sans overflow-hidden [&>*+*]:border-t-1 [&>*+*]:border-t-solid [&>*+*]:border-t-[#34495e] [&>.panel-section:first-child]:rounded-t-[5px] [&>.panel-section:last-child]:rounded-b-[5px]' : '' %>">
     <slot name="header">
-      <MyPanelSection v-if="title" class="panel-header">{{ title }}</MyPanelSection>
+      <MyPanelSection v-if="title" class="panel-header<%- config.includeTailwind ? ' bg-[#34495e] inset-ring inset-ring-white text-white tracking-wide text-shadow-sm' : '' %>">{{ title }}</MyPanelSection>
     </slot>
     <slot name="body">
-      <MyPanelSection class="panel-body">
+      <MyPanelSection class="panel-body<%- config.includeTailwind ? ' flex-auto overflow-auto' : '' %>">
         <slot />
       </MyPanelSection>
     </slot>
     <slot name="footer">
-      <MyPanelSection v-if="footer" class="panel-footer">{{ footer }}</MyPanelSection>
+      <MyPanelSection v-if="footer" class="panel-footer<%- config.includeTailwind ? ' bg-[#34495e] inset-ring inset-ring-white text-white tracking-wide text-shadow-sm' : '' %>">{{ footer }}</MyPanelSection>
     </slot>
   </div>
 </template>
 
+<%_ if (!config.includeTailwind) { _%>
 <style scoped>
 .panel {
   border: 1px solid #34495e;
@@ -65,3 +66,4 @@ if (__DEV__) {
   overflow: auto;
 }
 </style>
+<%_ } _%>

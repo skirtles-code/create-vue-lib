@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ExampleComponent, MyPanel } from '@scopedPackageName@'
+import { ExampleComponent, MyPanel } from '<%- config.scopedPackageName %>'
 </script>
 
 <style scoped>
@@ -10,6 +10,9 @@ import { ExampleComponent, MyPanel } from '@scopedPackageName@'
 
 # Introduction
 
+<%_ if (config.includeVpRaw) { _%>
+::: raw
+<%_ } _%>
 <ExampleComponent />
 
 <MyPanel title="Panel title" footer="Panel footer">
@@ -27,3 +30,6 @@ import { ExampleComponent, MyPanel } from '@scopedPackageName@'
 <MyPanel>
   No header or footer
 </MyPanel>
+<%_ if (config.includeVpRaw) { _%>
+:::
+<%_ } _%>
