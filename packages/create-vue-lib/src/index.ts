@@ -474,14 +474,6 @@ function copyFiles(templateFile: string, config: Config) {
 
     fs.writeFileSync(target, content)
   }
-  else if (['package.json', 'vite.config.mts', 'config.mts', 'index.md', 'introduction.md', 'App.vue', 'tsconfig.app.json', 'env.d.ts'].includes(filename)) {
-    const template = fs.readFileSync(templatePath, 'utf-8')
-    const content = template
-      .replace(/@projectName@/g, config.mainPackageDirName)
-      .replace(new RegExp(`@(${Object.keys(config).join('|')})@`, 'g'), (all, setting) => `${config[setting as keyof Config] ?? all}`)
-
-    fs.writeFileSync(targetPath, content)
-  }
   else {
     fs.copyFileSync(templatePath, targetPath)
   }

@@ -1,11 +1,11 @@
 ---
 layout: home
 
-title: @unscopedPackageName@
+title: <%- config.unscopedPackageName %>
 titleTemplate: Title template
 
 hero:
-  name: @unscopedPackageName@
+  name: <%- config.unscopedPackageName %>
   text: Description
   tagline: Tag line!
   actions:
@@ -14,7 +14,7 @@ hero:
       link: /introduction
     - theme: alt
       text: View on GitHub
-      link: https://github.com/@githubPath@
+      link: https://github.com/<%- config.githubPath %>
     - theme: alt
       text: See a demo
       link: https://play.vuejs.org/
