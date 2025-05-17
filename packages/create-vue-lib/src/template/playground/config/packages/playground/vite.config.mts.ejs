@@ -3,6 +3,9 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, type UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+<%_ if (config.includeTailwind) { _%>
+import tailwindcss from '@tailwindcss/vite'
+<%_ } _%>
 
 <%_ if (config.includeAtAliases) { _%>
 const librarySrc = fileURLToPath(new URL('../<%- config.mainPackageDirName %>/src/', import.meta.url))
@@ -12,6 +15,9 @@ const playgroundSrc = fileURLToPath(new URL('./src/', import.meta.url))
 export default defineConfig(({ mode }): UserConfig => ({
   plugins: [
     vue(),
+    <%_ if (config.includeTailwind) { _%>
+    tailwindcss(),
+    <%_ } _%>
     vueDevTools()
   ],
 

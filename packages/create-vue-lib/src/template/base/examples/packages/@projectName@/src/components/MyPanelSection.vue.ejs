@@ -13,13 +13,15 @@ if (__DEV__) {
 </script>
 
 <template>
-  <div class="panel-section">
+  <div class="panel-section<%- config.includeTailwind ? ' p-2' : '' %>">
     <slot />
   </div>
 </template>
 
+<%_ if (!config.includeTailwind) { _%>
 <style scoped>
 .panel-section {
   padding: 10px;
 }
 </style>
+<%_ } _%>
