@@ -1,6 +1,6 @@
 {
   "name": "@skirtle/create-vue-lib",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "skirtle",
   "license": "MIT",
   "description": "Create a library using Vue and Vite",
