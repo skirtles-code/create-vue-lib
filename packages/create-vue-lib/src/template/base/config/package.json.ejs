@@ -1,29 +1,29 @@
 {
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.13.1",
   "engines": {
-    "node": ">=v18.3.0"
+    "node": "^20.19.0 || >=22.12.0"
   },
   "devDependencies": {
     <%_ if (config.includeEsLint) { _%>
-    "@eslint/compat": "^1.2.8",
+    "@eslint/compat": "^1.3.1",
     <%_ if (config.includeEsLintStylistic) { _%>
-    "@stylistic/eslint-plugin": "^4.2.0",
+    "@stylistic/eslint-plugin": "^5.2.2",
     <%_ } _%>
-    "@tsconfig/node22": "^22.0.1",
-    "@types/node": "^22.13.14",
+    "@tsconfig/node22": "^22.0.2",
+    "@types/node": "^22.15.32",
     <%_ if (config.includeVitest) { _%>
-    "@vitest/eslint-plugin": "^1.1.38",
+    "@vitest/eslint-plugin": "^1.2.7",
     <%_ } _%>
-    "@vue/eslint-config-typescript": "^14.5.0",
-    "eslint": "^9.22.0",
-    "eslint-plugin-vue": "~10.0.0",
+    "@vue/eslint-config-typescript": "^14.5.1",
+    "eslint": "^9.29.0",
+    "eslint-plugin-vue": "~10.2.0",
     "jiti": "^2.4.2",
-    "lint-staged": "^15.5.0",
-    "npm-run-all2": "^7.0.2",
+    "lint-staged": "^16.1.2",
+    "npm-run-all2": "^8.0.4",
     <%_ } _%>
-    "simple-git-hooks": "^2.12.1",
+    "simple-git-hooks": "^2.13.0",
     <%_ if (config.includeEsLint) { _%>
     "typescript": "~5.8.0"
     <%_ } _%>
