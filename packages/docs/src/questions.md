@@ -55,7 +55,7 @@
 <span class="check">✔</span> <a href="#include-github-ci">Include GitHub CI configuration? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-examples">Include example code? … No, just configs / Yes</a>
 <span class="check">✔</span> <a href="#configure-src-alias">Configure @ as an alias for src? … No / Yes</a>
-<span class="check">✔</span> <a href="#configure-test-variable">Configure global __TEST__ variable?</a></pre>
+<span class="check">✔</span> <a href="#configure-test-variable">Configure global __TEST__ variable? … No / Yes</a></pre>
 </div>
 
 ## Package name
