@@ -6,13 +6,13 @@
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
-    "@types/node": "^22.15.32",
+    "@types/node": "^22.16.5",
     "@vue/tsconfig": "^0.7.0",
     "npm-run-all2": "^8.0.4",
     "rimraf": "^6.0.1",
     "typescript": "~5.8.0",
     "vitepress": "^1.6.3",
-    "vue-tsc": "^2.2.10"
+    "vue-tsc": "^3.0.4"
   },
   "scripts": {
     "clean": "rimraf dist .vitepress/cache",
