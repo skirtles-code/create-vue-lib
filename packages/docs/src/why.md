@@ -76,6 +76,8 @@ As we can't build all the output files we need in one go, we instead run Vite th
 
 In `rollupOptions` we configure `external: ['vue']`. This tells rollup to keep any imports from the `vue` package as imports, rather than pulling all the code into the built library. For output formats that don't support `import` it will be rewritten accordingly, e.g. using `require()` for CommonJS. For global (IIFE) builds, there is the extra setting `globals: { vue: 'Vue' }`, which tells rollup to rewrite imports like `import { ref } from 'vue'` as `const { ref } = Vue`, or code that's equivalent.
 
+For pages that use [`@` aliases for `src` paths](questions#configure-src-alias), a `customResolver` is needed in the playground and docs packages. These packages pull in the library source code directly, so they need to resolve an `@` within the library code differently from an `@` within their own code.
+
 ## `__DEV__` and `__TEST__`
 
 The project supports 'global variables' for `__DEV__` and `__TEST__`. The `__TEST__` variable isn't included by default and requires the `--extended` flag to opt in.
