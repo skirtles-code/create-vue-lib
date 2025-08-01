@@ -88,6 +88,23 @@ For `__TEST__` we replace the value with a simple `true` or `false`, which can b
 
 For `__DEV__` it's a little more complicated, because in some builds we replace it with `!(process.env.NODE_ENV === "production")`. This allows the downstream bundler to make the decision about what mode we're in. We can't use `define` for a complex value like this, so `@rollup/plugin-replace` is used instead.
 
+## `pages.yml`
+
+The file `.github/worksflows/pages.yml` configures the GitHub Pages workflow for the documentation. The exact name of the file is not important, GitHub will run all workflows configured in `.github/workflows`.
+
+The configuration is similar to those found at:
+
+- https://vite.dev/guide/static-deploy.html#github-pages
+- https://vitepress.dev/guide/deploy#github-pages
+
+pnpm is enabled in the configuration, but a specific version isn't specified as we're using the `packageManager` option in `package.json`.
+
+The workflow is configured to run on the `main` branch. You'd typically want the documentation to reflect the latest release, so whether `main` is an appropriate choice will depend on your release process.
+
+The [`paths-ignore`](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onpushpull_requestpull_request_targetpathspaths-ignore) setting can be used to avoid running GitHub Pages for changes that don't impact the documentation. The default configuration will only ignore the playground package. Trying to be really precise about what changes trigger the workflow is error-prone and the small gains usually aren't worth the extra effort.
+
+You'll also need to enable GitHub Pages in the settings for your repo.
+
 ## `jiti`
 
 The package `jiti` is included so that ESLint can use a TypeScript configuration file:
