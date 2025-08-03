@@ -35,10 +35,10 @@
     "typescript": "~5.8.0"
   },
   "scripts": {
-    "clean": "rimraf dist README.md",
+    "clean": "rimraf dist LICENSE README.md",
     "type-check": "tsc",
     "lint:package": "publint",
-    "build:copy": "copyfiles -f ../../README.md .",
+    "build:copy": "copyfiles -f ../../LICENSE ../../README.md .",
     "build:templates": "copyfiles -u 1 -a \"src/template/**\" dist",
     "build:ts": "tsup src/index.ts --format cjs --target node18",
     "build": "run-s clean build:copy build:templates build:ts lint:package",

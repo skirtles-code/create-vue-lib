@@ -14,6 +14,7 @@ dist-ssr
 coverage
 *.local
 packages/docs/.vitepress/cache
+packages/create-vue-lib/LICENSE
 packages/create-vue-lib/README.md
 
 # Editor directories and files
