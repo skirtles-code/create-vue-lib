@@ -56,6 +56,22 @@ Many projects also use `simple-git-hooks` to impose restrictions on the commit m
 
 We use a `postinstall` target in `scripts` to update the git hooks, ensuring they stay up to date for anyone developing the package. The documentation for `simple-git-hooks` warns against doing that, but it's important to note that the `postinstall` is in the project's root `package.json`, not the `package.json` that's published to the npm registry. It's only a problem if it's published to the registry.
 
+`simple-git-hooks` also includes its own `postinstall` script. It's similar to our project's `postinstall`, but it only runs when `simple-git-hooks` is first installed. As it's redundant it's disabled via `ignoredBuiltDependencies` in `pnpm-workspace.yaml`.
+
+## `pnpm-workspace.yaml`
+
+Since version 10, pnpm no longer runs `postinstall` scripts in the packages it installs, instead showing a warning. To avoid the warning, these need to be explicitly enabled or disabled in `pnpm-workspace.yaml`, using `onlyBuiltDependencies` or `ignoredBuiltDependencies` respectively.
+
+There are 3 packages where this is currently relevant:
+
+- `simple-git-hooks` - disabled. The `postinstall` script installs the hooks, but the scaffolded project already has its own `postinstall` target that does the same thing.
+- `esbuild` - enabled. This is a dependency of Vite. The `postinstall` script checks the installation is correct and attempts to fix it if not. It also performs some performance tweaks. See [esbuild#4085](https://github.com/evanw/esbuild/issues/4085) and [esbuild#4288](https://github.com/evanw/esbuild/issues/4288) for more information.
+- `@tailwindcss/oxide` - enabled. The `postinstall` script checks the installation is correct and attempts to fix it if not. See [tailwindcss#17929](https://github.com/tailwindlabs/tailwindcss/pull/17929) for more information.
+
+Both `esbuild` and `@tailwindcss/oxide` have platform-specific binaries that are listed as `optionalDependencies` in their `package.json` files. These should be installed automatically by pnpm, but in some edge cases that can fail and the `postinstall` script will attempt to fix that problem by installing those binaries directly. In normal usage that shouldn't be required.
+
+It should be safe to disable all of these `postinstall` scripts in `pnpm-workspace.yaml` if you prefer.
+
 ## `.gitignore`
 
 The `.gitignore` is similar to `create-vue`.

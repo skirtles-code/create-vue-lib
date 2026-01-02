@@ -10,3 +10,12 @@ packages:
   - 'playground'
   <%_ } _%>
   <%_ } _%>
+
+ignoredBuiltDependencies:
+  - simple-git-hooks
+
+onlyBuiltDependencies:
+<%_ if (config.includeTailwind) { _%>
+  - '@tailwindcss/oxide'
+<%_ } _%>
+  - esbuild

@@ -1,2 +1,8 @@
 packages:
   - 'packages/*'
+
+ignoredBuiltDependencies:
+  - simple-git-hooks
+
+onlyBuiltDependencies:
+  - esbuild
