@@ -38,35 +38,35 @@
     "vue": "^3.2.0"
   },
   "devDependencies": {
-    "@rollup/plugin-replace": "^6.0.3",
+    "@rollup/plugin-replace": "$",
     <%_ if (config.includeTailwind) { _%>
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/vite": "$",
     <%_ } _%>
-    "@tsconfig/node24": "^24.0.3",
-    "@types/jsdom": "^27.0.0",
-    "@types/node": "^24.10.4",
-    "@vitejs/plugin-vue": "^6.0.3",
+    "@tsconfig/node24": "$",
+    "@types/jsdom": "$",
+    "@types/node": "$",
+    "@vitejs/plugin-vue": "$",
     <%_ if (config.includeVitest) { _%>
-    "@vitest/coverage-v8": "^4.0.16",
-    "@vue/test-utils": "^2.4.6",
+    "@vitest/coverage-v8": "$",
+    "@vue/test-utils": "$",
     <%_ } _%>
-    "@vue/tsconfig": "^0.8.1",
-    "copyfiles": "^2.4.1",
-    "jsdom": "^27.3.0",
-    "npm-run-all2": "^8.0.4",
-    "publint": "^0.3.16",
-    "rimraf": "^6.1.2",
+    "@vue/tsconfig": "$",
+    "copyfiles": "$",
+    "jsdom": "$",
+    "npm-run-all2": "$",
+    "publint": "$",
+    "rimraf": "$",
     <%_ if (config.includeTailwind) { _%>
-    "tailwindcss": "^4.1.18",
+    "tailwindcss": "$",
     <%_ } _%>
-    "typescript": "~5.9.3",
-    "vite": "^7.3.0",
-    "vite-plugin-dts": "^4.5.4",
+    "typescript": "$",
+    "vite": "$",
+    "vite-plugin-dts": "$",
     <%_ if (config.includeVitest) { _%>
-    "vitest": "^4.0.16",
+    "vitest": "$",
     <%_ } _%>
-    "vue": "^3.5.26",
-    "vue-tsc": "^3.2.1"
+    "vue": "$",
+    "vue-tsc": "$"
   },
   "scripts": {
     "clean:dist": "rimraf dist",

@@ -2,25 +2,25 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "vue": "^3.5.26"
+    "vue": "$"
   },
   "devDependencies": {
     <%_ if (config.includeTailwind) { _%>
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/vite": "$",
     <%_ } _%>
-    "@tsconfig/node24": "^24.0.3",
-    "@types/node": "^24.10.4",
-    "@vitejs/plugin-vue": "^6.0.3",
-    "@vue/tsconfig": "^0.8.1",
-    "npm-run-all2": "^8.0.4",
-    "rimraf": "^6.1.2",
+    "@tsconfig/node24": "$",
+    "@types/node": "$",
+    "@vitejs/plugin-vue": "$",
+    "@vue/tsconfig": "$",
+    "npm-run-all2": "$",
+    "rimraf": "$",
     <%_ if (config.includeTailwind) { _%>
-    "tailwindcss": "^4.1.18",
+    "tailwindcss": "$",
     <%_ } _%>
-    "typescript": "~5.9.3",
-    "vite": "^7.3.0",
-    "vite-plugin-vue-devtools": "^8.0.5",
-    "vue-tsc": "^3.2.1"
+    "typescript": "$",
+    "vite": "$",
+    "vite-plugin-vue-devtools": "$",
+    "vue-tsc": "$"
   },
   "scripts": {
     "clean": "rimraf dist",
