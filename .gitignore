@@ -26,3 +26,5 @@ packages/create-vue-lib/README.md
 *.njsproj
 *.sln
 *.sw?
+
+.eslintcache
