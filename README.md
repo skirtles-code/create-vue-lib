@@ -12,4 +12,4 @@ This project is inspired by the official [create-vue](https://github.com/vuejs/c
 
 MIT
 
-Copyright &copy; 2025, skirtle
+Copyright &copy; 2025-2026, skirtle
