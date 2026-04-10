@@ -12,13 +12,13 @@ But applications and libraries need different things.
 
 Libraries such as [Vue core](https://github.com/vuejs/core), [Vue Router](https://github.com/vuejs/router) and [Pinia](https://github.com/vuejs/pinia/) have also heavily influenced the project structure used by this tool, especially the use of a `packages` directory and pnpm workspaces. Various other tools, such as `simple-git-hooks`, `lint-staged` and VitePress, have been chosen to align with those projects.
 
-Those projects use [rollup](https://rollupjs.org/) directly for their builds, rather than Vite. Vite already uses rollup behind the scenes, but using it directly is more flexible. Using Vite as a wrapper has a few advantages:
+Those projects use [rolldown](https://rolldown.rs/) directly for their builds, rather than Vite. Vite already uses rolldown behind the scenes, but using it directly is more flexible. Using Vite as a wrapper has a few advantages:
 
 - Vite is familiar to most members of the Vue community.
 - Using Vite keeps us closer to `create-vue`.
 - Vite has its own ecosystem of useful plugins.
 
-In particular, the libraries mentioned above don't use `.vue` files in their source code. Compiling `.vue` files with rollup is certainly possible, but it's more convenient to reuse the same toolchain used to build Vue applications.
+In particular, the libraries mentioned above don't use `.vue` files in their source code. Compiling `.vue` files with rolldown is certainly possible, but it's more convenient to reuse the same toolchain used to build Vue applications.
 
 ## Multiple packages
 
@@ -60,7 +60,9 @@ We use a `postinstall` target in `scripts` to update the git hooks, ensuring the
 
 ## `pnpm-workspace.yaml`
 
-Since version 10, pnpm no longer runs `postinstall` scripts in the packages it installs, instead showing a warning. To avoid the warning, these need to be explicitly enabled or disabled in `pnpm-workspace.yaml`, using `onlyBuiltDependencies` or `ignoredBuiltDependencies` respectively.
+### `allowBuilds`
+
+Since version 10, pnpm no longer runs `postinstall` scripts in the packages it installs, instead showing a warning. To avoid the warning, these need to be explicitly enabled or disabled via the [`allowBuilds`](https://pnpm.io/settings#allowbuilds) setting in `pnpm-workspace.yaml`.
 
 There are 3 packages where this is currently relevant:
 
@@ -71,6 +73,10 @@ There are 3 packages where this is currently relevant:
 Both `esbuild` and `@tailwindcss/oxide` have platform-specific binaries that are listed as `optionalDependencies` in their `package.json` files. These should be installed automatically by pnpm, but in some edge cases that can fail and the `postinstall` script will attempt to fix that problem by installing those binaries directly. In normal usage that shouldn't be required.
 
 It should be safe to disable all of these `postinstall` scripts in `pnpm-workspace.yaml` if you prefer.
+
+### `minimumReleaseAge`
+
+Setting [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) to `1440` prevents pnpm from installing any packages published in the last 24 hours. This helps to protect against supply chain attacks, as malicious versions of popular packages are typically removed from the npm registry within a few hours.
 
 ## `.gitignore`
 

@@ -11,11 +11,13 @@ packages:
   <%_ } _%>
   <%_ } _%>
 
-ignoredBuiltDependencies:
-  - simple-git-hooks
+minimumReleaseAge: 1440
 
-onlyBuiltDependencies:
+allowBuilds:
 <%_ if (config.includeTailwind) { _%>
-  - '@tailwindcss/oxide'
+  '@tailwindcss/oxide': true
 <%_ } _%>
-  - esbuild
+  'esbuild': true
+  'simple-git-hooks': false
+
+dedupePeers: true
