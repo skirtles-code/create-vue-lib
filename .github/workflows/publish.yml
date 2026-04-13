@@ -34,3 +34,5 @@ jobs:
         run: pnpm --filter "@skirtle/create-vue-lib" run build
       - name: Publish
         run: pnpm --filter "@skirtle/create-vue-lib" publish
+  docs:
+    uses: ./.github/workflows/pages.yml
