@@ -1,5 +1,5 @@
 # Publish package to the npm registry
-name: Publish Package
+name: Publish package to npm
 
 on:
   # Run the workflow when a new tag is pushed starting with `v`
@@ -11,8 +11,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
   contents: read
+  pages: write
+  id-token: write
 
 jobs:
   publish:
@@ -35,4 +36,5 @@ jobs:
       - name: Publish
         run: pnpm --filter "@skirtle/create-vue-lib" publish
   docs:
+    needs: publish
     uses: ./.github/workflows/pages.yml
