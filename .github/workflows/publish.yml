@@ -31,6 +31,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build
-        run: pnpm --dir packages/create-vue-lib run build
+        run: pnpm --filter "@skirtle/create-vue-lib" run build
       - name: Publish
-        run: pnpm --dir packages/create-vue-lib publish
+        run: pnpm --filter "@skirtle/create-vue-lib" publish
