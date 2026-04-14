@@ -1,8 +1,10 @@
 packages:
   - 'packages/*'
 
-ignoredBuiltDependencies:
-  - simple-git-hooks
+minimumReleaseAge: 1440
 
-onlyBuiltDependencies:
-  - esbuild
+allowBuilds:
+  'esbuild': true
+  'simple-git-hooks': false
+
+dedupePeers: true
