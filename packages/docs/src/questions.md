@@ -53,6 +53,7 @@
 <span class="check">✔</span> <a href="#include-github-pages">Include GitHub Pages config for documentation? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-playground">Include playground application for development? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-github-ci">Include GitHub CI configuration? … No / Yes</a>
+<span class="check">✔</span> <a href="#include-pkg-pr-new">Include pkg.pr.new in CI configuration? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-examples">Include example code? … No, just configs / Yes</a>
 <span class="check">✔</span> <a href="#configure-src-alias">Configure @ as an alias for src? … No / Yes</a>
 <span class="check">✔</span> <a href="#configure-test-variable">Configure global __TEST__ variable? … No / Yes</a></pre>
@@ -225,6 +226,16 @@ Continuous Integration (CI) is used to help catch problems as soon as they occur
 This option will include a GitHub Actions configuration for a CI workflow. It will run the `lint`, `type-check`, `build` and `test:unit` targets from the `scripts` section of the root `package.json`. The workflow is triggered by any PRs opened against the `main` branch, as well as when changes are pushed to `main`.
 
 If a [GitHub path](#github-path) has been provided, the job will be configured so that it only runs for that specific fork.
+
+## Include pkg.pr.new in CI configuration?{#include-pkg-pr-new}
+
+:::info NOTE
+You'll only see this question if you chose to include GitHub CI configuration.
+:::
+
+[pkg.pr.new](https://github.com/stackblitz-labs/pkg.pr.new) allows for continuous releases. Every PR and every commit to `main` will be published as a package on pkg.pr.new, which is similar to the npm registry but with each 'release' tied to a specific commit rather than a version number. This allows changes to be installed and tested before they're merged or released to npm.
+
+You'll also need to install the [pkg.pr.new GitHub App](https://github.com/apps/pkg-pr-new) and enable it on your GitHub repository.
 
 ## Include example code?{#include-examples}
 

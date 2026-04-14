@@ -85,6 +85,7 @@ type Config = {
   includeEsLintStylistic: boolean
   includeVitest: boolean
   includeGithubCi: boolean
+  includePkgPrNew: boolean
   includeAtAliases: boolean
   includeTestVariable: boolean
   includeTailwind: boolean
@@ -275,6 +276,7 @@ async function init() {
   const includeGithubPages = includeDocs && await togglePrompt('Include GitHub Pages config for documentation?')
   const includePlayground = await togglePrompt('Include playground application for development?', true)
   const includeGithubCi = await togglePrompt('Include GitHub CI configuration?', !!githubPath)
+  const includePkgPrNew = includeGithubCi && await togglePrompt('Include pkg.pr.new in CI configuration?', false)
   const includeExamples = await togglePromptIf(extended, 'Include example code?', true, 'Yes', 'No, just configs')
   const includeAtAliases = await togglePromptIf(extended, 'Configure @ as an alias for src?')
   const includeTestVariable = await togglePromptIf(extended, 'Configure global __TEST__ variable?')
@@ -342,6 +344,7 @@ async function init() {
     includeEsLintStylistic,
     includeVitest,
     includeGithubCi,
+    includePkgPrNew,
     includeAtAliases,
     includeTestVariable,
     includeTailwind,

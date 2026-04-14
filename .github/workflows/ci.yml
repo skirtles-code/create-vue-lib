@@ -30,3 +30,5 @@ jobs:
         run: pnpm run type-check
       - name: Build
         run: pnpm run build
+      - name: Release
+        run: pnpx pkg-pr-new publish --bin --commentWithSha --pnpm --packageManager=pnpm './packages/create-vue-lib'

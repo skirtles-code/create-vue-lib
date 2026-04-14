@@ -38,3 +38,7 @@ jobs:
       - name: Test
         run: pnpm run test:unit
 <%_ } _%>
+<%_ if (config.includePkgPrNew) { _%>
+      - name: Release
+        run: pnpx pkg-pr-new publish --commentWithSha --pnpm --packageManager=pnpm,npm,yarn './<%- config.packagesDir %><%- config.mainPackageDirName %>'
+<%_ } _%>
