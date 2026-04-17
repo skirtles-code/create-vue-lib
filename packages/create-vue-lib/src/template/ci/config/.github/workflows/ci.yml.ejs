@@ -3,16 +3,13 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - '**'
   pull_request:
     branches:
-      - main
+      - '**'
 
 jobs:
   ci:
-<%_ if (config.githubPath) { _%>
-    if: github.repository == '<%- config.githubPath %>'
-<%_ } _%>
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -40,5 +37,6 @@ jobs:
 <%_ } _%>
 <%_ if (config.includePkgPrNew) { _%>
       - name: Release
+        if: github.repository == '<%- config.githubPath %>'
         run: pnpx pkg-pr-new publish --commentWithSha --pnpm --packageManager=pnpm,npm,yarn './<%- config.packagesDir %><%- config.mainPackageDirName %>'
 <%_ } _%>

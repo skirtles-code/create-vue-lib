@@ -54,6 +54,7 @@
 <span class="check">✔</span> <a href="#include-playground">Include playground application for development? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-github-ci">Include GitHub CI configuration? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-pkg-pr-new">Include pkg.pr.new in CI configuration? … No / Yes</a>
+<span class="check">✔</span> <a href="#include-npm-publish">Include GitHub configuration for publishing to npm? … No / Yes</a>
 <span class="check">✔</span> <a href="#include-examples">Include example code? … No, just configs / Yes</a>
 <span class="check">✔</span> <a href="#configure-src-alias">Configure @ as an alias for src? … No / Yes</a>
 <span class="check">✔</span> <a href="#configure-test-variable">Configure global __TEST__ variable? … No / Yes</a></pre>
@@ -141,7 +142,7 @@ The GitHub path should be in the form `username/repo-name`.
 
 For example, this project has its repository at `https://github.com/skirtles-code/create-vue-lib`, so the GitHub path is `skirtles-code/create-vue-lib`.
 
-While answering this question is optional, it can be especially useful if you intend to use GitHub Pages to host your documentation, as the generated configuration files will be much closer to their final form.
+While answering this question is optional, it can be especially useful if you intend to use GitHub Pages to host your documentation, as the generated configuration files will be much closer to their final form. It is also used in some of the workflow configurations for GitHub Actions to help ensure they don't run on forks.
 
 ## Include Tailwind CSS?{#include-tailwind-css}
 
@@ -221,11 +222,9 @@ The playground application will use your library direct from the source code, wi
 
 ## Include GitHub CI configuration?{#include-github-ci}
 
-Continuous Integration (CI) is used to help catch problems as soon as they occur.
+*Continuous integration* (CI) is used to help catch problems as soon as they occur.
 
-This option will include a GitHub Actions configuration for a CI workflow. It will run the `lint`, `type-check`, `build` and `test:unit` targets from the `scripts` section of the root `package.json`. The workflow is triggered by any PRs opened against the `main` branch, as well as when changes are pushed to `main`.
-
-If a [GitHub path](#github-path) has been provided, the job will be configured so that it only runs for that specific fork.
+This option will include a GitHub Actions configuration for a CI workflow. It will run the `lint`, `type-check`, `build` and `test:unit` targets from the `scripts` section of the root `package.json`. The workflow is triggered when a PR is opened or when new commits are pushed to a branch.
 
 ## Include pkg.pr.new in CI configuration?{#include-pkg-pr-new}
 
@@ -233,9 +232,23 @@ If a [GitHub path](#github-path) has been provided, the job will be configured s
 You'll only see this question if you chose to include GitHub CI configuration.
 :::
 
-[pkg.pr.new](https://github.com/stackblitz-labs/pkg.pr.new) allows for continuous releases. Every PR and every commit to `main` will be published as a package on pkg.pr.new, which is similar to the npm registry but with each 'release' tied to a specific commit rather than a version number. This allows changes to be installed and tested before they're merged or released to npm.
+[pkg.pr.new](https://github.com/stackblitz-labs/pkg.pr.new) allows for *continuous releases*. Every PR and every commit to a branch will be published as a package on pkg.pr.new, which is similar to the npm registry but with each 'release' tied to a specific commit rather than a version number. This allows changes to be installed and tested before they're merged or released to npm.
 
 You'll also need to install the [pkg.pr.new GitHub App](https://github.com/apps/pkg-pr-new) and enable it on your GitHub repository.
+
+## Include GitHub configuration for publishing to npm?{#include-npm-publish}
+
+The recommended way to publish a package to the npm registry is via *trusted publishing*:
+
+- https://docs.npmjs.com/trusted-publishers
+
+If you'd like to publish your package using a GitHub Action then select this option. It will include a suitable workflow in `.github/workflow/publish.yml` with trusted publishing enabled.
+
+By default, this workflow will only run when it is triggered manually, via the **Actions** tab of your GitHub repository.
+
+You will also need to configure trusted publishing for your package on the npm registry. This can only be done for packages that already exist, so the first release of your package won't be able to use the automated workflow.
+
+- See also: [Publishing to npm](publishing)
 
 ## Include example code?{#include-examples}
 

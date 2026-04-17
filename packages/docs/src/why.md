@@ -32,7 +32,7 @@ The project's root `package.json` uses `preinstall` and `postinstall` hooks. It'
 
 ## TypeScript configuration
 
-The TypeScript configuration is mostly done of a per-package basis. The configuration files are closely based on the files created by `create-vue`.
+The TypeScript configuration is mostly done on a per-package basis. The configuration files are closely based on the files created by `create-vue`.
 
 A root-level `tsconfig.json` is only created if ESLint is included. That is just used to check `eslint.config.ts`, which is at the root of the project. There currently aren't any other TS files that live outside the sub-packages.
 
@@ -112,9 +112,27 @@ For `__TEST__` we replace the value with a simple `true` or `false`, which can b
 
 For `__DEV__` it's a little more complicated, because in some builds we replace it with `!(process.env.NODE_ENV === "production")`. This allows the downstream bundler to make the decision about what mode we're in. We can't use `define` for a complex value like this, so `@rollup/plugin-replace` is used instead.
 
-## `pages.yml`
+## GitHub Action workflows
 
-The file `.github/worksflows/pages.yml` configures the GitHub Pages workflow for the documentation. The exact name of the file is not important, GitHub will run all workflows configured in `.github/workflows`.
+The files in `.github/workflows` are workflow configurations for GitHub Actions. The exact names of these files aren't important, GitHub will load all workflows in that directory and run them as needed.
+
+Different workflows need to run at different times. This is controlled via the `on` setting, which specifies exactly which events should trigger the workflow. Some events can also be filtered further to target specific branches, tags or file paths within the repo.
+
+It's also necessary to consider how workflows should behave on forks. If other contributors fork your repo on GitHub then they'll also copy the workflow configurations. For a CI workflow, building and testing changes on the fork is probably what you'd want. But a workflow for deploying the documentation probably shouldn't be enabled on a fork.
+
+Where relevant, the workflows will try to use an `if` check on `github.repository` to ensure that they only run on the original repo. This can only be configured correctly if you provided a [GitHub path](questions#github-path) when running the scaffolding tool.
+
+### `ci.yml`
+
+Depending on exactly which options you picked, the CI workflow will build the project (including the docs and playground), run the tests, linting and type checking. It's also responsible for [deploying to pkg.pr.new](questions#include-pkg-pr-new).
+
+### `pages.yml`
+
+:::info NOTE
+You'll also need to enable GitHub Pages in the settings for your repo.
+:::
+
+The file `.github/worksflows/pages.yml` configures the GitHub Pages workflow for the documentation.
 
 The configuration is similar to those found at:
 
@@ -123,11 +141,25 @@ The configuration is similar to those found at:
 
 pnpm is enabled in the configuration, but a specific version isn't specified as we're using the `packageManager` option in `package.json`.
 
-The workflow is configured to run on the `main` branch. You'd typically want the documentation to reflect the latest release, so whether `main` is an appropriate choice will depend on your release process.
+The workflow can be run manually from the **Actions** tab in GitHub. If you opted to [include a workflow for npm publishing](questions#include-npm-publish) then that will also trigger deployment of the docs. This ensures the latest docs are deployed when a new release is published to the npm registry.
 
-The [`paths-ignore`](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onpushpull_requestpull_request_targetpathspaths-ignore) setting can be used to avoid running GitHub Pages for changes that don't impact the documentation. The default configuration will only ignore the playground package. Trying to be really precise about what changes trigger the workflow is error-prone and the small gains usually aren't worth the extra effort.
+If you want to deploy the docs for all commits to `main` then you'll need to edit `pages.yml` to enable that. The relevant configuration is already included, it's just commented out. This can lead to the docs for new features being released before they're published to npm, so it should only be enabled if it makes sense for your branching strategy and release process.
 
-You'll also need to enable GitHub Pages in the settings for your repo.
+### `publish.yml`
+
+:::info NOTE
+You'll also need to enable *trusted publishing* in the settings for your package on the npm registry.
+:::
+
+The file `.github/worksflows/publish.yml` configures a GitHub workflow to release your package to the npm registry.
+
+By default, this workflow will not run automatically. It must be run manually from the **Actions** tab in your GitHub repository. This is intentionally cautious but can easily be changed. A common approach is to tag each release with a git tag and to trigger the workflow whenever a new tag is added to the repo. There's example configuration for that in `publish.yml`.
+
+The workflow will build the package and publish it to the npm registry. It avoids building the other packages, such as the docs or playground, and won't run the tests or linting checks. Those checks are already performed by the CI workflow and aren't strictly required to make a release. It is left to your discretion to decide whether your codebase is ready for a release.
+
+Running the workflow won't make any changes to the code, such as bumping the version number. You'll need to ensure the version is set correctly in the relevant `package.json` before running the workflow.
+
+- See also: [Publishing to npm](publishing)
 
 ## `jiti`
 
