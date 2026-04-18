@@ -31,7 +31,7 @@
     "prompts": "^2.4.2",
     "publint": "^0.3.16",
     "rimraf": "^6.1.2",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.9",
     "typescript": "~5.9.3"
   },
   "scripts": {
@@ -40,7 +40,7 @@
     "lint:package": "publint",
     "build:copy": "copyfiles -f ../../LICENSE ../../README.md .",
     "build:templates": "copyfiles -u 1 -a \"src/template/**\" dist",
-    "build:ts": "tsup src/index.ts --format cjs --target node18",
+    "build:ts": "tsdown",
     "build": "run-s clean build:copy build:templates build:ts lint:package",
     "start": "node ./dist/index.cjs"
   }
