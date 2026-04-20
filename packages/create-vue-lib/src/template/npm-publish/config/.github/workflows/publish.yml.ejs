@@ -12,12 +12,16 @@ on:
 
 permissions:
   contents: read
+<%_ if (config.includeGithubPages) { _%>
   pages: write
+<%_ } _%>
   id-token: write
 
 jobs:
   publish:
-    if: github.repository == 'skirtles-code/create-vue-lib'
+<%_ if (config.githubPath) { _%>
+    if: github.repository == '<%- config.githubPath %>'
+<%_ } _%>
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,9 +37,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build
-        run: pnpm --filter "@skirtle/create-vue-lib" run build
+        run: pnpm --filter "<%- config.scopedPackageName %>" run build
       - name: Publish
-        run: pnpm --filter "@skirtle/create-vue-lib" publish
+        run: pnpm --filter "<%- config.scopedPackageName %>" publish
+<%_ if (config.includeGithubPages) { _%>
   docs:
     needs: publish
     uses: ./.github/workflows/pages.yml
+<%_ } _%>

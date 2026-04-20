@@ -2,13 +2,18 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches:
-      - main
+<%_ if (config.includeNpmPublish) { _%>
+  # Allows the workflow to be triggered from other workflows
+  workflow_call:
+
+<%_ } _%>
+  # Run on pushes targeting the `main` branch
+  # push:
+  #   branches:
+  #     - main
 <%_ if (config.includePlayground) { _%>
-    paths-ignore:
-      - '<%- config.packagesDir %>playground/**'
+  #   paths-ignore:
+  #     - '<%- config.packagesDir %>playground/**'
 <%_ } _%>
 
   # Allows you to run this workflow manually from the Actions tab
@@ -28,6 +33,9 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   deploy:
+<%_ if (config.githubPath) { _%>
+    if: github.repository == '<%- config.githubPath %>'
+<%_ } _%>
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

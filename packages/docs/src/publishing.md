@@ -102,4 +102,14 @@ It's common to create a release on GitHub when publishing a package. This includ
 
 ## Automating the process
 
-This scaffolding tool doesn't currently have any support for automating this process, but you can find various examples of automation scripts if you look through the GitHub repos for large projects.
+Several parts of the publishing process can be automated. You can find various examples of automation scripts if you look through the GitHub repos for large projects.
+
+This scaffolding tool provides configuration for using *trusted publishing* via a GitHub Action. It will be included if you answered `Yes` to the question *[Include GitHub configuration for publishing to npm?](questions#include-npm-publish)*.
+
+The workflow configuration is in `.github/workflows/publish.yml`. You'll also need to enable trusted publishing in the settings for your package on the npm registry:
+
+- https://docs.npmjs.com/trusted-publishers
+
+The first time you publish your package you'll need to do it manually, then you can enable trusted publishing for subsequent releases.
+
+You should check the contents of `publish.yml` to ensure you understand what it's doing. It will build and publish the package, but it won't handle any other part of the release process. The other steps, such as updating the version number in `package.json`, are still down to you.
