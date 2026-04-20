@@ -20,19 +20,19 @@
     "dist"
   ],
   "devDependencies": {
-    "@tsconfig/node24": "^24.0.3",
-    "@types/ejs": "^3.1.5",
-    "@types/node": "^24.10.4",
-    "@types/prompts": "^2.4.9",
-    "copyfiles": "^2.4.1",
-    "ejs": "^3.1.10",
-    "npm-run-all2": "^8.0.4",
-    "picocolors": "^1.1.1",
-    "prompts": "^2.4.2",
-    "publint": "^0.3.16",
-    "rimraf": "^6.1.2",
-    "tsdown": "^0.21.9",
-    "typescript": "~5.9.3"
+    "@tsconfig/node24": "catalog:",
+    "@types/ejs": "catalog:",
+    "@types/node": "catalog:",
+    "@types/prompts": "catalog:",
+    "copyfiles": "catalog:",
+    "ejs": "catalog:",
+    "npm-run-all2": "catalog:",
+    "picocolors": "catalog:",
+    "prompts": "catalog:",
+    "publint": "catalog:",
+    "rimraf": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
   },
   "scripts": {
     "clean": "rimraf dist LICENSE README.md",

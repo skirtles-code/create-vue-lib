@@ -7,25 +7,25 @@
   },
   "devDependencies": {
     <%_ if (config.includeEsLint) { _%>
-    "@eslint/compat": "$",
+    "@eslint/compat": "catalog:",
     <%_ if (config.includeEsLintStylistic) { _%>
-    "@stylistic/eslint-plugin": "$",
+    "@stylistic/eslint-plugin": "catalog:",
     <%_ } _%>
-    "@tsconfig/node24": "$",
-    "@types/node": "$",
+    "@tsconfig/node24": "catalog:",
+    "@types/node": "catalog:",
     <%_ if (config.includeVitest) { _%>
-    "@vitest/eslint-plugin": "$",
+    "@vitest/eslint-plugin": "catalog:",
     <%_ } _%>
-    "@vue/eslint-config-typescript": "$",
-    "eslint": "$",
-    "eslint-plugin-vue": "$",
-    "jiti": "$",
-    "lint-staged": "$",
-    "npm-run-all2": "$",
+    "@vue/eslint-config-typescript": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-vue": "catalog:",
+    "jiti": "catalog:",
+    "lint-staged": "catalog:",
+    "npm-run-all2": "catalog:",
     <%_ } _%>
-    "simple-git-hooks": "$",
+    "simple-git-hooks": "catalog:",
     <%_ if (config.includeEsLint) { _%>
-    "typescript": "$"
+    "typescript": "catalog:"
     <%_ } _%>
   },
   "scripts": {

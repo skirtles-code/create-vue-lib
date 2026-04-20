@@ -6,18 +6,18 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.0",
-    "@stylistic/eslint-plugin": "^5.6.1",
-    "@tsconfig/node24": "^24.0.3",
-    "@types/node": "^24.10.4",
-    "@vue/eslint-config-typescript": "^14.6.0",
-    "eslint": "^9.39.2",
-    "eslint-plugin-vue": "~10.6.2",
-    "jiti": "^2.6.1",
-    "lint-staged": "^16.2.7",
-    "npm-run-all2": "^8.0.4",
-    "simple-git-hooks": "^2.13.1",
-    "typescript": "~5.9.3"
+    "@eslint/compat": "catalog:",
+    "@stylistic/eslint-plugin": "catalog:",
+    "@tsconfig/node24": "catalog:",
+    "@types/node": "catalog:",
+    "@vue/eslint-config-typescript": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-vue": "catalog:",
+    "jiti": "catalog:",
+    "lint-staged": "catalog:",
+    "npm-run-all2": "catalog:",
+    "simple-git-hooks": "catalog:",
+    "typescript": "catalog:"
   },
   "scripts": {
     "clean": "pnpm run -r clean",

@@ -7,7 +7,6 @@ import prompts, { type PromptObject } from 'prompts'
 import ejs from 'ejs'
 import { bgGreen, bgRed, bgYellowBright, black, bold, cyan, green, magenta, red } from 'picocolors'
 import packageJson from '../package.json'
-import versions from './template/versions.json'
 
 async function prompt(options: Omit<PromptObject, 'name'>) {
   try {
@@ -481,22 +480,6 @@ function copyFiles(templateFile: string, config: Config) {
 
       // Trim blank lines after {, [ or (
       content = content.replace(/([{[(]\n)\n+/g, '$1')
-    }
-
-    if (target.endsWith('package.json')) {
-      // Replace "$" with actual dependency versions
-      content = content.replace(/"([^"]+)": "\$"/g, (all, name: string) => {
-        const version = versions[name as keyof typeof versions]
-
-        if (typeof version === 'string') {
-          return `"${name}": "${version}"`
-        }
-        else {
-          console.log(bgRed(black('ERROR')))
-          console.log(red(`Couldn't find package version for "${name}"`))
-          process.exit(1)
-        }
-      })
     }
 
     fs.writeFileSync(target, content)

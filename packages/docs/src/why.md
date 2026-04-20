@@ -74,6 +74,16 @@ Both `esbuild` and `@tailwindcss/oxide` have platform-specific binaries that are
 
 It should be safe to disable all of these `postinstall` scripts in `pnpm-workspace.yaml` if you prefer.
 
+### `catalog`
+
+Dependency versions are specified using a pnpm workspace catalog:
+
+- https://pnpm.io/catalogs
+
+Inside the individual `package.json` files you'll see all the dependencies set to `catalog:`, which tells pnpm to use the versions set in the catalog. This allows shared dependencies to be set once, rather than duplicating the same version ranges in multiple files.
+
+When publishing your library to the npm registry, `pnpm publish` will replace the `catalog:` entries in `package.json` with the ranges in the catalog.
+
 ### `minimumReleaseAge`
 
 Setting [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) to `1440` prevents pnpm from installing any packages published in the last 24 hours. This helps to protect against supply chain attacks, as malicious versions of popular packages are typically removed from the npm registry within a few hours.
