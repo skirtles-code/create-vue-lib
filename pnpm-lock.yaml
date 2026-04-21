@@ -76,6 +76,9 @@ catalogs:
     vitepress:
       specifier: ^1.6.4
       version: 1.6.4
+    vue:
+      specifier: ^3.5.26
+      version: 3.5.26
     vue-tsc:
       specifier: ^3.2.1
       version: 3.2.1
@@ -166,7 +169,7 @@ importers:
   packages/docs:
     dependencies:
       vue:
-        specifier: ^3.5.26
+        specifier: 'catalog:'
         version: 3.5.26(typescript@5.9.3)
     devDependencies:
       '@tsconfig/node24':
