@@ -5,6 +5,8 @@ To publish to the npm registry you'll need to use the command `pnpm publish`. Yo
 - [`pnpm publish`](https://pnpm.io/cli/publish)
 - [`npm publish`](https://docs.npmjs.com/cli/v11/commands/npm-publish)
 
+While `pnpm publish` and `npm publish` are very similar, it's important to use `pnpm publish` for publishing. Projects created with this tool use pnpm workspace [catalogs](https://pnpm.io/catalogs), which need to be replaced during publishing.
+
 But before that, there are some steps you should take to check that everything is ready...
 
 ## Reviewing `package.json`

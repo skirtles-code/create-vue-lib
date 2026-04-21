@@ -5,118 +5,196 @@ settings:
   dedupePeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@eslint/compat':
+      specifier: ^2.0.0
+      version: 2.0.5
+    '@stylistic/eslint-plugin':
+      specifier: ^5.6.1
+      version: 5.10.0
+    '@tsconfig/node24':
+      specifier: ^24.0.3
+      version: 24.0.4
+    '@types/ejs':
+      specifier: ^3.1.5
+      version: 3.1.5
+    '@types/node':
+      specifier: ^24.10.4
+      version: 24.12.2
+    '@types/prompts':
+      specifier: ^2.4.9
+      version: 2.4.9
+    '@vue/eslint-config-typescript':
+      specifier: ^14.6.0
+      version: 14.7.0
+    '@vue/tsconfig':
+      specifier: ^0.8.1
+      version: 0.8.1
+    copyfiles:
+      specifier: ^2.4.1
+      version: 2.4.1
+    ejs:
+      specifier: ^3.1.10
+      version: 3.1.10
+    eslint:
+      specifier: ^9.39.2
+      version: 9.39.4
+    eslint-plugin-vue:
+      specifier: ~10.6.2
+      version: 10.6.2
+    jiti:
+      specifier: ^2.6.1
+      version: 2.6.1
+    lint-staged:
+      specifier: ^16.2.7
+      version: 16.4.0
+    npm-run-all2:
+      specifier: ^8.0.4
+      version: 8.0.4
+    picocolors:
+      specifier: ^1.1.1
+      version: 1.1.1
+    prompts:
+      specifier: ^2.4.2
+      version: 2.4.2
+    publint:
+      specifier: ^0.3.16
+      version: 0.3.16
+    rimraf:
+      specifier: ^6.1.2
+      version: 6.1.2
+    simple-git-hooks:
+      specifier: ^2.13.1
+      version: 2.13.1
+    tsdown:
+      specifier: ^0.21.9
+      version: 0.21.9
+    typescript:
+      specifier: ~5.9.3
+      version: 5.9.3
+    vitepress:
+      specifier: ^1.6.4
+      version: 1.6.4
+    vue:
+      specifier: ^3.5.26
+      version: 3.5.26
+    vue-tsc:
+      specifier: ^3.2.1
+      version: 3.2.1
+
 importers:
 
   .:
     devDependencies:
       '@eslint/compat':
-        specifier: ^2.0.0
+        specifier: 'catalog:'
         version: 2.0.5(eslint@9.39.4)
       '@stylistic/eslint-plugin':
-        specifier: ^5.6.1
+        specifier: 'catalog:'
         version: 5.10.0(eslint@9.39.4)
       '@tsconfig/node24':
-        specifier: ^24.0.3
+        specifier: 'catalog:'
         version: 24.0.4
       '@types/node':
-        specifier: ^24.10.4
+        specifier: 'catalog:'
         version: 24.12.2
       '@vue/eslint-config-typescript':
-        specifier: ^14.6.0
+        specifier: 'catalog:'
         version: 14.7.0(eslint-plugin-vue@10.6.2)(eslint@9.39.4)(typescript@5.9.3)
       eslint:
-        specifier: ^9.39.2
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       eslint-plugin-vue:
-        specifier: ~10.6.2
+        specifier: 'catalog:'
         version: 10.6.2(@stylistic/eslint-plugin@5.10.0)(@typescript-eslint/parser@8.58.2)(eslint@9.39.4)(vue-eslint-parser@10.4.0)
       jiti:
-        specifier: ^2.6.1
+        specifier: 'catalog:'
         version: 2.6.1
       lint-staged:
-        specifier: ^16.2.7
+        specifier: 'catalog:'
         version: 16.4.0
       npm-run-all2:
-        specifier: ^8.0.4
+        specifier: 'catalog:'
         version: 8.0.4
       simple-git-hooks:
-        specifier: ^2.13.1
+        specifier: 'catalog:'
         version: 2.13.1
       typescript:
-        specifier: ~5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/create-vue-lib:
     devDependencies:
       '@tsconfig/node24':
-        specifier: ^24.0.3
-        version: 24.0.3
+        specifier: 'catalog:'
+        version: 24.0.4
       '@types/ejs':
-        specifier: ^3.1.5
+        specifier: 'catalog:'
         version: 3.1.5
       '@types/node':
-        specifier: ^24.10.4
-        version: 24.10.4
+        specifier: 'catalog:'
+        version: 24.12.2
       '@types/prompts':
-        specifier: ^2.4.9
+        specifier: 'catalog:'
         version: 2.4.9
       copyfiles:
-        specifier: ^2.4.1
+        specifier: 'catalog:'
         version: 2.4.1
       ejs:
-        specifier: ^3.1.10
+        specifier: 'catalog:'
         version: 3.1.10
       npm-run-all2:
-        specifier: ^8.0.4
+        specifier: 'catalog:'
         version: 8.0.4
       picocolors:
-        specifier: ^1.1.1
+        specifier: 'catalog:'
         version: 1.1.1
       prompts:
-        specifier: ^2.4.2
+        specifier: 'catalog:'
         version: 2.4.2
       publint:
-        specifier: ^0.3.16
+        specifier: 'catalog:'
         version: 0.3.16
       rimraf:
-        specifier: ^6.1.2
+        specifier: 'catalog:'
         version: 6.1.2
       tsdown:
-        specifier: ^0.21.9
+        specifier: 'catalog:'
         version: 0.21.9(publint@0.3.16)(typescript@5.9.3)(vue-tsc@3.2.1)
       typescript:
-        specifier: ~5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/docs:
     dependencies:
       vue:
-        specifier: ^3.5.26
+        specifier: 'catalog:'
         version: 3.5.26(typescript@5.9.3)
     devDependencies:
       '@tsconfig/node24':
-        specifier: ^24.0.3
-        version: 24.0.3
+        specifier: 'catalog:'
+        version: 24.0.4
       '@types/node':
-        specifier: ^24.10.4
-        version: 24.10.4
+        specifier: 'catalog:'
+        version: 24.12.2
       '@vue/tsconfig':
-        specifier: ^0.8.1
+        specifier: 'catalog:'
         version: 0.8.1(typescript@5.9.3)(vue@3.5.26)
       npm-run-all2:
-        specifier: ^8.0.4
+        specifier: 'catalog:'
         version: 8.0.4
       rimraf:
-        specifier: ^6.1.2
+        specifier: 'catalog:'
         version: 6.1.2
       typescript:
-        specifier: ~5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vitepress:
-        specifier: ^1.6.4
-        version: 1.6.4(@algolia/client-search@5.46.2)(@types/node@24.10.4)(postcss@8.5.6)(search-insights@2.17.3)(typescript@5.9.3)
+        specifier: 'catalog:'
+        version: 1.6.4(@algolia/client-search@5.46.2)(@types/node@24.12.2)(postcss@8.5.6)(search-insights@2.17.3)(typescript@5.9.3)
       vue-tsc:
-        specifier: ^3.2.1
+        specifier: 'catalog:'
         version: 3.2.1(typescript@5.9.3)
 
 packages:
@@ -478,14 +556,6 @@ packages:
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
-  '@isaacs/balanced-match@4.0.1':
-    resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
-    engines: {node: 20 || >=22}
-
-  '@isaacs/brace-expansion@5.0.0':
-    resolution: {integrity: sha512-ZT55BDLV0yv0RBm2czMiZ+SqCGO7AvmOM3G/w2xhVPH+te0aKgFjmBvGlL1dH+ql2tgGO3MVrbb3jCKyvpgnxA==}
-    engines: {node: 20 || >=22}
-
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
 
@@ -776,9 +846,6 @@ packages:
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
 
-  '@tsconfig/node24@24.0.3':
-    resolution: {integrity: sha512-vcERKtKQKHgzt/vfS3Gjasd8SUI2a0WZXpgJURdJsMySpS5+ctgbPfuLj2z/W+w4lAfTWxoN4upKfu2WzIRYnw==}
-
   '@tsconfig/node24@24.0.4':
     resolution: {integrity: sha512-2A933l5P5oCbv6qSxHs7ckKwobs8BDAe9SJ/Xr2Hy+nDlwmLE1GhFh/g/vXGRZWgxBg9nX/5piDtHR9Dkw/XuA==}
 
@@ -814,9 +881,6 @@ packages:
 
   '@types/mdurl@2.0.0':
     resolution: {integrity: sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg==}
-
-  '@types/node@24.10.4':
-    resolution: {integrity: sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg==}
 
   '@types/node@24.12.2':
     resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
@@ -1090,9 +1154,6 @@ packages:
 
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
-
-  brace-expansion@1.1.12:
-    resolution: {integrity: sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==}
 
   brace-expansion@1.1.14:
     resolution: {integrity: sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==}
@@ -1413,7 +1474,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   globals@14.0.0:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
@@ -1608,16 +1669,9 @@ packages:
     resolution: {integrity: sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA==}
     engines: {node: '>=18'}
 
-  minimatch@10.1.1:
-    resolution: {integrity: sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ==}
-    engines: {node: 20 || >=22}
-
   minimatch@10.2.5:
     resolution: {integrity: sha512-MULkVLfKGYDFYejP07QOurDLLQpcjk7Fw+7jXS2R2czRQzR56yHRveU5NDJEOviH+hETZKSkIk5c+T23GjFUMg==}
     engines: {node: 18 || 20 || >=22}
-
-  minimatch@3.1.2:
-    resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
 
   minimatch@3.1.5:
     resolution: {integrity: sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==}
@@ -1740,10 +1794,6 @@ packages:
   picomatch@2.3.2:
     resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
     engines: {node: '>=8.6'}
-
-  picomatch@4.0.3:
-    resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
-    engines: {node: '>=12'}
 
   picomatch@4.0.4:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
@@ -2556,12 +2606,6 @@ snapshots:
 
   '@iconify/types@2.0.0': {}
 
-  '@isaacs/balanced-match@4.0.1': {}
-
-  '@isaacs/brace-expansion@5.0.0':
-    dependencies:
-      '@isaacs/balanced-match': 4.0.1
-
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -2770,8 +2814,6 @@ snapshots:
       estraverse: 5.3.0
       picomatch: 4.0.4
 
-  '@tsconfig/node24@24.0.3': {}
-
   '@tsconfig/node24@24.0.4': {}
 
   '@tybys/wasm-util@0.10.1':
@@ -2805,10 +2847,6 @@ snapshots:
       '@types/unist': 3.0.3
 
   '@types/mdurl@2.0.0': {}
-
-  '@types/node@24.10.4':
-    dependencies:
-      undici-types: 7.16.0
 
   '@types/node@24.12.2':
     dependencies:
@@ -2918,7 +2956,7 @@ snapshots:
 
   '@vitejs/plugin-vue@5.2.4(vite@5.4.21)(vue@3.5.26)':
     dependencies:
-      vite: 5.4.21(@types/node@24.10.4)
+      vite: 5.4.21(@types/node@24.12.2)
       vue: 3.5.26(typescript@5.9.3)
 
   '@volar/language-core@2.4.27':
@@ -3002,7 +3040,7 @@ snapshots:
       alien-signals: 3.1.2
       muggle-string: 0.4.1
       path-browserify: 1.0.1
-      picomatch: 4.0.3
+      picomatch: 4.0.4
 
   '@vue/reactivity@3.5.26':
     dependencies:
@@ -3128,11 +3166,6 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  brace-expansion@1.1.12:
-    dependencies:
-      balanced-match: 1.0.2
-      concat-map: 0.0.1
-
   brace-expansion@1.1.14:
     dependencies:
       balanced-match: 1.0.2
@@ -3201,7 +3234,7 @@ snapshots:
   copyfiles@2.4.1:
     dependencies:
       glob: 7.2.3
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       mkdirp: 1.0.4
       noms: 0.0.0
       through2: 2.0.5
@@ -3460,7 +3493,7 @@ snapshots:
 
   glob@13.0.0:
     dependencies:
-      minimatch: 10.1.1
+      minimatch: 10.2.5
       minipass: 7.1.2
       path-scurry: 2.0.1
 
@@ -3469,7 +3502,7 @@ snapshots:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       once: 1.4.0
       path-is-absolute: 1.0.1
 
@@ -3658,17 +3691,9 @@ snapshots:
 
   mimic-function@5.0.1: {}
 
-  minimatch@10.1.1:
-    dependencies:
-      '@isaacs/brace-expansion': 5.0.0
-
   minimatch@10.2.5:
     dependencies:
       brace-expansion: 5.0.5
-
-  minimatch@3.1.2:
-    dependencies:
-      brace-expansion: 1.1.12
 
   minimatch@3.1.5:
     dependencies:
@@ -3708,7 +3733,7 @@ snapshots:
       ansi-styles: 6.2.3
       cross-spawn: 7.0.6
       memorystream: 0.3.1
-      picomatch: 4.0.3
+      picomatch: 4.0.4
       pidtree: 0.6.0
       read-package-json-fast: 4.0.0
       shell-quote: 1.8.3
@@ -3779,8 +3804,6 @@ snapshots:
   picocolors@1.1.1: {}
 
   picomatch@2.3.2: {}
-
-  picomatch@4.0.3: {}
 
   picomatch@4.0.4: {}
 
@@ -4172,16 +4195,16 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@5.4.21(@types/node@24.10.4):
+  vite@5.4.21(@types/node@24.12.2):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
       rollup: 4.54.0
     optionalDependencies:
-      '@types/node': 24.10.4
+      '@types/node': 24.12.2
       fsevents: 2.3.3
 
-  vitepress@1.6.4(@algolia/client-search@5.46.2)(@types/node@24.10.4)(postcss@8.5.6)(search-insights@2.17.3)(typescript@5.9.3):
+  vitepress@1.6.4(@algolia/client-search@5.46.2)(@types/node@24.12.2)(postcss@8.5.6)(search-insights@2.17.3)(typescript@5.9.3):
     dependencies:
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(@algolia/client-search@5.46.2)(search-insights@2.17.3)
@@ -4199,7 +4222,7 @@ snapshots:
       mark.js: 8.11.1
       minisearch: 7.2.0
       shiki: 2.5.0
-      vite: 5.4.21(@types/node@24.10.4)
+      vite: 5.4.21(@types/node@24.12.2)
       vue: 3.5.26(typescript@5.9.3)
     optionalDependencies:
       postcss: 8.5.6

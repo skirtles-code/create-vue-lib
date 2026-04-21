@@ -2,26 +2,26 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "vue": "$"
+    "vue": "catalog:"
   },
   "devDependencies": {
     <%_ if (config.includeTailwind) { _%>
-    "@tailwindcss/vite": "$",
+    "@tailwindcss/vite": "catalog:",
     <%_ } _%>
-    "@tsconfig/node24": "$",
-    "@types/node": "$",
-    "@vue/tsconfig": "$",
-    "npm-run-all2": "$",
+    "@tsconfig/node24": "catalog:",
+    "@types/node": "catalog:",
+    "@vue/tsconfig": "catalog:",
+    "npm-run-all2": "catalog:",
     <%_ if (config.includeVpRaw) { _%>
-    "postcss": "$",
+    "postcss": "catalog:",
     <%_ } _%>
-    "rimraf": "$",
+    "rimraf": "catalog:",
     <%_ if (config.includeTailwind) { _%>
-    "tailwindcss": "$",
+    "tailwindcss": "catalog:",
     <%_ } _%>
-    "typescript": "$",
-    "vitepress": "$",
-    "vue-tsc": "$"
+    "typescript": "catalog:",
+    "vitepress": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "scripts": {
     "clean": "rimraf dist .vitepress/cache",

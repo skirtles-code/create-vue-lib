@@ -38,35 +38,35 @@
     "vue": "^3.2.0"
   },
   "devDependencies": {
-    "@rollup/plugin-replace": "$",
+    "@rollup/plugin-replace": "catalog:",
     <%_ if (config.includeTailwind) { _%>
-    "@tailwindcss/vite": "$",
+    "@tailwindcss/vite": "catalog:",
     <%_ } _%>
-    "@tsconfig/node24": "$",
-    "@types/jsdom": "$",
-    "@types/node": "$",
-    "@vitejs/plugin-vue": "$",
+    "@tsconfig/node24": "catalog:",
+    "@types/jsdom": "catalog:",
+    "@types/node": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
     <%_ if (config.includeVitest) { _%>
-    "@vitest/coverage-v8": "$",
-    "@vue/test-utils": "$",
+    "@vitest/coverage-v8": "catalog:",
+    "@vue/test-utils": "catalog:",
     <%_ } _%>
-    "@vue/tsconfig": "$",
-    "copyfiles": "$",
-    "jsdom": "$",
-    "npm-run-all2": "$",
-    "publint": "$",
-    "rimraf": "$",
+    "@vue/tsconfig": "catalog:",
+    "copyfiles": "catalog:",
+    "jsdom": "catalog:",
+    "npm-run-all2": "catalog:",
+    "publint": "catalog:",
+    "rimraf": "catalog:",
     <%_ if (config.includeTailwind) { _%>
-    "tailwindcss": "$",
+    "tailwindcss": "catalog:",
     <%_ } _%>
-    "typescript": "$",
-    "vite": "$",
-    "vite-plugin-dts": "$",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
     <%_ if (config.includeVitest) { _%>
-    "vitest": "$",
+    "vitest": "catalog:",
     <%_ } _%>
-    "vue": "$",
-    "vue-tsc": "$"
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "scripts": {
     "clean:dist": "rimraf dist",
