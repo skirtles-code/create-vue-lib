@@ -167,6 +167,8 @@ By default, this workflow will not run automatically. It must be run manually fr
 
 The workflow will build the package and publish it to the npm registry. It avoids building the other packages, such as the docs or playground, and won't run the tests or linting checks. Those checks are already performed by the CI workflow and aren't strictly required to make a release. It is left to your discretion to decide whether your codebase is ready for a release.
 
+The publishing workflow places greater emphasis on security than the CI workflow. Caching is disabled for installing packages, which helps to protect against cache poising when building the release. It also uses version hashes for `actions/checkout`, `pnpm/action-setup` and `actions/setup-node` to ensure those are specific, trusted versions.
+
 Running the workflow won't make any changes to the code, such as bumping the version number. You'll need to ensure the version is set correctly in the relevant `package.json` before running the workflow.
 
 - See also: [Publishing to npm](publishing)
