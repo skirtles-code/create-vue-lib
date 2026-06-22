@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app.json",
+  "include": ["src/**/*.story.*", "env.d.ts", "histoire.d.ts"],
+  "exclude": [],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.story.tsbuildinfo"
+  }
+}

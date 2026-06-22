@@ -79,6 +79,7 @@ type Config = {
   includeDocs: boolean
   includeGithubPages: boolean
   includePlayground: boolean
+  includeHistoire: boolean
   includeExamples: boolean
   includeEsLint: boolean
   includeEsLintStylistic: boolean
@@ -275,6 +276,7 @@ async function init() {
   const includeVpRaw = includeDocs && await togglePromptIf(extended, 'Include support for vp-raw in VitePress?', includeTailwind)
   const includeGithubPages = includeDocs && await togglePrompt('Include GitHub Pages config for documentation?')
   const includePlayground = await togglePrompt('Include playground application for development?', true)
+  const includeHistoire = await togglePromptIf(extended, 'Include Histoire for stories?')
   const includeGithubCi = await togglePrompt('Include GitHub CI configuration?', !!githubPath)
   const includePkgPrNew = includeGithubCi && await togglePrompt('Include pkg.pr.new in CI configuration?', false)
   const includeNpmPublish = await togglePrompt('Include GitHub configuration for publishing to npm?', !!githubPath)
@@ -298,6 +300,13 @@ async function init() {
   if (includePlayground && mainPackageDirName === 'playground') {
     console.log(bgRed(black('ERROR')))
     console.log(red(`The directory name 'playground' is reserved for the playground, please choose a different name.`))
+    suggestExtended()
+    process.exit(1)
+  }
+
+  if (includeHistoire && mainPackageDirName === 'histoire') {
+    console.log(bgRed(black('ERROR')))
+    console.log(red(`The directory name 'histoire' is reserved for Histoire, please choose a different name.`))
     suggestExtended()
     process.exit(1)
   }
@@ -340,6 +349,7 @@ async function init() {
     includeDocs,
     includeGithubPages,
     includePlayground,
+    includeHistoire,
     includeExamples,
     includeEsLint,
     includeEsLintStylistic,
@@ -365,6 +375,10 @@ async function init() {
 
   if (config.includePlayground) {
     copyTemplate('playground', config)
+  }
+
+  if (config.includeHistoire) {
+    copyTemplate('histoire', config)
   }
 
   if (config.includeEsLint) {

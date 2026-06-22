@@ -10,6 +10,11 @@
     <%_ if (config.includeVitest) { _%>
     {
       "path": "./tsconfig.vitest.json"
+    },
+    <%_ } _%>
+    <%_ if (config.includeHistoire) { _%>
+    {
+      "path": "./tsconfig.story.json"
     }
     <%_ } _%>
   ]

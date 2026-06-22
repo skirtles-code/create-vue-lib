@@ -1,0 +1,39 @@
+import { fileURLToPath, URL } from 'node:url'
+
+import { defineConfig, type UserConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueDevTools from 'vite-plugin-vue-devtools'
+<%_ if (config.includeTailwind) { _%>
+import tailwindcss from '@tailwindcss/vite'
+<%_ } _%>
+
+export default defineConfig(({ mode }): UserConfig => ({
+  plugins: [
+    vue(),
+    <%_ if (config.includeTailwind) { _%>
+    tailwindcss(),
+    <%_ } _%>
+    vueDevTools()
+  ],
+
+  <%_ if (config.includeAtAliases) { _%>
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('../<%- config.mainPackageDirName %>/src/', import.meta.url))
+    }
+  },
+  <%_ } _%>
+
+  define: {
+    __DEV__: mode !== 'production',
+    <%_ if (config.includeTestVariable) { _%>
+    __TEST__: false
+    <%_ } _%>
+  },
+
+  server: {
+    fs: {
+      allow: ['..']
+    }
+  }
+}))

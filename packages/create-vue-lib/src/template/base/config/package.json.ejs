@@ -33,6 +33,9 @@
     <%_ if (config.includePlayground) { _%>
     "dev": "pnpm run --filter ./<%- config.packagesDir %>playground -r dev",
     <%_ } _%>
+    <%_ if (config.includeHistoire) { _%>
+    "story:dev": "pnpm run --filter ./<%- config.packagesDir %>histoire -r dev",
+    <%_ } _%>
     <%_ if (config.includeDocs) { _%>
     "docs:dev": "pnpm run --filter ./<%- config.packagesDir %>docs -r dev",
     "docs:build": "pnpm run --filter ./<%- config.packagesDir %>docs -r build",
